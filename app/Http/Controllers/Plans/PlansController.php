@@ -23,4 +23,9 @@ class PlansController extends Controller
     {
         return view('plans.create');
     }
+
+    public function edit(Plan $plan)
+    {
+        return view('plans.edit', ['plan' => $plan]);
+    }
 }

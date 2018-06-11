@@ -15,7 +15,7 @@
                     <table class="table">
                         @foreach($plans as $plan)
                         <tr>
-                            <td>{{$plan->name}}</td>
+                            <td><a href="{{route('plans.edit', $plan)}}">{{$plan->name}}</a></td>
                             <td class="text-right">{{ $plan->completed ? 'Completed' : 'In-Progress' }}</td>
                         </tr>
                         @endforeach
