@@ -28,4 +28,10 @@
         </div>
     </div>
 </div>
+<div class="fixed-bottom production-footer bg-light border-top py-2">
+    <div class="container d-flex justify-content-between">
+        <button type="button" class="btn btn-link text-danger mr-2">Delete this Plan</button>
+        <button type="button" class="btn btn-primary">Complete this Plan</button>
+    </div>
+</div>
 @endsection
