@@ -18,4 +18,9 @@ class PlansController extends Controller
         
         return back();
     }
+
+    public function create()
+    {
+        return view('plans.create');
+    }
 }
