@@ -21,9 +21,9 @@ class PlansController extends Controller
             'name' => 'required'
         ]);
 
-        Plan::create(request()->all());
+        $plan = Plan::create(request()->all());
         
-        return redirect()->route('dashboard');
+        return response()->json($plan, 201);
     }
 
     public function create()
