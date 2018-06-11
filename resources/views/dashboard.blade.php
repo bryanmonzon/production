@@ -8,7 +8,7 @@
                 <new-plan />
             </div>
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Production Plans</div>
                 
                 <plans-list />
             </div>
