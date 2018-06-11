@@ -18,4 +18,13 @@ class ProjectsController extends Controller
         
         return back();
     }
+
+    public function update(Project $project)
+    {
+        $project->update(request()->validate([
+            'name' => 'required'
+        ]));
+
+        return $project;
+    }
 }
