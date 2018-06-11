@@ -27,9 +27,9 @@ class ProjectsController extends Controller
             'name' => 'required'
         ]);
 
-        Project::create(request()->all());
+        $project = Project::create(request()->all());
         
-        return redirect()->route('projects.show');
+        return response()->json($project, 201);
     }
 
     public function update(Project $project)
