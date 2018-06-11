@@ -17,9 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::redirect('home', 'dashboard');
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    
     Route::post('projects', 'Projects\ProjectsController@store')->name('projects.store');
     Route::patch('projects/{project}', 'Projects\ProjectsController@update')->name('projects.update');
 
