@@ -35,4 +35,21 @@ class AddProjectTest extends TestCase
 
         $response->assertSessionHasErrors('name');
     }
+
+
+    /** @test */
+    public function a_project_can_be_updated()
+    {
+        $this->signIn();
+        
+        $project = create('App\Project');
+        
+        $this->patch(route('projects.update', $project), [
+            'name' => 'Changed',
+        ]);
+
+        tap($project->fresh(), function($project) { 
+             $this->assertEquals('Changed', $project->name);
+        });
+    }
 }
