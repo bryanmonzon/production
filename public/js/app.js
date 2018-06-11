@@ -13884,6 +13884,7 @@ module.exports = __webpack_require__(43);
 __webpack_require__(13);
 
 window.Vue = __webpack_require__(36);
+window.Bus = new Vue();
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -13891,7 +13892,10 @@ window.Vue = __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(39));
+Vue.component('plans-list', __webpack_require__(39));
+Vue.component('new-plan', __webpack_require__(48));
+Vue.component('projects-list', __webpack_require__(51));
+Vue.component('new-project', __webpack_require__(54));
 
 var app = new Vue({
   el: '#app'
@@ -47175,7 +47179,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/ExampleComponent.vue"
+Component.options.__file = "resources/assets/js/components/plans/PlansList.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -47184,9 +47188,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7168fb6a", Component.options)
+    hotAPI.createRecord("data-v-6a339348", Component.options)
   } else {
-    hotAPI.reload("data-v-7168fb6a", Component.options)
+    hotAPI.reload("data-v-6a339348", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -47327,10 +47331,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    data: function data() {
+        return {
+            plans: []
+        };
+    },
+    created: function created() {
+        var self = this;
+        this.fetchPlans();
+
+        Bus.$on('plan:added', function () {
+            self.fetchPlans();
+        });
+    },
+
+    methods: {
+        fetchPlans: function fetchPlans() {
+            var _this = this;
+
+            axios.get('/plans').then(function (res) {
+                _this.plans = res.data;
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
     }
 });
 
@@ -47342,38 +47374,59 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "list-group" },
+      _vm._l(_vm.plans, function(plan) {
+        return _c(
+          "a",
+          {
+            key: plan.id,
+            staticClass: "list-group-item list-group-item-action d-flex",
+            attrs: { href: "/plans/" + plan.id }
+          },
+          [
+            _c("span", { staticClass: "mr-auto p-2" }, [
+              _vm._v(
+                "\n                " + _vm._s(plan.name) + "\n            "
+              )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+            _c("span", { staticClass: "p-2 text-secondary" }, [
               _vm._v(
-                "\n                    I'm an example component.\n                "
+                "\n                " +
+                  _vm._s(plan.projects.length) +
+                  " projects\n            "
               )
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "p-2" }, [
+              plan.completed
+                ? _c(
+                    "span",
+                    { staticClass: "badge badge-pill badge-secondary" },
+                    [_vm._v("Completed")]
+                  )
+                : _c(
+                    "span",
+                    { staticClass: "badge badge-pill badge-success" },
+                    [_vm._v("In-Progress")]
+                  )
             ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+          ]
+        )
+      })
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7168fb6a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-6a339348", module.exports)
   }
 }
 
@@ -47382,6 +47435,553 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(49)
+/* template */
+var __vue_template__ = __webpack_require__(50)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/plans/NewPlan.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0909c39d", Component.options)
+  } else {
+    hotAPI.reload("data-v-0909c39d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            toggled: false,
+            form: {
+                name: ''
+            }
+        };
+    },
+
+    computed: {
+        validateFormName: function validateFormName() {
+            return this.form.name.length > 0 ? false : true;
+        }
+    },
+    methods: {
+        toggle: function toggle() {
+            this.toggled = !this.toggled;
+        },
+        addPlan: function addPlan() {
+            var _this = this;
+
+            if (!this.validateFormName) {
+                axios.post('/plans', this.form).then(function (res) {
+                    _this.toggled = false;
+                    _this.form.name = '';
+
+                    Bus.$emit('plan:added', res.data);
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    !_vm.toggled
+      ? _c(
+          "button",
+          { staticClass: "btn btn-primary", on: { click: _vm.toggle } },
+          [_vm._v("New Plan")]
+        )
+      : _c(
+          "form",
+          {
+            staticClass: "form-inline",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.addPlan($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "input-group mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.name,
+                    expression: "form.name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  autofocus: "",
+                  placeholder: "New Plan Name"
+                },
+                domProps: { value: _vm.form.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "name", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button", disabled: _vm.validateFormName },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.addPlan($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Save Plan")]
+                )
+              ])
+            ])
+          ]
+        )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0909c39d", module.exports)
+  }
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(52)
+/* template */
+var __vue_template__ = __webpack_require__(53)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/projects/ProjectsList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-bfd46874", Component.options)
+  } else {
+    hotAPI.reload("data-v-bfd46874", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            projects: []
+        };
+    },
+    created: function created() {
+        var self = this;
+        this.fetchProjects();
+
+        Bus.$on('project:added', function () {
+            self.fetchProjects();
+        });
+    },
+
+    methods: {
+        fetchProjects: function fetchProjects() {
+            var _this = this;
+
+            axios.get('/projects').then(function (res) {
+                _this.projects = res.data;
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "list-group" },
+      _vm._l(_vm.projects, function(project) {
+        return _c(
+          "a",
+          {
+            key: project.id,
+            staticClass: "list-group-item list-group-item-action d-flex",
+            attrs: { href: "/projects/" + project.id }
+          },
+          [
+            _c("span", { staticClass: "mr-auto p-2" }, [
+              _vm._v(
+                "\n                " + _vm._s(project.name) + "\n            "
+              )
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "p-2" }, [
+              project.completed
+                ? _c(
+                    "span",
+                    { staticClass: "badge badge-pill badge-secondary" },
+                    [_vm._v("Completed")]
+                  )
+                : _c(
+                    "span",
+                    { staticClass: "badge badge-pill badge-success" },
+                    [_vm._v("In-Progress")]
+                  )
+            ])
+          ]
+        )
+      })
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-bfd46874", module.exports)
+  }
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(55)
+/* template */
+var __vue_template__ = __webpack_require__(56)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/projects/NewProject.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1ae7cde7", Component.options)
+  } else {
+    hotAPI.reload("data-v-1ae7cde7", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            toggled: false,
+            form: {
+                name: ''
+            }
+        };
+    },
+
+    computed: {
+        validateFormName: function validateFormName() {
+            return this.form.name.length > 0 ? false : true;
+        }
+    },
+    methods: {
+        toggle: function toggle() {
+            this.toggled = !this.toggled;
+        },
+        addProject: function addProject() {
+            var _this = this;
+
+            if (!this.validateFormName) {
+                axios.post('/projects', this.form).then(function (res) {
+                    _this.toggled = false;
+                    _this.form.name = '';
+
+                    Bus.$emit('project:added', res.data);
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    !_vm.toggled
+      ? _c(
+          "button",
+          { staticClass: "btn btn-primary", on: { click: _vm.toggle } },
+          [_vm._v("New Project")]
+        )
+      : _c(
+          "form",
+          {
+            staticClass: "form-inline",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.addProject($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "input-group mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.name,
+                    expression: "form.name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  autofocus: "",
+                  placeholder: "New Project Name"
+                },
+                domProps: { value: _vm.form.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "name", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button", disabled: _vm.validateFormName },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.addProject($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Save Project")]
+                )
+              ])
+            ])
+          ]
+        )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1ae7cde7", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
