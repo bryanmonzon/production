@@ -32,4 +32,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('plans/{plan}', 'Plans\PlansController@edit')->name('plans.edit');
     Route::post('plans', 'Plans\PlansController@store')->name('plans.store');
     // Route::patch('plans/{plan}', 'Plans\PlansController@update')->name('projects.update');
+
+    Route::get('plans/{plan}/project/{project}', 'PlanProjects\PlanProjectController@show')->name('plan.projects.show');
 });
