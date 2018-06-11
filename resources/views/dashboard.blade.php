@@ -4,29 +4,21 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="mb-2 text-right">
+            <div class="mb-2 d-flex flex-row-reverse">
                 <a href="{{route( 'plans.create' ) }}" class="btn btn-primary">New Plan</a>
+{{--                 <form class="form-inline">
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="Project Name">
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">Button</button>
+                      </div>
+                    </div>
+                </form> --}}
             </div>
             <div class="card">
                 <div class="card-header">Dashboard</div>
                 
-                @if($plans->count() > 0 )
-                <div class="table-responsive">
-                    <table class="table">
-                        @foreach($plans as $plan)
-                        <tr>
-                            <td><a href="{{route('plans.edit', $plan)}}">{{$plan->name}}</a></td>
-                            <td>{{$plan->projects->count()}} {{ str_plural('project', $plan->projects->count() ) }}</td>
-                            <td class="text-right">{{ $plan->completed ? 'Completed' : 'In-Progress' }}</td>
-                        </tr>
-                        @endforeach
-                    </table>
-                </div>
-                @else
-                <div class="card-body">
-                    No plans yet.
-                </div>
-                @endif
+                <plans-list />
             </div>
         </div>
     </div>
