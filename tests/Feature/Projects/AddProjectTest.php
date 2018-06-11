@@ -15,10 +15,12 @@ class AddProjectTest extends TestCase
     {
         $this->signIn();
 
-        $this->post('projects', [
+        $response = $this->post('projects', [
             'name' => 'United Way San Diego'
         ]);
 
+        $response->assertRedirect(route('projects.index'));
+        
         $this->assertDatabaseHas('projects', [
             'name' => 'United Way San Diego'
         ]);

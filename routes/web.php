@@ -22,8 +22,11 @@ Route::redirect('home', 'dashboard');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
+    Route::get('projects', 'Projects\ProjectsController@index')->name('projects.index');
     Route::post('projects', 'Projects\ProjectsController@store')->name('projects.store');
     Route::patch('projects/{project}', 'Projects\ProjectsController@update')->name('projects.update');
+    Route::get('projects/create', 'Projects\ProjectsController@create')->name('projects.create');
+    Route::get('projects/{project}', 'Projects\ProjectsController@edit')->name('projects.edit');
 
     Route::get('plans/create', 'Plans\PlansController@create')->name('plans.create');
     Route::get('plans/{plan}', 'Plans\PlansController@edit')->name('plans.edit');

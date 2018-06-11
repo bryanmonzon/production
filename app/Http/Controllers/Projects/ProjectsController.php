@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class ProjectsController extends Controller
 {
+
     public function store()
     {
         request()->validate([
@@ -16,7 +17,7 @@ class ProjectsController extends Controller
 
         Project::create(request()->all());
         
-        return back();
+        return redirect()->route('projects.index');
     }
 
     public function update(Project $project)
@@ -26,5 +27,20 @@ class ProjectsController extends Controller
         ]));
 
         return $project;
+    }
+
+    public function index()
+    {   
+        return view('projects.index', ['projects' => Project::all() ]);
+    }
+
+    public function create()
+    {
+        return view('projects.create');
+    }
+
+    public function edit(Project $project)
+    {
+        return view('projects.edit', ['project' => $project]);
     }
 }
