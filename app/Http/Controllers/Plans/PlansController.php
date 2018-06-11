@@ -8,6 +8,13 @@ use App\Http\Controllers\Controller;
 
 class PlansController extends Controller
 {
+    public function index()
+    {
+        $plans = Plan::with('projects')->orderBy('created_at', 'DESC')->get();
+
+        return response()->json( $plans );
+    }
+
     public function store()
     {
         request()->validate([
