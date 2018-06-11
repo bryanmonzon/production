@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="mb-2 text-right">
-                <a href="{{route( 'projects.create' ) }}" class="btn btn-primary">New Project</a>
+            <div class="mb-2 d-flex flex-row-reverse">
+                <new-project />
             </div>
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Projects</div>
                 
                 <projects-list />
             </div>
