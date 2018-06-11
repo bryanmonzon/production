@@ -1,24 +1,18 @@
 <template>
     <div>
         <div class="list-group">
-            <a :href='"/projects/"+project.id'
-                class="list-group-item list-group-item-action d-flex"
-                v-for="project in projects" :key="project.id"
-            >
-                <span class="mr-auto p-2">
-                    {{project.name}}
-                </span>
-                <span class="p-2">
-                    <span class="badge badge-pill badge-secondary" v-if="project.completed">Completed</span>
-                    <span class="badge badge-pill badge-success" v-else>In-Progress</span>
-                </span>
-            </a>
+            <project-item v-for="project in projects" :project="project" :key="project.id" />
         </div>
     </div>
 </template>
 
 <script>
+    import ProjectItem from './ProjectItem';
     export default {
+        props: ['endpoint'],
+        components: {
+            ProjectItem
+        },
         data() {
             return {
                 projects: []
@@ -34,8 +28,9 @@
         },
         methods: {
             fetchProjects() {
-                axios.get('/projects')
+                axios.get(this.endpoint)
                     .then( res => {
+                        console.log(res)
                         this.projects = res.data
                     })
                     .catch(err => {
