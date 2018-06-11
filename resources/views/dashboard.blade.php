@@ -16,6 +16,7 @@
                         @foreach($plans as $plan)
                         <tr>
                             <td><a href="{{route('plans.edit', $plan)}}">{{$plan->name}}</a></td>
+                            <td>{{$plan->projects->count()}} {{ str_plural('project', $plan->projects->count() ) }}</td>
                             <td class="text-right">{{ $plan->completed ? 'Completed' : 'In-Progress' }}</td>
                         </tr>
                         @endforeach
