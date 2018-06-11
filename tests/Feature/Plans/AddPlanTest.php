@@ -15,13 +15,16 @@ class AddPlanTest extends TestCase
     {
         $this->signIn();
 
-        $this->post('plans', [
+        $response = $this->post('plans', [
             'name' => 'Week of June 11 Plan'
         ]);
+
+        $response->assertRedirect(route('dashboard'));
 
         $this->assertDatabaseHas('plans', [
             'name' => 'Week of June 11 Plan'
         ]);
+
     }
 
     /** @test */

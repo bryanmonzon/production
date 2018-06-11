@@ -16,7 +16,7 @@ class PlansController extends Controller
 
         Plan::create(request()->all());
         
-        return back();
+        return redirect()->route('dashboard');
     }
 
     public function create()
