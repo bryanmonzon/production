@@ -18,6 +18,8 @@ window.Bus = new Vue();
 
 Vue.component('plans-list', require('./components/plans/PlansList.vue'));
 Vue.component('new-plan', require('./components/plans/NewPlan.vue'));
+Vue.component('projects-list', require('./components/projects/ProjectsList.vue'));
+Vue.component('new-project', require('./components/projects/NewProject.vue'));
 
 const app = new Vue({
     el: '#app'
