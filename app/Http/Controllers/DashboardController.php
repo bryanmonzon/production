@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $plans = Plan::all();
+        $plans = Plan::orderBy('created_at', 'DESC')->get();
         return view('dashboard', ['plans' => $plans]);
     }
 }
