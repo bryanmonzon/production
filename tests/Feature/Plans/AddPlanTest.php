@@ -27,7 +27,7 @@ class AddPlanTest extends TestCase
     /** @test */
     public function a_plan_must_have_a_name()
     {
-        $this->signIn();
+        $this->withExceptionHandling()->signIn();
 
         $response = $this->post('plans', [
             'name' => ''

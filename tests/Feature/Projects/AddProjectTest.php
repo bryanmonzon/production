@@ -27,7 +27,7 @@ class AddProjectTest extends TestCase
     /** @test */
     public function a_project_must_have_a_name()
     {
-        $this->signIn();
+        $this->withExceptionHandling()->signIn();
 
         $response = $this->post('projects', [
             'name' => ''
