@@ -22,7 +22,8 @@ Route::redirect('home', 'dashboard');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
-    Route::get('projects/', 'Projects\ProjectsController@index')->name('projects.index');
+    Route::get('projects', 'Projects\ProjectsController@index')->name('projects.index');
+    Route::get('projects/all', 'Projects\ProjectsController@all')->name('projects.all');
     Route::post('projects', 'Projects\ProjectsController@store')->name('projects.store');
     Route::patch('projects/{project}', 'Projects\ProjectsController@update')->name('projects.update');
     Route::get('projects/create', 'Projects\ProjectsController@create')->name('projects.create');
@@ -35,5 +36,5 @@ Route::group(['middleware' => 'auth'], function() {
     // Route::patch('plans/{plan}', 'Plans\PlansController@update')->name('projects.update');
 
     Route::get('plans/{plan}/projects', 'PlanProjects\PlanProjectController@index')->name('plan.projects.index');
-    Route::get('plans/{plan}/project/{project}', 'PlanProjects\PlanProjectController@show')->name('plan.projects.show');
+    Route::get('plans/{plan}/projects/{project}', 'PlanProjects\PlanProjectController@show')->name('plan.projects.show');
 });

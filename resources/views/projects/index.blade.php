@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header">Projects</div>
                 
-                <projects-list endpoint="{{route('projects.index')}}" />
+                <projects-list endpoint="{{route('projects.all')}}" />
             </div>
         </div>
     </div>

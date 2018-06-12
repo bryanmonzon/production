@@ -9,16 +9,17 @@ use App\Http\Controllers\Controller;
 class ProjectsController extends Controller
 {  
 
-    public function index()
-    {   
+    public function all()
+    {
         $projects = Project::all();
 
         // TODO: Maybe use a Responsable interface?
-        if( request()->ajax() ) {
-            return response()->json($projects);
-        }else {
-            return view('projects.index', ['projects' => $projects]);
-        }
+        return response()->json($projects);
+    }
+    public function index()
+    {   
+
+        return view('projects.index');
     }
 
     public function store()
