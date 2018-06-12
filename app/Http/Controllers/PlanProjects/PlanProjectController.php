@@ -11,7 +11,8 @@ class PlanProjectController extends Controller
 {
     public function index(Plan $plan)
     {
-        return response()->json($plan->load('projects')->get());
+
+        return response()->json($plan->projects()->get());
     }
 
     public function show(Plan $plan, Project $project)
