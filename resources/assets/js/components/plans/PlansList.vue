@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="list-group">
+        <div class="list-group" v-if="plans.length > 0">
             <a :href='"/plans/"+plan.id'
                 class="list-group-item list-group-item-action d-flex"
                 v-for="plan in plans" :key="plan.id"
@@ -16,6 +16,9 @@
                     <span class="badge badge-pill badge-success" v-else>In-Progress</span>
                 </span>
             </a>
+        </div>
+        <div class="card-body" v-else>
+            <p>Add a plan.</p>
         </div>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="list-group">
+        <div class="list-group" v-if="projects.length > 0">
             <plan-projects-item 
                 v-for="project in projects" 
                 :project="project" 
@@ -8,8 +8,9 @@
                 :plan="JSON.parse(plan)"
              />
         </div>
-
-
+        <div class="card-body" v-else>
+            <p>Add projects to this plan.</p>
+        </div>
     </div>
 </template>
 

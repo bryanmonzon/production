@@ -377,33 +377,6 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
 /* globals __VUE_SSR_CONTEXT__ */
 
 // IMPORTANT: Do NOT use ES2015 features in this file.
@@ -507,6 +480,33 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -3140,7 +3140,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
 /* 5 */
@@ -13976,7 +13976,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(55);
+module.exports = __webpack_require__(61);
 
 
 /***/ }),
@@ -14005,7 +14005,7 @@ Vue.component('plans-list', __webpack_require__(40));
 Vue.component('new-plan', __webpack_require__(43));
 Vue.component('projects-list', __webpack_require__(46));
 Vue.component('new-project', __webpack_require__(52));
-Vue.component('plan-projects-list', __webpack_require__(60));
+Vue.component('plan-projects-list', __webpack_require__(55));
 
 var app = new Vue({
   el: '#app'
@@ -31183,7 +31183,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(16)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(16)(module)))
 
 /***/ }),
 /* 16 */
@@ -46998,7 +46998,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(38).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(38).setImmediate))
 
 /***/ }),
 /* 38 */
@@ -47068,7 +47068,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 39 */
@@ -47261,14 +47261,14 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(7)))
 
 /***/ }),
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(41)
 /* template */
@@ -47338,6 +47338,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47376,49 +47379,53 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "list-group" },
-      _vm._l(_vm.plans, function(plan) {
-        return _c(
-          "a",
-          {
-            key: plan.id,
-            staticClass: "list-group-item list-group-item-action d-flex",
-            attrs: { href: "/plans/" + plan.id }
-          },
-          [
-            _c("span", { staticClass: "mr-auto p-2" }, [
-              _vm._v(
-                "\n                " + _vm._s(plan.name) + "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "p-2 text-secondary" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(plan.projects.length) +
-                  " projects\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "p-2" }, [
-              plan.completed
-                ? _c(
-                    "span",
-                    { staticClass: "badge badge-pill badge-secondary" },
-                    [_vm._v("Completed")]
+    _vm.plans.length > 0
+      ? _c(
+          "div",
+          { staticClass: "list-group" },
+          _vm._l(_vm.plans, function(plan) {
+            return _c(
+              "a",
+              {
+                key: plan.id,
+                staticClass: "list-group-item list-group-item-action d-flex",
+                attrs: { href: "/plans/" + plan.id }
+              },
+              [
+                _c("span", { staticClass: "mr-auto p-2" }, [
+                  _vm._v(
+                    "\n                " + _vm._s(plan.name) + "\n            "
                   )
-                : _c(
-                    "span",
-                    { staticClass: "badge badge-pill badge-success" },
-                    [_vm._v("In-Progress")]
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "p-2 text-secondary" }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(plan.projects.length) +
+                      " projects\n            "
                   )
-            ])
-          ]
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "p-2" }, [
+                  plan.completed
+                    ? _c(
+                        "span",
+                        { staticClass: "badge badge-pill badge-secondary" },
+                        [_vm._v("Completed")]
+                      )
+                    : _c(
+                        "span",
+                        { staticClass: "badge badge-pill badge-success" },
+                        [_vm._v("In-Progress")]
+                      )
+                ])
+              ]
+            )
+          })
         )
-      })
-    )
+      : _c("div", { staticClass: "card-body" }, [
+          _c("p", [_vm._v("Add a plan.")])
+        ])
   ])
 }
 var staticRenderFns = []
@@ -47436,7 +47443,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(44)
 /* template */
@@ -47629,7 +47636,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(47)
 /* template */
@@ -47691,6 +47698,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47730,7 +47740,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(49)
 /* template */
@@ -47847,16 +47857,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "list-group" },
-      _vm._l(_vm.projects, function(project) {
-        return _c("project-item", {
-          key: project.id,
-          attrs: { project: project }
-        })
-      })
-    )
+    _vm.projects.length > 0
+      ? _c(
+          "div",
+          { staticClass: "list-group" },
+          _vm._l(_vm.projects, function(project) {
+            return _c("project-item", {
+              key: project.id,
+              attrs: { project: project }
+            })
+          })
+        )
+      : _c("div", { staticClass: "card-body" }, [
+          _c("p", [_vm._v("Add a project")])
+        ])
   ])
 }
 var staticRenderFns = []
@@ -47874,7 +47888,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(53)
 /* template */
@@ -48063,24 +48077,14 @@ if (false) {
 
 /***/ }),
 /* 55 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(61)
+var __vue_script__ = __webpack_require__(56)
 /* template */
-var __vue_template__ = __webpack_require__(65)
+var __vue_template__ = __webpack_require__(60)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -48119,15 +48123,16 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 61 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PlanProjectsItem__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PlanProjectsItem__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PlanProjectsItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__PlanProjectsItem__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+//
 //
 //
 //
@@ -48179,15 +48184,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 62 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(63)
+var __vue_script__ = __webpack_require__(58)
 /* template */
-var __vue_template__ = __webpack_require__(64)
+var __vue_template__ = __webpack_require__(59)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -48226,7 +48231,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 63 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48261,7 +48266,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 64 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -48302,7 +48307,7 @@ if (false) {
 }
 
 /***/ }),
-/* 65 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -48310,16 +48315,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "list-group" },
-      _vm._l(_vm.projects, function(project) {
-        return _c("plan-projects-item", {
-          key: project.id,
-          attrs: { project: project, plan: JSON.parse(_vm.plan) }
-        })
-      })
-    )
+    _vm.projects.length > 0
+      ? _c(
+          "div",
+          { staticClass: "list-group" },
+          _vm._l(_vm.projects, function(project) {
+            return _c("plan-projects-item", {
+              key: project.id,
+              attrs: { project: project, plan: JSON.parse(_vm.plan) }
+            })
+          })
+        )
+      : _c("div", { staticClass: "card-body" }, [
+          _c("p", [_vm._v("Add projects to this plan.")])
+        ])
   ])
 }
 var staticRenderFns = []
@@ -48331,6 +48340,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-56788f2c", module.exports)
   }
 }
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
