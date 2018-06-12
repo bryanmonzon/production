@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="padding-bottom: 75px;">
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
             <div class="card">
@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-header">Projects</div>
 
-                <projects-list endpoint="{{route('plan.projects.index', $plan)}}" />
+                <plan-projects-list endpoint="{{route('plan.projects.index', $plan)}}" plan="{{$plan}}" />
 
                 {{-- <div class="list-group">
                     @foreach( $plan->projects as $project)
