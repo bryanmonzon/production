@@ -12,5 +12,19 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="mb-2 text-right">
+                <add-users-project-button></add-users-project-button>
+            </div>
+            <div class="card">
+                <div class="card-header">Users</div>
+                {{-- <plan-projects-list endpoint="{{route('plan.projects.index', $plan)}}" plan="{{$plan}}" /> --}}
+            </div>
+        </div>
+    </div>
 </div>
+
+<add-users-project-modal :project-id="{{$project->id}}"></add-users-project-modal>
 @endsection
