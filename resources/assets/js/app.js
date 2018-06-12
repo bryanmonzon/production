@@ -5,10 +5,10 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
 
-window.Vue = require('vue');
-window.Bus = new Vue();
+window.Vue = require('vue')
+window.Bus = new Vue()
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,12 +16,14 @@ window.Bus = new Vue();
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('plans-list', require('./components/plans/PlansList.vue'));
-Vue.component('new-plan', require('./components/plans/NewPlan.vue'));
-Vue.component('projects-list', require('./components/projects/ProjectsList.vue'));
-Vue.component('new-project', require('./components/projects/NewProject.vue'));
-Vue.component('plan-projects-list', require('./components/plans/projects/PlanProjectsList.vue'));
+Vue.component('plans-list', require('./components/plans/PlansList.vue'))
+Vue.component('new-plan', require('./components/plans/NewPlan.vue'))
+Vue.component('projects-list', require('./components/projects/ProjectsList.vue'))
+Vue.component('new-project', require('./components/projects/NewProject.vue'))
+Vue.component('plan-projects-list', require('./components/plans/projects/PlanProjectsList.vue'))
+Vue.component('add-projects-plan-button', require('./components/plans/projects/AddProjectsPlanButton.vue'))
+Vue.component('add-projects-plan-modal', require('./components/plans/projects/AddProjectsPlanModal.vue'))
 
 const app = new Vue({
     el: '#app'
-});
+})
