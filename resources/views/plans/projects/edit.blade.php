@@ -20,11 +20,16 @@
             </div>
             <div class="card">
                 <div class="card-header">Users</div>
-                {{-- <plan-projects-list endpoint="{{route('plan.projects.index', $plan)}}" plan="{{$plan}}" /> --}}
+                <users-project-list 
+                    project-id="{{ $project->id }}" 
+                    endpoint="{{ route('plan.projects.users', [$plan, $project]) }}" 
+                >
+                </users-project-list>
+
             </div>
         </div>
     </div>
 </div>
 
-<add-users-project-modal :project-id="{{$project->id}}"></add-users-project-modal>
+<add-users-project-modal project-id="{{$project->id}}" plan-id="{{ $plan->id }}"></add-users-project-modal>
 @endsection
