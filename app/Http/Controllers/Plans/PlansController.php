@@ -26,6 +26,12 @@ class PlansController extends Controller
         return response()->json($plan, 201);
     }
 
+    public function delete(Plan $plan)
+    {
+        $plan->delete();
+        return redirect()->route('dashboard');
+    }
+
     public function create()
     {
         return view('plans.create');

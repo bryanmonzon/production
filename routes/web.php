@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('plans', 'Plans\PlansController@index')->name('plans.index');
     Route::get('plans/create', 'Plans\PlansController@create')->name('plans.create');
+    Route::delete('plans/{plan}', 'Plans\PlansController@delete')->name('plans.delete');
     Route::get('plans/{plan}', 'Plans\PlansController@edit')->name('plans.edit');
     Route::post('plans', 'Plans\PlansController@store')->name('plans.store');
     // Route::patch('plans/{plan}', 'Plans\PlansController@update')->name('projects.update');
