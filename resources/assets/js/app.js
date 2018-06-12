@@ -20,6 +20,7 @@ Vue.component('plans-list', require('./components/plans/PlansList.vue'));
 Vue.component('new-plan', require('./components/plans/NewPlan.vue'));
 Vue.component('projects-list', require('./components/projects/ProjectsList.vue'));
 Vue.component('new-project', require('./components/projects/NewProject.vue'));
+Vue.component('plan-projects-list', require('./components/plans/projects/PlanProjectsList.vue'));
 
 const app = new Vue({
     el: '#app'
