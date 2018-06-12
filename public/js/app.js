@@ -47940,6 +47940,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -48015,11 +48018,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  autofocus: "",
-                  placeholder: "New Project Name"
-                },
+                attrs: { type: "text", autofocus: "" },
                 domProps: { value: _vm.form.name },
                 on: {
                   input: function($event) {

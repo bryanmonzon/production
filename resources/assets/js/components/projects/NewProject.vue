@@ -3,7 +3,10 @@
         <button class="btn btn-primary" v-if="!toggled" @click="toggle">New Project</button>
         <form class="form-inline" @submit.prevent="addProject" v-else>
             <div class="input-group mb-3">
-              <input type="text" class="form-control" autofocus placeholder="New Project Name" v-model="form.name">
+              <input type="text" 
+                    class="form-control"
+                    v-model="form.name"
+                    autofocus>
               <div class="input-group-append">
                 <button class="btn btn-primary" 
                     @click.prevent="addProject" 
