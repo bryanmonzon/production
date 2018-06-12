@@ -39,4 +39,6 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('plans/{plan}/projects', 'PlanProjects\PlanProjectController@index')->name('plan.projects.index');
     Route::get('plans/{plan}/projects/{project}', 'PlanProjects\PlanProjectController@show')->name('plan.projects.show');
+
+    Route::patch('plans/{plan}/projects/add-projects', 'PlanProjects\AddProjectsPlanController@sync');
 });
