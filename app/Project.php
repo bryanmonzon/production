@@ -12,4 +12,9 @@ class Project extends Model
     {
         return $this->belongsToMany(Plan::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
