@@ -14006,6 +14006,8 @@ Vue.component('new-plan', __webpack_require__(43));
 Vue.component('projects-list', __webpack_require__(46));
 Vue.component('new-project', __webpack_require__(52));
 Vue.component('plan-projects-list', __webpack_require__(55));
+Vue.component('add-projects-plan-button', __webpack_require__(66));
+Vue.component('add-projects-plan-modal', __webpack_require__(69));
 
 var app = new Vue({
   el: '#app'
@@ -48130,8 +48132,6 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PlanProjectsItem__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PlanProjectsItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__PlanProjectsItem__);
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 //
 //
 //
@@ -48163,7 +48163,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     created: function created() {
         var self = this;
         this.fetchProjects();
-        console.log('plan', _typeof(this.plan));
         Bus.$on('project:added', function () {
             self.fetchProjects();
         });
@@ -48174,7 +48173,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var _this = this;
 
             axios.get(this.endpoint).then(function (res) {
-                console.log(res);
                 _this.projects = res.data;
             }).catch(function (err) {
                 console.log(err);
@@ -48236,8 +48234,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 //
 //
 //
@@ -48260,9 +48256,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return '/plans/' + this.plan.id + '/projects/' + this.project.id;
         }
     },
-    mounted: function mounted() {
-        console.log('plan', _typeof(this.plan));
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -48346,6 +48340,387 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(67)
+/* template */
+var __vue_template__ = __webpack_require__(68)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/plans/projects/AddProjectsPlanButton.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-37b03c3d", Component.options)
+  } else {
+    hotAPI.reload("data-v-37b03c3d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    methods: {
+        showProjectsPlanModal: function showProjectsPlanModal() {
+            Bus.$emit('showProjectsPlanModal');
+        }
+    }
+});
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    {
+      staticClass: "btn btn-primary",
+      on: { click: _vm.showProjectsPlanModal }
+    },
+    [_vm._v("\n    Add Projects to this Plan\n")]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-37b03c3d", module.exports)
+  }
+}
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(70)
+/* template */
+var __vue_template__ = __webpack_require__(71)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/plans/projects/AddProjectsPlanModal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-068088f2", Component.options)
+  } else {
+    hotAPI.reload("data-v-068088f2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['planId'],
+  data: function data() {
+    return {
+      checkedProjects: [],
+      projects: []
+    };
+  },
+  mounted: function mounted() {
+    this.fetchProjects();
+
+    Bus.$on('showProjectsPlanModal', function () {
+      $('#projectPicker').modal('show');
+    });
+  },
+
+  methods: {
+    fetchProjects: function fetchProjects() {
+      var _this = this;
+
+      axios.get('/projects/all').then(function (res) {
+        _this.projects = res.data;
+      });
+    },
+    saveProjects: function saveProjects() {
+
+      axios.patch('/plans/' + this.planId + '/projects/add-projects', {
+        projects: this.checkedProjects
+      }).then(function (res) {
+        Bus.$emit('project:added');
+        $('#projectPicker').modal('hide');
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal",
+      attrs: { id: "projectPicker", tabindex: "-1", role: "dialog" }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                _vm._l(_vm.projects, function(project) {
+                  return _c(
+                    "div",
+                    { key: project.id, staticClass: "form-check" },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.checkedProjects,
+                            expression: "checkedProjects"
+                          }
+                        ],
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "checkbox",
+                          id: "project-" + project.id
+                        },
+                        domProps: {
+                          value: project.id,
+                          checked: Array.isArray(_vm.checkedProjects)
+                            ? _vm._i(_vm.checkedProjects, project.id) > -1
+                            : _vm.checkedProjects
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.checkedProjects,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = project.id,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  (_vm.checkedProjects = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.checkedProjects = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.checkedProjects = $$c
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "project-" + project.id }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(project.name) +
+                              "\n                  "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                })
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "submit" },
+                    on: { click: _vm.saveProjects }
+                  },
+                  [_vm._v("Save changes")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                )
+              ])
+            ])
+          ]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [
+        _vm._v("Add Projects to this Plan")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-068088f2", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
