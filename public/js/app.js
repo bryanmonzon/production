@@ -49044,7 +49044,10 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-primary",
-                    attrs: { type: "submit" },
+                    attrs: {
+                      type: "submit",
+                      disabled: _vm.checkedUsers.length === 0
+                    },
                     on: { click: _vm.saveProjects }
                   },
                   [_vm._v("Save changes")]

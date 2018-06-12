@@ -20,7 +20,7 @@
 
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" @click="saveProjects">Save changes</button>
+              <button type="submit" class="btn btn-primary" @click="saveProjects" :disabled="checkedUsers.length === 0">Save changes</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
