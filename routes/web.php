@@ -41,4 +41,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('plans/{plan}/projects/{project}', 'PlanProjects\PlanProjectController@show')->name('plan.projects.show');
 
     Route::patch('plans/{plan}/projects/add-projects', 'PlanProjects\AddProjectsPlanController@sync');
+
+    Route::get('users/all', 'Users\UsersController@all')->name('users.all');
 });
