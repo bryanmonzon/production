@@ -14008,6 +14008,8 @@ Vue.component('new-project', __webpack_require__(52));
 Vue.component('plan-projects-list', __webpack_require__(55));
 Vue.component('add-projects-plan-button', __webpack_require__(66));
 Vue.component('add-projects-plan-modal', __webpack_require__(69));
+
+Vue.component('users-project-list', __webpack_require__(78));
 Vue.component('add-users-project-button', __webpack_require__(72));
 Vue.component('add-users-project-modal', __webpack_require__(75));
 
@@ -48905,7 +48907,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['projectId'],
+  props: ['planId', 'projectId'],
   data: function data() {
     return {
       checkedUsers: [],
@@ -48913,15 +48915,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
   mounted: function mounted() {
-    this.fetchProjects();
 
+    this.fetchUsers();
     Bus.$on('showUsersProjectModal', function () {
       $('#userPicker').modal('show');
     });
   },
 
   methods: {
-    fetchProjects: function fetchProjects() {
+    fetchUsers: function fetchUsers() {
       var _this = this;
 
       axios.get('/users/all').then(function (res) {
@@ -48930,7 +48932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     saveProjects: function saveProjects() {
 
-      axios.patch('/plans/' + this.planId + '/users/add-users', {
+      axios.post('/plans/' + this.planId + '/projects/' + this.projectId + '/users/add-users', {
         users: this.checkedUsers
       }).then(function (res) {
         Bus.$emit('user:added');
@@ -49095,6 +49097,252 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-4942c884", module.exports)
+  }
+}
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(79)
+/* template */
+var __vue_template__ = __webpack_require__(80)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/plans/users/UsersProjectList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-170f54d2", Component.options)
+  } else {
+    hotAPI.reload("data-v-170f54d2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UsersProjectItem__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UsersProjectItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__UsersProjectItem__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['endpoint', 'project'],
+    components: {
+        UsersProjectItem: __WEBPACK_IMPORTED_MODULE_0__UsersProjectItem___default.a
+    },
+    data: function data() {
+        return {
+            users: []
+        };
+    },
+    created: function created() {
+        var self = this;
+        this.fetchUsers();
+        Bus.$on('user:added', function () {
+            self.fetchUsers();
+        });
+    },
+
+    methods: {
+        fetchUsers: function fetchUsers() {
+            var _this = this;
+
+            axios.get(this.endpoint).then(function (res) {
+                _this.users = res.data;
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.users.length > 0
+      ? _c(
+          "ul",
+          { staticClass: "list-group" },
+          _vm._l(_vm.users, function(user) {
+            return _c("users-project-item", {
+              key: user.id,
+              attrs: { user: user }
+            })
+          })
+        )
+      : _c("div", { staticClass: "card-body" }, [
+          _c("p", [_vm._v("Add users to this project.")])
+        ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-170f54d2", module.exports)
+  }
+}
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(82)
+/* template */
+var __vue_template__ = __webpack_require__(83)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/plans/users/UsersProjectItem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0d09dcc7", Component.options)
+  } else {
+    hotAPI.reload("data-v-0d09dcc7", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 82 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['user', 'plan']
+});
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "li",
+    { staticClass: "list-group-item list-group-item-action d-flex" },
+    [
+      _c("span", { staticClass: "mr-auto p-2" }, [
+        _vm._v("\n        " + _vm._s(_vm.user.name) + "\n    ")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "p-2" }, [
+        _vm.user.completed
+          ? _c("span", { staticClass: "badge badge-pill badge-secondary" }, [
+              _vm._v("Completed")
+            ])
+          : _c("span", { staticClass: "badge badge-pill badge-success" }, [
+              _vm._v("In-Progress")
+            ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0d09dcc7", module.exports)
   }
 }
 

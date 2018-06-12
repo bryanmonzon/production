@@ -23,6 +23,8 @@ Vue.component('new-project', require('./components/projects/NewProject.vue'))
 Vue.component('plan-projects-list', require('./components/plans/projects/PlanProjectsList.vue'))
 Vue.component('add-projects-plan-button', require('./components/plans/projects/AddProjectsPlanButton.vue'))
 Vue.component('add-projects-plan-modal', require('./components/plans/projects/AddProjectsPlanModal.vue'))
+
+Vue.component('users-project-list', require('./components/plans/users/UsersProjectList.vue'))
 Vue.component('add-users-project-button', require('./components/plans/users/AddUsersProjectButton.vue'))
 Vue.component('add-users-project-modal', require('./components/plans/users/AddUsersProjectModal.vue'))
 

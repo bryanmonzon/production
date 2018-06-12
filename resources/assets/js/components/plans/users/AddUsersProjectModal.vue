@@ -31,7 +31,7 @@
 
 <script>
   export default {
-    props: ['projectId'],
+    props: ['planId', 'projectId'],
     data() {
       return {
         checkedUsers: [],
@@ -39,15 +39,15 @@
       }
     },
     mounted() {
-      this.fetchProjects()
 
+      this.fetchUsers()
       Bus.$on('showUsersProjectModal', function() {
         $('#userPicker').modal('show');
       })
 
     }, 
     methods: {
-      fetchProjects() {
+      fetchUsers() {
         axios.get('/users/all')
           .then( res => {
             this.users = res.data
@@ -55,7 +55,7 @@
       },
       saveProjects() {
         
-        axios.patch('/plans/'+this.planId+'/users/add-users', {
+        axios.post('/plans/'+this.planId+'/projects/'+ this.projectId +'/users/add-users', {
             users: this.checkedUsers
           })
         .then(res => {
