@@ -13,4 +13,13 @@
         </div>
     </div>
 </div>
+<div class="fixed-bottom production-footer bg-light border-top py-2">
+    <div class="container d-flex justify-content-between">
+        <form action="{{route('projects.delete', $project)}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-link text-danger mr-2">Delete this Project</button>
+        </form>
+    </div>
+</div>
 @endsection

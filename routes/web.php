@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::patch('projects/{project}', 'Projects\ProjectsController@update')->name('projects.update');
     Route::get('projects/create', 'Projects\ProjectsController@create')->name('projects.create');
     Route::get('projects/{project}', 'Projects\ProjectsController@edit')->name('projects.edit');
+    Route::delete('projects/{project}', 'Projects\ProjectsController@delete')->name('projects.delete');
 
     Route::get('plans', 'Plans\PlansController@index')->name('plans.index');
     Route::get('plans/create', 'Plans\PlansController@create')->name('plans.create');

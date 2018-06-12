@@ -42,6 +42,13 @@ class ProjectsController extends Controller
         return $project;
     }
 
+    public function delete(Project $project)
+    {
+        $project->delete();
+
+        return redirect()->route('projects.index');
+    }
+
     public function create()
     {
         return view('projects.create');
