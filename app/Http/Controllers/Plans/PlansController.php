@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Plans;
 
 use App\Plan;
+use App\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -39,6 +40,8 @@ class PlansController extends Controller
 
     public function edit(Plan $plan)
     {
-        return view('plans.edit', ['plan' => $plan]);
+        $projects = Project::all();
+        
+        return view('plans.edit', ['plan' => $plan, 'projects' => $projects]);
     }
 }
