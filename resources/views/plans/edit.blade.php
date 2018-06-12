@@ -19,14 +19,7 @@
             </div>
             <div class="card">
                 <div class="card-header">Projects</div>
-
                 <plan-projects-list endpoint="{{route('plan.projects.index', $plan)}}" plan="{{$plan}}" />
-
-                {{-- <div class="list-group">
-                    @foreach( $plan->projects as $project)
-                        <a href="{{route('plan.projects.show', [$plan, $project])}}" class="list-group-item list-group-item-action">{{$project->name}}</a>
-                    @endforeach
-                </div> --}}
             </div>
         </div>
     </div>
