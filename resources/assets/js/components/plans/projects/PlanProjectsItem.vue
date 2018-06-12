@@ -21,7 +21,7 @@
             }
         },
         mounted() {
-            console.log('plan', typeof this.plan)
+            
         }
     }
 </script>

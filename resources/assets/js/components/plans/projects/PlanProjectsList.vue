@@ -29,7 +29,6 @@
         created() {
             let self = this
             this.fetchProjects()
-            console.log('plan', typeof this.plan)
             Bus.$on('project:added', function() {
                 self.fetchProjects()
             });
@@ -38,7 +37,6 @@
             fetchProjects() {
                 axios.get(this.endpoint)
                     .then( res => {
-                        console.log(res)
                         this.projects = res.data
                     })
                     .catch(err => {
