@@ -10,13 +10,25 @@
               </button>
             </div>
             <div class="modal-body">
-                  
-                  <div class="form-check" v-for="user in users" :key="user.id">
-                    <input class="form-check-input" type="checkbox" :id='"user-"+user.id' :value="user.id" v-model="checkedUsers">
-                    <label class="form-check-label" :for='"user-"+user.id'>
-                      {{user.name}}
-                    </label>
-                  </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="checkAll" @click="toggleChecked" v-model="allChecked">
+                <label class="form-check-label" for="checkAll">
+                  Select All
+                </label>
+              </div>
+
+              <div class="form-check" v-for="user in users" :key="user.id">
+                <input class="form-check-input" 
+                      type="checkbox" 
+                      :id='"user-"+user.id' 
+                      :value="user.id" 
+                      v-model="checkedUsers"
+                      @change="updateAllChecked"
+                    >
+                <label class="form-check-label" :for='"user-"+user.id'>
+                  {{user.name}}
+                </label>
+              </div>
 
             </div>
             <div class="modal-footer">
@@ -34,12 +46,12 @@
     props: ['planId', 'projectId'],
     data() {
       return {
+        allChecked: false,
         checkedUsers: [],
         users: []
       }
     },
     mounted() {
-
       this.fetchUsers()
       Bus.$on('showUsersProjectModal', function() {
         $('#userPicker').modal('show');
@@ -55,13 +67,31 @@
       },
       saveProjects() {
         
-        axios.post('/plans/'+this.planId+'/projects/'+ this.projectId +'/users/add-users', {
+        axios.post('/projects/'+ this.projectId +'/users/add-users', {
             users: this.checkedUsers
           })
-        .then(res => {
-          Bus.$emit('user:added');
-          $('#userPicker').modal('hide');
-        })
+          .then( (res) => {
+            Bus.$emit('user:added');
+            $('#userPicker').modal('hide');
+            this.checkedUsers = []
+          })
+      },
+      toggleChecked() {
+        this.allChecked = !this.allChecked
+        this.checkedUsers = []
+
+        if( this.allChecked ) {
+          this.users.forEach( (user) => {
+            this.checkedUsers.push(user.id)
+          })
+        }
+      },
+      updateAllChecked() {
+        if(this.checkedUsers.length === this.users.length){
+           this.allChecked = true;
+        }else{
+           this.allChecked = false;
+        }
       }
     }
   }
