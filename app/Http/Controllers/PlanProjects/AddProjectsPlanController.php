@@ -10,7 +10,14 @@ class AddProjectsPlanController extends Controller
 {
     public function sync(Plan $plan)
     {
-        $plan->projects()->sync(request('projects'));
-        return response()->json('success');
+        
+        foreach( request('projects') as $projectId ) {
+           
+            if( !$plan->projects->contains( $projectId ) ) {
+                $plan->projects()->attach($projectId);
+            }
+        }
+
+        return response()->json($plan->projects()->get(), 201);        
     }
 }
