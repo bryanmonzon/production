@@ -27,6 +27,7 @@
                     .then(res => {
                         console.log(res.data)
                         this.form.question = ''
+                        Bus.$emit('question:added', res.data);
                     })
                     .catch(err => {
                         console.log(err)
