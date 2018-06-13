@@ -35,16 +35,7 @@
             <div class="card">
                 <div class="card-header">Questions</div>
                 <div class="card-body">
-                    <div>
-                        <form action="">
-                            <div class="form-group">
-                                <textarea class="form-control"></textarea>
-                            </div>
-                            <div class="form-group d-flex flex-row-reverse">
-                                <button class="btn btn-primary">Ask a Question</button>
-                            </div>
-                        </form>
-                    </div>
+                    <new-question endpoint="{{route('projects.questions.store', $project) }}" />
                 </div>
 
                 <div class="list-group">
