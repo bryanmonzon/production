@@ -38,46 +38,7 @@
                     <new-question endpoint="{{route('projects.questions.store', $project) }}" />
                 </div>
 
-                <div class="list-group">
-                  <div class="list-group-item d-flex justify-content-between">
-                    <span class="w-75">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum necessitatibus itaque praesentium, voluptate ratione tempore magni illo dolor, quod non, natus mollitia sapiente. Illum laborum hic optio corrupti quaerat itaque.
-                        asked by Jen Kim
-                    </span>
-                    <label style="margin-bottom:0px;" for="question-1" class="w-25 text-muted text-sm-left mr-1 d-flex justify-content-end align-items-center">
-                        <span class="mr-2">Mark as resolved</span>
-                        <input type="checkbox" id="question-1">
-                    </label>
-                  </div>
-                  <div class="list-group-item d-flex justify-content-between">
-                    <span class="w-75">Dapibus ac facilisis in</span>
-                    <label style="margin-bottom:0px;" for="question-1" class="w-25 text-muted text-sm-left mr-1 d-flex justify-content-end align-items-center">
-                        <span class="mr-2">Mark as resolved</span>
-                        <input type="checkbox" id="question-1">
-                    </label>
-                  </div>
-                  <div class="list-group-item d-flex justify-content-between">
-                    <span class="w-75">Morbi leo risus</span>
-                    <label style="margin-bottom:0px;" for="question-1" class="w-25 text-muted text-sm-left mr-1 d-flex justify-content-end align-items-center">
-                        <span class="mr-2">Mark as resolved</span>
-                        <input type="checkbox" id="question-1">
-                    </label>
-                  </div>
-                  <div class="list-group-item d-flex justify-content-between">
-                    <span class="w-75">Porta ac consectetur ac</span>
-                    <label style="margin-bottom:0px;" for="question-1" class="w-25 text-muted text-sm-left mr-1 d-flex justify-content-end align-items-center">
-                        <span class="mr-2">Mark as unresolved</span>
-                        <input type="checkbox" id="question-1" checked>
-                    </label>
-                  </div>
-                  <div class="list-group-item d-flex justify-content-between">
-                    <span class="w-75">Vestibulum at eros</span>
-                    <label style="margin-bottom:0px;" for="question-1" class="w-25 text-muted text-sm-left mr-1 d-flex justify-content-end align-items-center">
-                        <span class="mr-2">Mark as resolved</span>
-                        <input type="checkbox" id="question-1">
-                    </label>
-                  </div>
-                </div>
+                <question-list endpoint="{{ route('projects.questions.index', $project) }}"/>
             </div>
         </div>
     </div>
