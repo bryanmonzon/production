@@ -4,14 +4,25 @@
             {{user.name}}
         </span>
         <span class="p-2">
-            <span class="badge badge-pill badge-secondary" v-if="user.completed">Completed</span>
-            <span class="badge badge-pill badge-success" v-else>In-Progress</span>
+            <button class="btn btn-secondary" @click="removeUser">Remove</button>
         </span>
     </li>
 </template>
 
 <script>
     export default {
-        props: ['user', 'plan'],
+        props: ['user', 'project'],
+        methods: {
+            removeUser() {
+                axios.delete('/projects/'+JSON.parse(this.project).id+'/users/'+this.user.id )
+                    .then(res => {
+                        console.log(res.data)
+                        Bus.$emit('user:removed')
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+        }
     }
 </script>
