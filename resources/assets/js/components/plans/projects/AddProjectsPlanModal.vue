@@ -55,7 +55,7 @@
       },
       saveProjects() {
         
-        axios.patch('/plans/'+this.planId+'/projects/add-projects', {
+        axios.post('/plans/'+this.planId+'/projects/', {
             projects: this.checkedProjects
           })
         .then(res => {
