@@ -1,6 +1,30 @@
 
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
+window.moment = require('moment')
+
+/*
+ * Define Moment locales
+ */
+window.moment.defineLocale('en-short', {
+    parentLocale: 'en',
+    relativeTime : {
+        future: "in %s",
+        past:   "%s",
+        s:  "1s",
+        m:  "1m",
+        mm: "%dm",
+        h:  "1h",
+        hh: "%dh",
+        d:  "1d",
+        dd: "%dd",
+        M:  "1 month ago",
+        MM: "%d months ago",
+        y:  "1y",
+        yy: "%dy"
+    }
+});
+window.moment.locale('en');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
