@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-header">Users</div>
                 <users-project-list 
-                    project-id="{{ $project->id }}" 
+                    project="{{ $project }}" 
                     endpoint="{{ route('plan.projects.users', [$plan, $project]) }}" 
                 >
                 </users-project-list>
