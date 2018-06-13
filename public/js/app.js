@@ -49429,6 +49429,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+    computed: {
+        validateFormQuestion: function validateFormQuestion() {
+            return this.form.question.length > 0 ? false : true;
+        }
+    },
     methods: {
         submitQuestion: function submitQuestion() {
             var _this = this;
@@ -49491,6 +49496,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-primary",
+              attrs: { disabled: _vm.validateFormQuestion },
               on: {
                 click: function($event) {
                   $event.preventDefault()

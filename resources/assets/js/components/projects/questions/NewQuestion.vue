@@ -5,7 +5,7 @@
                 <textarea class="form-control" v-model="form.question"></textarea>
             </div>
             <div class="form-group d-flex flex-row-reverse">
-                <button @click.prevent="submitQuestion" class="btn btn-primary">Ask a Question</button>
+                <button @click.prevent="submitQuestion" class="btn btn-primary" :disabled="validateFormQuestion">Ask a Question</button>
             </div>
         </form>
     </div>
@@ -19,6 +19,11 @@
                 form: {
                     question: ''
                 }
+            }
+        },
+        computed: {
+            validateFormQuestion() {
+                return this.form.question.length > 0 ? false : true
             }
         },
         methods: {
