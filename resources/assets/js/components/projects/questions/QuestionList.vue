@@ -1,17 +1,17 @@
 <template>
     <div class="list-group">
-      <div class="list-group-item" v-for="question in questions" :key="question.id">
-        <div class="d-flex justify-content-between">
-            <span class="w-75">
-                {{question.question}}
-            </span>
-            <label style="margin-bottom:0px;" for="question-1" class="w-25 text-muted text-sm-left mr-1 d-flex justify-content-end align-items-center">
-                <span class="mr-2">Mark as resolved</span>
-                <input type="checkbox" id="question-1">
-            </label>
+      <div class="list-group-item pt-4" v-for="question in questions" :key="question.id">
+        <div class="w-100 lead">
+            {{question.question}}
         </div>
-        <div class="mw-100 mt-2 border-top pt-2">
-            posted by
+        <div class="mw-100 mt-2 pt-2 text-muted font-italic d-flex justify-content-between">
+            <span>asked by {{ question.user.name }} - {{ question.created_at | datetime }}</span>
+            <span>
+                <label style="margin-bottom:0px;" :for="'question-'+question.id" class="text-muted text-sm-left mr-1 d-flex justify-content-end align-items-center">
+                    <span class="mr-2">Resolve</span>
+                    <input type="checkbox" :id="'question-'+question.id">
+                </label>
+            </span>
         </div>
       </div>
     </div>
@@ -38,7 +38,6 @@
                 axios.get(this.endpoint)
                     .then( res => {
                         this.questions = res.data
-                        console.log(res.data)
                     })
                     .catch(err => {
                         console.log(err)
