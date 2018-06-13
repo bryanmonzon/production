@@ -16,7 +16,6 @@
             removeUser() {
                 axios.delete('/projects/'+JSON.parse(this.project).id+'/users/'+this.user.id )
                     .then(res => {
-                        console.log(res.data)
                         Bus.$emit('user:removed')
                     })
                     .catch(err => {

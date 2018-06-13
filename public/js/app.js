@@ -65623,7 +65623,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         removeUser: function removeUser() {
             axios.delete('/projects/' + JSON.parse(this.project).id + '/users/' + this.user.id).then(function (res) {
-                console.log(res.data);
                 Bus.$emit('user:removed');
             }).catch(function (err) {
                 console.log(err);
