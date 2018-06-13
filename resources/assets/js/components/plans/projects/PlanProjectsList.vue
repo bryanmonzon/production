@@ -32,6 +32,10 @@
             Bus.$on('project:added', function() {
                 self.fetchProjects()
             });
+
+            Bus.$on('project:removed', function() {
+                self.fetchProjects()
+            });
         },
         methods: {
             fetchProjects() {
