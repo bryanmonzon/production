@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent>
+        <form @submit="submitQuestion" @keydown.enter="submitQuestion">
             <div class="form-group">
                 <textarea class="form-control" v-model="form.question"></textarea>
             </div>
