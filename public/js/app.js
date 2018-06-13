@@ -14014,6 +14014,7 @@ Vue.component('add-users-project-button', __webpack_require__(72));
 Vue.component('add-users-project-modal', __webpack_require__(75));
 
 Vue.component('new-question', __webpack_require__(84));
+Vue.component('question-list', __webpack_require__(87));
 
 var app = new Vue({
   el: '#app'
@@ -49435,6 +49436,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post(this.endpoint, this.form).then(function (res) {
                 console.log(res.data);
                 _this.form.question = '';
+                Bus.$emit('question:added', res.data);
             }).catch(function (err) {
                 console.log(err);
             });
@@ -49510,6 +49512,162 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-11963774", module.exports)
+  }
+}
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(88)
+/* template */
+var __vue_template__ = __webpack_require__(89)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/projects/questions/QuestionList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-091dd434", Component.options)
+  } else {
+    hotAPI.reload("data-v-091dd434", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 88 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['endpoint'],
+    data: function data() {
+        return {
+            questions: []
+        };
+    },
+    created: function created() {
+        var self = this;
+        this.fetchQuestions();
+
+        Bus.$on('question:added', function () {
+            self.fetchQuestions();
+        });
+    },
+
+    methods: {
+        fetchQuestions: function fetchQuestions() {
+            var _this = this;
+
+            axios.get(this.endpoint).then(function (res) {
+                _this.questions = res.data;
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "list-group" },
+    _vm._l(_vm.questions, function(question) {
+      return _c(
+        "div",
+        {
+          key: question.id,
+          staticClass: "list-group-item d-flex justify-content-between"
+        },
+        [
+          _c("span", { staticClass: "w-75" }, [
+            _vm._v("\n        " + _vm._s(question.question) + "\n    ")
+          ]),
+          _vm._v(" "),
+          _vm._m(0, true)
+        ]
+      )
+    })
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass:
+          "w-25 text-muted text-sm-left mr-1 d-flex justify-content-end align-items-center",
+        staticStyle: { "margin-bottom": "0px" },
+        attrs: { for: "question-1" }
+      },
+      [
+        _c("span", { staticClass: "mr-2" }, [_vm._v("Mark as resolved")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "checkbox", id: "question-1" } })
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-091dd434", module.exports)
   }
 }
 
