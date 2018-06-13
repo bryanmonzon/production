@@ -29,6 +29,7 @@ Vue.component('add-users-project-button', require('./components/plans/users/AddU
 Vue.component('add-users-project-modal', require('./components/plans/users/AddUsersProjectModal.vue'))
 
 Vue.component('new-question', require('./components/projects/questions/NewQuestion.vue'))
+Vue.component('question-list', require('./components/projects/questions/QuestionList.vue'))
 
 
 const app = new Vue({
