@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UsersProjects;
 
 use App\Plan;
+use App\User;
 use App\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,9 +17,15 @@ class UsersProjectController extends Controller
 
     public function store(Plan $plan, Project $project)
     {
+        $project->users()->sync(request('users'));
 
-        $users = $project->users()->sync(request('users'));
+        return response(201);
+    }
 
-        return response()->json('success');
+    public function delete(Project $project, User $user)
+    {
+        $project->users()->detach($user->id);
+
+        return response(204);
     }
 }
