@@ -10,7 +10,7 @@
             <span class="badge badge-pill badge-success" v-else>In-Progress</span>
         </span>
         <span class="p-2">
-            <button type="button" class="btn btn-secondary" @click="removeProject">Remove</button>
+            <button type="button" class="btn btn-sm btn-outline-warning" @click="removeProject">Remove</button>
         </span>
     </div>
 </template>
@@ -22,11 +22,10 @@
             removeProject() {
                 axios.delete(`/plans/${this.plan.id}/projects/${this.project.id}/`)
                     .then(res => {
-                        console.log(res)
                         Bus.$emit('project:removed');
                     })
                     .catch(err => {
-
+                        console.log(err)
                     })
             }
         }

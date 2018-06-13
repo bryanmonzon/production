@@ -12,7 +12,12 @@
             <div class="modal-body">
                   
                   <div class="form-check" v-for="project in projects" :key="project.id">
-                    <input class="form-check-input" type="checkbox" :id='"project-"+project.id' :value="project.id" v-model="checkedProjects">
+                    <input class="form-check-input" 
+                      type="checkbox" 
+                      :id='"project-"+project.id' 
+                      :value="project.id"
+                      v-model="checkedProjects"
+                    >
                     <label class="form-check-label" :for='"project-"+project.id'>
                       {{project.name}}
                     </label>

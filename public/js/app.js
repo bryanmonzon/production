@@ -64656,6 +64656,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -64756,7 +64758,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Save Project")]
+                  [_vm._v("\n                Save Project\n            ")]
                 )
               ])
             ])
@@ -64958,9 +64960,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         removeProject: function removeProject() {
             axios.delete('/plans/' + this.plan.id + '/projects/' + this.project.id + '/').then(function (res) {
-                console.log(res);
                 Bus.$emit('project:removed');
-            }).catch(function (err) {});
+            }).catch(function (err) {
+                console.log(err);
+            });
         }
     }
 });
@@ -65004,7 +65007,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-secondary",
+            staticClass: "btn btn-sm btn-outline-warning",
             attrs: { type: "button" },
             on: { click: _vm.removeProject }
           },
@@ -65207,6 +65210,11 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //

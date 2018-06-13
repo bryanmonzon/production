@@ -12,7 +12,9 @@
                     @click.prevent="addProject" 
                     type="button" 
                     :disabled="validateFormName"
-                >Save Project</button>
+                >
+                    Save Project
+                </button>
               </div>
             </div>
         </form>
