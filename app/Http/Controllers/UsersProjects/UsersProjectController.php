@@ -17,9 +17,14 @@ class UsersProjectController extends Controller
 
     public function store(Plan $plan, Project $project)
     {
-        $project->users()->sync(request('users'));
+        foreach( request('users') as $userId ) {
+           
+            if( !$project->users->contains( $userId ) ) {
+                $project->users()->attach($userId);
+            }
+        }
 
-        return response(201);
+        return response()->json($project->users()->get(), 201);
     }
 
     public function delete(Project $project, User $user)
