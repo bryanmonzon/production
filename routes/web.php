@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::patch('plans/{plan}/projects/add-projects', 'PlanProjects\AddProjectsPlanController@sync');
 
     Route::get('plans/{plan}/projects/{project}/users', 'UsersProjects\UsersProjectController@index')->name('plan.projects.users');
-    Route::post('plans/{plan}/projects/{project}/users/add-users', 'UsersProjects\UsersProjectController@store')->name('plan.projects.users.store');
+    Route::post('projects/{project}/users/add-users', 'UsersProjects\UsersProjectController@store')->name('plan.projects.users.store');
+    Route::delete('projects/{project}/users/{user}', 'UsersProjects\UsersProjectController@delete')->name('plan.projects.users.delete');
     Route::get('users/all', 'Users\UsersController@all')->name('users.all');
 });
