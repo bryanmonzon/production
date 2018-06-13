@@ -10,8 +10,7 @@ class ProjectQuestionsController extends Controller
 {
     public function index(Project $project)
     {
-        //TODO: include users in this query
-        return response()->json($project->questions()->orderBy('created_at', 'desc')->get());    
+        return response()->json($project->questions()->with('user')->orderBy('created_at', 'desc')->get());    
     }
 
     public function store(Project $project)
