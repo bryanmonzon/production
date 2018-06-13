@@ -20,6 +20,16 @@ class CreateQuestionsTable extends Migration
             $table->text('question');
             $table->boolean('resolved')->default(false);
             $table->timestamps();
+
+            $table->foreign('project_id')
+                ->references('id')
+                ->on('projects')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
