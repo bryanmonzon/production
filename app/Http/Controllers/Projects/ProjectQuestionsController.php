@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class ProjectQuestionsController extends Controller
 {
+    public function index(Project $project)
+    {
+        return response()->json($project->questions()->orderBy('created_at', 'desc')->get());    
+    }
+
     public function store(Project $project)
     {
         request()->validate([

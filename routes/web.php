@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('projects/{project}', 'Projects\ProjectsController@delete')->name('projects.delete');
 
     Route::post('projects/{project}/questions', 'Projects\ProjectQuestionsController@store')->name('projects.questions.store');
+    Route::get('projects/{project}/questions', 'Projects\ProjectQuestionsController@index')->name('projects.questions.index');
 
     Route::get('plans', 'Plans\PlansController@index')->name('plans.index');
     Route::get('plans/create', 'Plans\PlansController@create')->name('plans.create');
