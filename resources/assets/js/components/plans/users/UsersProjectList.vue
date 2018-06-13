@@ -4,6 +4,7 @@
             <users-project-item 
                 v-for="user in users" 
                 :user="user" 
+                :project="project"
                 :key="user.id"
              />
         </ul>
@@ -28,7 +29,12 @@
         created() {
             let self = this
             this.fetchUsers()
+            
             Bus.$on('user:added', function() {
+                self.fetchUsers()
+            });
+
+            Bus.$on('user:removed', function() {
                 self.fetchUsers()
             });
         },
