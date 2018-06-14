@@ -24,6 +24,10 @@
             Bus.$on('question:added', function(){
                 self.fetchQuestions()
             });
+
+            Bus.$on('comment:added', function(comment) {
+                self.fetchQuestions()
+            })
         },
         methods: {
             fetchQuestions() {
