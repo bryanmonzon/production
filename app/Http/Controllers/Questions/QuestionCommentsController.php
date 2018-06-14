@@ -13,4 +13,18 @@ class QuestionCommentsController extends Controller
         return response()->json($question->comments()->get(), 200);
     }
 
+    public function store(Question $question)
+    {
+        request()->validate([
+            'body' => 'required|max:5000'
+        ]);
+
+        $comment = $question->comments()->make([
+            'body' => request('body')
+        ]);
+
+        $comment = request()->user()->comments()->save($comment);
+
+        return response()->json($comment, 201);
+    }
 }
