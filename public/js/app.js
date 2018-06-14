@@ -66663,9 +66663,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['question']
+    props: ['question'],
+    data: function data() {
+        return {
+            resolved: false
+        };
+    },
+    mounted: function mounted() {
+        this.resolved = this.question.resolved;
+    },
+
+    methods: {
+        resolveQuestion: function resolveQuestion(e) {
+            this.resolved = e.target.checked;
+
+            axios.patch('/questions/' + this.question.id, {
+                resolved: this.resolved
+            }).then(function (res) {}).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -66686,10 +66707,47 @@ var render = function() {
         attrs: { for: "question-" + _vm.question.id }
       },
       [
-        _c("span", { staticClass: "mr-2" }, [_vm._v("Resolve")]),
+        !_vm.resolved
+          ? _c("span", { staticClass: "mr-2" }, [_vm._v("Resolve")])
+          : _c("span", { staticClass: "mr-2" }, [_vm._v("Resolved")]),
         _vm._v(" "),
         _c("input", {
-          attrs: { type: "checkbox", id: "question-" + _vm.question.id }
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.resolved,
+              expression: "resolved"
+            }
+          ],
+          attrs: { type: "checkbox", id: "question-" + _vm.question.id },
+          domProps: {
+            checked: Array.isArray(_vm.resolved)
+              ? _vm._i(_vm.resolved, null) > -1
+              : _vm.resolved
+          },
+          on: {
+            click: _vm.resolveQuestion,
+            change: function($event) {
+              var $$a = _vm.resolved,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && (_vm.resolved = $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    (_vm.resolved = $$a
+                      .slice(0, $$i)
+                      .concat($$a.slice($$i + 1)))
+                }
+              } else {
+                _vm.resolved = $$c
+              }
+            }
+          }
         })
       ]
     )
