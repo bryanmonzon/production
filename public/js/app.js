@@ -65651,8 +65651,7 @@ var render = function() {
           staticClass: "rounded-circle mr-2 text-muted",
           attrs: { src: _vm.user.avatar }
         }),
-        _vm._v(" "),
-        _c("strong", [_vm._v(_vm._s(_vm.user.name))])
+        _vm._v("\n        " + _vm._s(_vm.user.name) + "\n    ")
       ]),
       _vm._v(" "),
       _c("span", { staticClass: "p-2" }, [

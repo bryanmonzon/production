@@ -2,7 +2,7 @@
     <li class="list-group-item list-group-item-action d-flex">
         <span class="mr-auto p-2">
             <img :src="user.avatar" class="rounded-circle mr-2 text-muted"/>
-            <strong>{{user.name}}</strong>
+            {{user.name}}
         </span>
         <span class="p-2">
             <button class="btn btn-secondary" @click="removeUser">Remove</button>
