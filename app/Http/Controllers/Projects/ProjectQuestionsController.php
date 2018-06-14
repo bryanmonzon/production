@@ -10,7 +10,7 @@ class ProjectQuestionsController extends Controller
 {
     public function index(Project $project)
     {
-        return response()->json($project->questions()->with('user')->orderBy('created_at', 'desc')->get());    
+        return response()->json($project->questions()->with(['user', 'comments.user'])->orderBy('created_at', 'desc')->get());    
     }
 
     public function store(Project $project)
