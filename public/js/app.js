@@ -66432,6 +66432,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Bus.$on('question:added', function () {
             self.fetchQuestions();
         });
+
+        Bus.$on('comment:added', function (comment) {
+            self.fetchQuestions();
+        });
     },
 
     methods: {
@@ -66506,6 +66510,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ResolveQuestion__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ResolveQuestion___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ResolveQuestion__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList__);
 //
 //
 //
@@ -66524,18 +66530,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['question'],
   components: {
-    ResolveQuestion: __WEBPACK_IMPORTED_MODULE_0__ResolveQuestion___default.a
+    ResolveQuestion: __WEBPACK_IMPORTED_MODULE_0__ResolveQuestion___default.a,
+    QuestionCommentsList: __WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList___default.a
   },
   created: function created() {
     var self = this;
 
     Bus.$on('question:resolved', function (data) {
-
       if (data.id == self.question.id) {
         self.question.resolved = !self.question.resolved;
       }
@@ -66717,56 +66725,67 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "list-group-item pt-4",
+      staticClass: "list-group-item",
       class: {
         unresolved: !_vm.question.resolved,
         "bg-light": _vm.question.resolved
       }
     },
     [
-      _c("div", { staticClass: "w-100 lead" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "mw-100 text-muted d-flex justify-content-between align-items-center"
+        },
+        [
+          _c(
+            "span",
+            { staticClass: "d-flex flex-row align-items-center author-wrap" },
+            [
+              _c("img", {
+                staticClass: "rounded-circle mr-2",
+                staticStyle: {
+                  height: "30px",
+                  width: "30px",
+                  "box-shadow": "0 2px 4px 0 rgba(0,0,0,0.10)"
+                },
+                attrs: { src: _vm.question.user.avatar }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "d-flex flex-column" }, [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("strong", [_vm._v(_vm._s(_vm.question.user.name))])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "font-italic",
+                    staticStyle: { "font-size": ".75rem" }
+                  },
+                  [_vm._v(_vm._s(_vm._f("datetime")(_vm.question.created_at)))]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("resolve-question", { attrs: { question: _vm.question } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-100 lead py-4" }, [
         _c("span", { class: { resolved: _vm.question.resolved } }, [
           _vm._v(_vm._s(_vm.question.question))
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "mw-100 mt-2 pt-2 text-muted d-flex justify-content-between align-items-center"
-        },
-        [
-          _c("span", { staticClass: "d-flex flex-row align-items-center" }, [
-            _c("img", {
-              staticClass: "rounded-circle mr-2",
-              staticStyle: {
-                height: "30px",
-                width: "30px",
-                "box-shadow": "0 2px 4px 0 rgba(0,0,0,0.10)"
-              },
-              attrs: { src: _vm.question.user.avatar }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "d-flex flex-column" }, [
-              _c("span", [_vm._v(_vm._s(_vm.question.user.name))]),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  staticClass: "font-italic",
-                  staticStyle: { "font-size": ".75rem" }
-                },
-                [_vm._v(_vm._s(_vm._f("datetime")(_vm.question.created_at)))]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("resolve-question", { attrs: { question: _vm.question } })
-        ],
-        1
-      )
-    ]
+      _c("question-comments-list", {
+        attrs: { comments: _vm.question.comments, question: _vm.question }
+      })
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -66934,7 +66953,7 @@ exports = module.exports = __webpack_require__(219)(false);
 
 
 // module
-exports.push([module.i, "\n.resolved {\n  text-decoration:line-through;\n  color: #9da6af !important\n}\n.unresolved {\n  border-top:3px solid green;\n}\n", ""]);
+exports.push([module.i, "\n.author-wrap {\n  line-height: 1rem;\n}\n.resolved {\n  text-decoration:line-through;\n  color: #9da6af !important\n}\n.unresolved {\n  border-top:3px solid green;\n}\n.question-comments {\n  margin-top:5px;\n}\n.comment-form {\n  margin-top:10px;\n}\n", ""]);
 
 // exports
 
@@ -67199,6 +67218,278 @@ module.exports = function listToStyles (parentId, list) {
   return styles
 }
 
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(227)
+/* template */
+var __vue_template__ = __webpack_require__(228)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/projects/questions/QuestionCommentsList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3da40448", Component.options)
+  } else {
+    hotAPI.reload("data-v-3da40448", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 227 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['comments', 'question'],
+    components: {
+        QuestionCommentForm: __WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm___default.a
+    }
+});
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "w-100 pt-1 text-muted" }, [
+        _c("span", [_vm._v(_vm._s(_vm.comments.length) + " Comments")])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "list-group question-comments text-muted" },
+        _vm._l(_vm.comments, function(comment) {
+          return _c(
+            "div",
+            {
+              key: comment.id,
+              staticClass: "list-group-item",
+              class: { "bg-light": _vm.question.resolved }
+            },
+            [
+              _c("div", { staticClass: "d-flex flex-column" }, [
+                _c("span", [
+                  _c("strong", [_vm._v(_vm._s(comment.user.name))]),
+                  _vm._v(" " + _vm._s(comment.body))
+                ]),
+                _vm._v(" "),
+                _c("span", { staticStyle: { "font-size": ".75rem" } }, [
+                  _vm._v(_vm._s(_vm._f("datetime")(comment.user.created_at)))
+                ])
+              ])
+            ]
+          )
+        })
+      ),
+      _vm._v(" "),
+      _c("question-comment-form", { attrs: { question: _vm.question } })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3da40448", module.exports)
+  }
+}
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(230)
+/* template */
+var __vue_template__ = __webpack_require__(231)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/projects/questions/QuestionCommentForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-811011c6", Component.options)
+  } else {
+    hotAPI.reload("data-v-811011c6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 230 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['question'],
+    data: function data() {
+        return {
+            form: {
+                body: ''
+            }
+        };
+    },
+
+    methods: {
+        submitComment: function submitComment() {
+            var _this = this;
+
+            axios.post('/questions/' + this.question.id + '/comments', this.form).then(function (res) {
+                _this.form.body = '';
+                Bus.$emit('comment:added', res.data);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "comment-form pb-3" }, [
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.form.body,
+          expression: "form.body"
+        }
+      ],
+      staticClass: "form-control rounded",
+      attrs: { type: "text", placeholder: "Write a comment" },
+      domProps: { value: _vm.form.body },
+      on: {
+        keydown: function($event) {
+          if (
+            !("button" in $event) &&
+            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+          ) {
+            return null
+          }
+          return _vm.submitComment($event)
+        },
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.$set(_vm.form, "body", $event.target.value)
+        }
+      }
+    })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-811011c6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
