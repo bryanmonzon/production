@@ -5,18 +5,17 @@
       </div>
       <div class="mw-100 mt-2 pt-2 text-muted font-italic d-flex justify-content-between">
           <span>asked by {{ question.user.name }} - {{ question.created_at | datetime }}</span>
-          <span>
-              <label style="margin-bottom:0px;" :for="'question-'+question.id" class="text-muted text-sm-left mr-1 d-flex justify-content-end align-items-center">
-                  <span class="mr-2">Resolve</span>
-                  <input type="checkbox" :id="'question-'+question.id">
-              </label>
-          </span>
+          <resolve-question :question="question" />
       </div>
     </div>
 </template>
 
 <script>
+    import ResolveQuestion from './ResolveQuestion'
     export default {
-        props: ['question']
+        props: ['question'],
+        components: {
+          ResolveQuestion
+        }
     }
 </script>
