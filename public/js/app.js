@@ -66514,6 +66514,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66701,16 +66707,28 @@ var render = function() {
       "div",
       {
         staticClass:
-          "mw-100 mt-2 pt-2 text-muted font-italic d-flex justify-content-between"
+          "mw-100 mt-2 pt-2 text-muted d-flex justify-content-between align-items-center"
       },
       [
-        _c("span", [
-          _vm._v(
-            "asked by " +
-              _vm._s(_vm.question.user.name) +
-              " - " +
-              _vm._s(_vm._f("datetime")(_vm.question.created_at))
-          )
+        _c("span", { staticClass: "d-flex flex-row align-items-center" }, [
+          _c("img", {
+            staticClass: "rounded-circle mr-2",
+            staticStyle: { height: "30px", width: "30px" },
+            attrs: { src: _vm.question.user.avatar }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "d-flex flex-column" }, [
+            _c("span", [_vm._v(_vm._s(_vm.question.user.name))]),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "font-italic",
+                staticStyle: { "font-size": ".75rem" }
+              },
+              [_vm._v(_vm._s(_vm._f("datetime")(_vm.question.created_at)))]
+            )
+          ])
         ]),
         _vm._v(" "),
         _c("resolve-question", { attrs: { question: _vm.question } })
