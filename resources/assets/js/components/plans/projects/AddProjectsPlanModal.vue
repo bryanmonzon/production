@@ -66,6 +66,7 @@
         .then(res => {
           Bus.$emit('project:added');
           $('#projectPicker').modal('hide');
+          this.checkedProjects = []
         })
       }
     }
