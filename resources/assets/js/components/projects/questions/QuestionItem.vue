@@ -1,7 +1,7 @@
 <template>
-    <div class="list-group-item pt-4">
+    <div class="list-group-item pt-4" :class="{ 'unresolved': !question.resolved, 'bg-light': question.resolved }">
       <div class="w-100 lead">
-          {{question.question}}
+          <span :class="{'resolved': question.resolved}">{{question.question}}</span>
       </div>
       <div class="mw-100 mt-2 pt-2 text-muted d-flex justify-content-between align-items-center">
           <span class="d-flex flex-row align-items-center">
@@ -22,6 +22,29 @@
         props: ['question'],
         components: {
           ResolveQuestion
+        }, 
+        created() {
+          let self = this
+
+          Bus.$on('question:resolved', function(data) {
+
+            if( data.id == self.question.id ) {
+              self.question.resolved = !self.question.resolved
+
+            }
+          })
+
+
         }
     }
 </script>
+
+<style>
+  .resolved {
+    text-decoration:line-through;
+    color: #9da6af !important
+  }
+  .unresolved {
+    border-top:3px solid green;
+  }
+</style>
