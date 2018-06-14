@@ -26,7 +26,7 @@
                     resolved: this.resolved
                 })
                 .then( res => {
-                    
+                    Bus.$emit('question:resolved', res.data)
                 })
                 .catch(err => {
                     console.log(err)
