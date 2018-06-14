@@ -30,7 +30,6 @@
             submitQuestion() {
                 axios.post(this.endpoint, this.form)
                     .then(res => {
-                        console.log(res.data)
                         this.form.question = ''
                         Bus.$emit('question:added', res.data);
                     })

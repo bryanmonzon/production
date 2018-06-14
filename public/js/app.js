@@ -65272,12 +65272,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     saveProjects: function saveProjects() {
+      var _this2 = this;
 
       axios.post('/plans/' + this.planId + '/projects/', {
         projects: this.checkedProjects
       }).then(function (res) {
         Bus.$emit('project:added');
         $('#projectPicker').modal('hide');
+        _this2.checkedProjects = [];
       });
     }
   }
@@ -66256,7 +66258,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.post(this.endpoint, this.form).then(function (res) {
-                console.log(res.data);
                 _this.form.question = '';
                 Bus.$emit('question:added', res.data);
             }).catch(function (err) {
