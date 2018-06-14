@@ -39,6 +39,12 @@ class User extends Authenticatable
         return $this->hasMany(Question::class);
     }
 
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    
     public function avatar()
     {
         return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=45&d=mm';
