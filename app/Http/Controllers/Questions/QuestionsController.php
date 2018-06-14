@@ -10,7 +10,7 @@ class QuestionsController extends Controller
 {
     public function update(Question $question)
     {
-        $question = $question->update(request()->all());
+        $question->update(request()->all());
 
         return response()->json($question, 202);
     }
