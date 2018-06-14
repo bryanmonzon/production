@@ -27,6 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $appends = ['avatar'];
+
     public function projects()
     {
         return $this->belongsToMany(Project::class);
@@ -35,5 +37,15 @@ class User extends Authenticatable
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function avatar()
+    {
+        return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=45&d=mm';
+    }
+
+    public function getAvatarAttribute()
+    {
+        return $this->avatar();
     }
 }

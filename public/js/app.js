@@ -65619,6 +65619,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['user', 'project'],
@@ -65646,7 +65647,12 @@ var render = function() {
     { staticClass: "list-group-item list-group-item-action d-flex" },
     [
       _c("span", { staticClass: "mr-auto p-2" }, [
-        _vm._v("\n        " + _vm._s(_vm.user.name) + "\n    ")
+        _c("img", {
+          staticClass: "rounded-circle mr-2 text-muted",
+          attrs: { src: _vm.user.avatar }
+        }),
+        _vm._v(" "),
+        _c("strong", [_vm._v(_vm._s(_vm.user.name))])
       ]),
       _vm._v(" "),
       _c("span", { staticClass: "p-2" }, [
