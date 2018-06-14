@@ -66713,7 +66713,11 @@ var render = function() {
         _c("span", { staticClass: "d-flex flex-row align-items-center" }, [
           _c("img", {
             staticClass: "rounded-circle mr-2",
-            staticStyle: { height: "30px", width: "30px" },
+            staticStyle: {
+              height: "30px",
+              width: "30px",
+              "box-shadow": "0 2px 4px 0 rgba(0,0,0,0.10)"
+            },
             attrs: { src: _vm.question.user.avatar }
           }),
           _vm._v(" "),

@@ -5,7 +5,7 @@
       </div>
       <div class="mw-100 mt-2 pt-2 text-muted d-flex justify-content-between align-items-center">
           <span class="d-flex flex-row align-items-center">
-            <img :src="question.user.avatar" style="height:30px; width:30px;" class="rounded-circle mr-2" /> 
+            <img :src="question.user.avatar" style="height:30px; width:30px; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);" class="rounded-circle mr-2" /> 
             <span class="d-flex flex-column">
               <span>{{ question.user.name }}</span>
               <span style="font-size:.75rem;" class="font-italic">{{ question.created_at | datetime }}</span>
