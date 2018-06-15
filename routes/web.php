@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::delete('comments/{comment}', 'Comments\CommentsController@delete')->name('comments.delete');
 
-    Route::get('plans/{plan}/projects/{project}/users', 'UsersProjects\UsersProjectController@index')->name('plan.projects.users');
+    Route::get('projects/{project}/users', 'UsersProjects\UsersProjectController@index')->name('projects.users');
     Route::post('projects/{project}/users/add-users', 'UsersProjects\UsersProjectController@store')->name('plan.projects.users.store');
     Route::delete('projects/{project}/users/{user}', 'UsersProjects\UsersProjectController@delete')->name('plan.projects.users.delete');
     Route::get('users/all', 'Users\UsersController@all')->name('users.all');
