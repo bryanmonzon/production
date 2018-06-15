@@ -24,7 +24,7 @@ class QuestionCommentsController extends Controller
         ]);
 
         $comment = request()->user()->comments()->save($comment);
-
-        return response()->json($comment, 201);
+        
+        return response()->json($comment->load('user'), 201);
     }
 }
