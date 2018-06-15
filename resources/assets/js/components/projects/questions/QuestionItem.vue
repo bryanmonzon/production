@@ -13,7 +13,7 @@
       <div class="w-100 lead py-4">
           <span :class="{'resolved': question.resolved}">{{question.question}}</span>
       </div>
-      <question-comments-list :comments="question.comments" :question="question" />
+      <question-comments-list :endpoint="`/questions/${question.id}/comments`" :comments="question.comments" :question="question" />
     </div>
 </template>
 
