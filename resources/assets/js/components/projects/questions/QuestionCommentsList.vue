@@ -5,12 +5,7 @@
       </div>
       
       <div class="list-group question-comments text-muted">
-        <div class="list-group-item" :class="{ 'bg-light': question.resolved }" v-for="comment in comments" :key="comment.id">
-          <div class="d-flex flex-column">
-            <span><strong>{{comment.user.name}}</strong> {{comment.body}}</span>
-            <span style="font-size:.75rem;">{{comment.user.created_at | datetime}}</span>
-          </div>
-        </div>
+        <question-comment-item v-for="comment in comments" :key="comment.id" :comment="comment" :question="question" />
       </div>
       
       <question-comment-form :question="question" />
@@ -18,11 +13,13 @@
 </template>
 <script>
     import QuestionCommentForm from './QuestionCommentForm'
+    import QuestionCommentItem from './QuestionCommentItem'
 
     export default {
         props: ['comments', 'question'],
         components: {
-            QuestionCommentForm
-        }
+            QuestionCommentForm,
+            QuestionCommentItem,
+        },
     }
 </script>
