@@ -66434,6 +66434,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             self.fetchQuestions();
         });
 
+        Bus.$on('question:edited', function () {
+            self.fetchQuestions();
+        });
+
         Bus.$on('question:deleted', function (question) {
             self.questions.splice(self.questions.indexOf(question), 1);
         });
@@ -66532,6 +66536,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -66541,9 +66550,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     ResolveQuestion: __WEBPACK_IMPORTED_MODULE_0__ResolveQuestion___default.a,
     QuestionCommentsList: __WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList___default.a
   },
+  data: function data() {
+    return {
+      form: {
+        question: this.question.question
+      },
+      editing: false
+    };
+  },
   created: function created() {
     var self = this;
-
+    console.log(this.question);
     Bus.$on('question:resolved', function (data) {
       if (data.id == self.question.id) {
         self.question.resolved = !self.question.resolved;
@@ -66552,13 +66569,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    ownsQuestion: function ownsQuestion() {
-      return user.id === this.question.user_id;
+    ownsQuestion: function ownsQuestion(question) {
+      return user.id === question.user.id;
     },
     deleteQuestion: function deleteQuestion(question) {
       axios.delete('/questions/' + question.id).then(function (res) {
         Bus.$emit('question:deleted', question);
       });
+    },
+    updateQuestion: function updateQuestion() {
+      var _this = this;
+
+      axios.patch('/questions/' + this.question.id, this.form).then(function (res) {
+        _this.question.question = res.data.question;
+        _this.editing = false;
+      });
+    },
+    toggleEdit: function toggleEdit() {
+      return this.editing = !this.editing;
     }
   }
 });
@@ -66780,7 +66808,7 @@ var render = function() {
                     _vm._v(
                       _vm._s(_vm._f("datetime")(_vm.question.created_at)) + " "
                     ),
-                    _vm.ownsQuestion
+                    _vm.ownsQuestion(_vm.question)
                       ? _c("span", [
                           _vm._v("• "),
                           _c(
@@ -66795,8 +66823,24 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Delete Question")]
-                          )
+                            [_vm._v("Delete")]
+                          ),
+                          _vm._v(" or "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-muted",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.toggleEdit($event)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          ),
+                          _vm._v(" Question")
                         ])
                       : _vm._e()
                   ]
@@ -66811,9 +66855,79 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "w-100 lead py-4" }, [
-        _c("span", { class: { resolved: _vm.question.resolved } }, [
-          _vm._v(_vm._s(_vm.question.question))
-        ])
+        !_vm.editing
+          ? _c(
+              "span",
+              {
+                class: { resolved: _vm.question.resolved },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.editing = true
+                  }
+                }
+              },
+              [_vm._v(_vm._s(_vm.question.question))]
+            )
+          : _c("div", [
+              _c(
+                "textarea",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.question,
+                      expression: "form.question"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  domProps: { value: _vm.form.question },
+                  on: {
+                    keydown: function($event) {
+                      if (
+                        !("button" in $event) &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.updateQuestion($event)
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "question", $event.target.value)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.question.question))]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "font-italic",
+                  staticStyle: { "font-size": ".75rem" }
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-muted",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.editing = false
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ]
+              )
+            ])
       ]),
       _vm._v(" "),
       _c("question-comments-list", {
@@ -67625,14 +67739,80 @@ var render = function() {
       _c("div", { staticClass: "d-flex flex-column" }, [
         _c("span", [
           _c("strong", [_vm._v(_vm._s(_vm.comment.user.name))]),
-          _vm._v(" " + _vm._s(_vm.comment.body))
+          _vm._v(" "),
+          _vm.ownsComment(_vm.comment)
+            ? _c("span", [_vm._v("hello")])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.ownsComment(_vm.comment) || !_vm.editing
+            ? _c("div", { on: { click: _vm.toggle } }, [
+                _vm._v(_vm._s(_vm.comment.body))
+              ])
+            : _c("div", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.body,
+                      expression: "form.body"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", autofocus: "" },
+                  domProps: { value: _vm.form.body },
+                  on: {
+                    keydown: function($event) {
+                      if (
+                        !("button" in $event) &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.updateComment($event)
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "body", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "font-italic",
+                    staticStyle: { "font-size": ".75rem" }
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-muted",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            _vm.editing = false
+                          }
+                        }
+                      },
+                      [_vm._v("Cancel")]
+                    )
+                  ]
+                )
+              ])
         ]),
         _vm._v(" "),
         _c("span", { staticStyle: { "font-size": ".75rem" } }, [
-          _vm._v(_vm._s(_vm._f("datetime")(_vm.comment.created_at)) + " "),
-          _vm.ownsComment
+          _vm._v(
+            _vm._s(_vm._f("datetime")(_vm.comment.created_at)) + " \n        "
+          ),
+          _vm.ownsComment(_vm.comment)
             ? _c("span", [
-                _vm._v("• "),
+                _vm._v("• \n            "),
                 _c(
                   "a",
                   {
@@ -67646,7 +67826,27 @@ var render = function() {
                     }
                   },
                   [_vm._v("Delete")]
-                )
+                ),
+                _vm._v(" "),
+                !_vm.editing
+                  ? _c("span", [
+                      _vm._v("or "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "text-muted",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.toggle($event)
+                            }
+                          }
+                        },
+                        [_vm._v("Edit")]
+                      )
+                    ])
+                  : _vm._e()
               ])
             : _vm._e()
         ])
@@ -67678,17 +67878,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['comment', 'question'],
+    data: function data() {
+        return {
+            editing: false,
+            form: {
+                body: this.comment.body
+            }
+        };
+    },
+
     methods: {
-        ownsComment: function ownsComment() {
-            return this.comment.id === user.id;
+        ownsComment: function ownsComment(comment) {
+            return comment.user.id === user.id;
         },
         deleteComment: function deleteComment(comment) {
             axios.delete('/comments/' + comment.id).then(function (res) {
                 Bus.$emit('comment:deleted', comment);
             });
+        },
+        updateComment: function updateComment() {
+            var _this = this;
+
+            axios.patch('/comments/' + this.comment.id, this.form).then(function (res) {
+                _this.comment.body = res.data.body;
+                _this.editing = false;
+            });
+        },
+        toggle: function toggle() {
+            this.form.body = this.comment.body;
+            this.editing = !this.editing;
         }
     }
 });
