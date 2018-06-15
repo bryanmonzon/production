@@ -66433,6 +66433,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             self.fetchQuestions();
         });
 
+        Bus.$on('question:deleted', function () {
+            self.fetchQuestions();
+        });
+
         Bus.$on('comment:added', function (comment) {
             self.fetchQuestions();
         });
@@ -66552,6 +66556,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         self.question.resolved = !self.question.resolved;
       }
     });
+  },
+
+  methods: {
+    ownsQuestion: function ownsQuestion() {
+      return user.id === this.question.user_id;
+    },
+    deleteQuestion: function deleteQuestion() {
+      axios.delete('/questions/' + this.question.id).then(function (res) {
+        Bus.$emit('question:deleted');
+      });
+    }
   }
 });
 
@@ -66768,7 +66783,30 @@ var render = function() {
                     staticClass: "font-italic",
                     staticStyle: { "font-size": ".75rem" }
                   },
-                  [_vm._v(_vm._s(_vm._f("datetime")(_vm.question.created_at)))]
+                  [
+                    _vm._v(
+                      _vm._s(_vm._f("datetime")(_vm.question.created_at)) + " "
+                    ),
+                    _vm.ownsQuestion
+                      ? _c("span", [
+                          _vm._v("• "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-muted",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteQuestion($event)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete Question")]
+                          )
+                        ])
+                      : _vm._e()
+                  ]
                 )
               ])
             ]
