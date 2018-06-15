@@ -19,6 +19,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script>
+        window.user = <?php if(auth()->check() ) { echo json_encode(auth()->user()); } ?>
+    </script>
 </head>
 <body>
     <div id="app">
