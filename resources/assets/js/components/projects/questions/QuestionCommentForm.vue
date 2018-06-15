@@ -1,6 +1,10 @@
 <template>
     <div class="comment-form pb-3">
-      <input type="text" class="form-control rounded" placeholder="Write a comment" @keydown.enter="submitComment" v-model="form.body">
+      <input type="text" 
+        class="form-control rounded" 
+        placeholder="Write a comment" 
+        @keydown.enter="submitComment" 
+        v-model="form.body">
     </div>
 </template>
 <script>
