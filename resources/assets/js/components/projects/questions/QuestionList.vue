@@ -25,6 +25,10 @@
                 self.fetchQuestions()
             });
 
+            Bus.$on('question:deleted', function(){
+                self.fetchQuestions()
+            });
+
             Bus.$on('comment:added', function(comment) {
                 self.fetchQuestions()
             })
