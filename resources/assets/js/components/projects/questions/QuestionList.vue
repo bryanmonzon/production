@@ -28,6 +28,10 @@
             Bus.$on('comment:added', function(comment) {
                 self.fetchQuestions()
             })
+
+            Bus.$on('comment:deleted', function(comment) {
+                self.fetchQuestions()
+            })
         },
         methods: {
             fetchQuestions() {
