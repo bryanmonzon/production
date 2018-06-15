@@ -65902,7 +65902,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['planId', 'projectId'],
+  props: ['projectId'],
   data: function data() {
     return {
       allChecked: false,
@@ -65912,6 +65912,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     this.fetchUsers();
+
     Bus.$on('showUsersProjectModal', function () {
       $('#userPicker').modal('show');
     });
