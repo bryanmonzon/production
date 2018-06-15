@@ -5,7 +5,7 @@
             <img :src="question.user.avatar" style="height:30px; width:30px; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);" class="rounded-circle mr-2" /> 
             <span class="d-flex flex-column">
               <a href="#"><strong>{{ question.user.name }}</strong></a>
-              <span style="font-size:.75rem;" class="font-italic">{{ question.created_at | datetime }} <span v-if="ownsQuestion">• <a href="#" @click.prevent="deleteQuestion" class="text-muted">Delete Question</a></span></span>
+              <span style="font-size:.75rem;" class="font-italic">{{ question.created_at | datetime }} <span v-if="ownsQuestion">• <a href="#" @click.prevent="deleteQuestion(question)" class="text-muted">Delete Question</a></span></span>
             </span>
           </span>
           <resolve-question :question="question" />
@@ -39,10 +39,10 @@
           ownsQuestion() {
             return user.id === this.question.user_id
           },
-          deleteQuestion() {
-            axios.delete(`/questions/${this.question.id}`)
+          deleteQuestion(question) {
+            axios.delete(`/questions/${question.id}`)
               .then( res => {
-                Bus.$emit('question:deleted');
+                Bus.$emit('question:deleted', question);
               })
           }
         }
