@@ -10,7 +10,7 @@ class QuestionCommentsController extends Controller
 {
     public function index(Question $question)
     {
-        return response()->json($question->comments()->get(), 200);
+        return response()->json($question->comments()->with('user')->get(), 200);
     }
 
     public function store(Question $question)
