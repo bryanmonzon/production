@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-4">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{$project->name}}</div>
@@ -12,7 +12,27 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="mb-2 text-right">
+                <add-users-project-button></add-users-project-button>
+            </div>
+            <div class="card">
+                <div class="card-header">Users</div>
+                <users-project-list 
+                    project="{{ $project }}" 
+                    endpoint="{{ route('projects.users', $project) }}" 
+                >
+                </users-project-list>
+
+            </div>
+        </div>
+    </div>
 </div>
+
+<add-users-project-modal project-id="{{$project->id}}"></add-users-project-modal>
+
 <div class="fixed-bottom production-footer bg-light border-top py-2">
     <div class="container d-flex justify-content-between">
         <form action="{{route('projects.delete', $project)}}" method="POST">
