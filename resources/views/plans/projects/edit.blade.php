@@ -22,7 +22,7 @@
                 <div class="card-header">Users</div>
                 <users-project-list 
                     project="{{ $project }}" 
-                    endpoint="{{ route('plan.projects.users', [$plan, $project]) }}" 
+                    endpoint="{{ route('projects.users', $project) }}" 
                 >
                 </users-project-list>
 
