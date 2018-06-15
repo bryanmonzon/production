@@ -3,7 +3,6 @@
       <div class="d-flex flex-column">
         <span>
             <strong>{{comment.user.name}}</strong>
-            <span v-if="ownsComment(comment)">hello</span>
             <div @click="toggle" v-if="ownsComment(comment) || !editing">{{comment.body}}</div> 
             <div v-else>
                 <input type="text" class="form-control" @keydown.enter="updateComment" v-model="form.body" autofocus>

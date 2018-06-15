@@ -67740,10 +67740,6 @@ var render = function() {
         _c("span", [
           _c("strong", [_vm._v(_vm._s(_vm.comment.user.name))]),
           _vm._v(" "),
-          _vm.ownsComment(_vm.comment)
-            ? _c("span", [_vm._v("hello")])
-            : _vm._e(),
-          _vm._v(" "),
           _vm.ownsComment(_vm.comment) || !_vm.editing
             ? _c("div", { on: { click: _vm.toggle } }, [
                 _vm._v(_vm._s(_vm.comment.body))
@@ -67870,7 +67866,6 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
