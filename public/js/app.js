@@ -66436,14 +66436,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Bus.$on('question:deleted', function () {
             self.fetchQuestions();
         });
-
-        Bus.$on('comment:added', function (comment) {
-            self.fetchQuestions();
-        });
-
-        Bus.$on('comment:deleted', function (comment) {
-            self.fetchQuestions();
-        });
     },
 
     methods: {
@@ -66824,7 +66816,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("question-comments-list", {
-        attrs: { comments: _vm.question.comments, question: _vm.question }
+        attrs: {
+          endpoint: "/questions/" + _vm.question.id + "/comments",
+          comments: _vm.question.comments,
+          question: _vm.question
+        }
       })
     ],
     1
@@ -67331,16 +67327,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['comments', 'question'],
-    components: {
-        QuestionCommentForm: __WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm___default.a,
-        QuestionCommentItem: __WEBPACK_IMPORTED_MODULE_1__QuestionCommentItem___default.a
+  props: ['question', 'endpoint'],
+  data: function data() {
+    return {
+      comments: []
+    };
+  },
+
+  components: {
+    QuestionCommentForm: __WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm___default.a,
+    QuestionCommentItem: __WEBPACK_IMPORTED_MODULE_1__QuestionCommentItem___default.a
+  },
+  created: function created() {
+    var self = this;
+    this.fetchComments();
+
+    Bus.$on('comment:added', function (comment) {
+      // console.log(comment)
+      self.comments.push(comment);
+    });
+
+    Bus.$on('comment:deleted', function (comment) {
+      self.comments.splice(self.comments.indexOf(comment), 1);
+    });
+  },
+
+  methods: {
+    fetchComments: function fetchComments() {
+      var _this = this;
+
+      axios.get(this.endpoint).then(function (res) {
+        _this.comments = res.data;
+      }).catch(function (err) {
+        console.log(err);
+      });
     }
+  }
 });
 
 /***/ }),
@@ -67362,10 +67391,16 @@ var render = function() {
         "div",
         { staticClass: "list-group question-comments text-muted" },
         _vm._l(_vm.comments, function(comment) {
-          return _c("question-comment-item", {
-            key: comment.id,
-            attrs: { comment: comment, question: _vm.question }
-          })
+          return _c(
+            "div",
+            { key: comment.id },
+            [
+              _c("question-comment-item", {
+                attrs: { comment: comment, question: _vm.question }
+              })
+            ],
+            1
+          )
         })
       ),
       _vm._v(" "),
@@ -67597,7 +67632,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.deleteComment($event)
+                        _vm.deleteComment(_vm.comment)
                       }
                     }
                   },
@@ -67641,9 +67676,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         ownsComment: function ownsComment() {
             return this.comment.id === user.id;
         },
-        deleteComment: function deleteComment() {
-            axios.delete('/comments/' + this.comment.id).then(function (res) {
-                Bus.$emit('comment:deleted');
+        deleteComment: function deleteComment(comment) {
+            axios.delete('/comments/' + comment.id).then(function (res) {
+                Bus.$emit('comment:deleted', comment);
             });
         }
     }
