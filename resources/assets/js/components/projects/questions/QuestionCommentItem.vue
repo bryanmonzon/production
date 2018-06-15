@@ -1,15 +1,13 @@
 <template>
     <div class="list-group-item" :class="{ 'bg-light': question.resolved }">
       <div class="d-flex flex-column">
-        <span>
-            <strong>{{comment.user.name}}</strong>
-            <div @click="toggle" v-if="ownsComment(comment) || !editing">{{comment.body}}</div> 
-            <div v-else>
-                <input type="text" class="form-control" @keydown.enter="updateComment" v-model="form.body" autofocus>
-                <span style="font-size:.75rem;" class="font-italic">
-                    <a href="#" class="text-muted" @click.prevent="editing = false">Cancel</a>
-                </span>
-            </div>
+        <span class="comment-author">
+            <strong><a href="#">{{comment.user.name}}</a></strong>
+            <div @click="toggle" v-show="!editing" style="display:inline">{{comment.body}}</div> 
+            <input type="text" class="form-control" @keydown.enter="updateComment" v-model="form.body" v-if="editing" autofocus>
+            <span style="font-size:.75rem;" class="font-italic" v-if="editing">
+                <a href="#" class="text-muted" @click.prevent="editing = false">Cancel</a>
+            </span>
         </span>
         <span style="font-size:.75rem;">{{comment.created_at | datetime}} 
             <span v-if="ownsComment(comment)">• 
@@ -52,8 +50,10 @@
                     })
             },
             toggle() {
-                this.form.body = this.comment.body
-                this.editing = !this.editing
+                if( this.ownsComment(this.comment) ) {
+                    this.form.body = this.comment.body
+                    this.editing = !this.editing
+                }
             }
         }
     }

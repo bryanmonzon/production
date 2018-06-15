@@ -67737,69 +67737,88 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "d-flex flex-column" }, [
-        _c("span", [
-          _c("strong", [_vm._v(_vm._s(_vm.comment.user.name))]),
+        _c("span", { staticClass: "comment-author" }, [
+          _c("strong", [
+            _c("a", { attrs: { href: "#" } }, [
+              _vm._v(_vm._s(_vm.comment.user.name))
+            ])
+          ]),
           _vm._v(" "),
-          _vm.ownsComment(_vm.comment) || !_vm.editing
-            ? _c("div", { on: { click: _vm.toggle } }, [
-                _vm._v(_vm._s(_vm.comment.body))
-              ])
-            : _c("div", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.body,
-                      expression: "form.body"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", autofocus: "" },
-                  domProps: { value: _vm.form.body },
-                  on: {
-                    keydown: function($event) {
-                      if (
-                        !("button" in $event) &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
-                      }
-                      return _vm.updateComment($event)
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "body", $event.target.value)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.editing,
+                  expression: "!editing"
+                }
+              ],
+              staticStyle: { display: "inline" },
+              on: { click: _vm.toggle }
+            },
+            [_vm._v(_vm._s(_vm.comment.body))]
+          ),
+          _vm._v(" "),
+          _vm.editing
+            ? _c("input", {
+                directives: [
                   {
-                    staticClass: "font-italic",
-                    staticStyle: { "font-size": ".75rem" }
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.body,
+                    expression: "form.body"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", autofocus: "" },
+                domProps: { value: _vm.form.body },
+                on: {
+                  keydown: function($event) {
+                    if (
+                      !("button" in $event) &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.updateComment($event)
                   },
-                  [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-muted",
-                        attrs: { href: "#" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            _vm.editing = false
-                          }
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "body", $event.target.value)
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.editing
+            ? _c(
+                "span",
+                {
+                  staticClass: "font-italic",
+                  staticStyle: { "font-size": ".75rem" }
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-muted",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.editing = false
                         }
-                      },
-                      [_vm._v("Cancel")]
-                    )
-                  ]
-                )
-              ])
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ]
+              )
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("span", { staticStyle: { "font-size": ".75rem" } }, [
@@ -67889,8 +67908,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['comment', 'question'],
@@ -67921,8 +67938,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         toggle: function toggle() {
-            this.form.body = this.comment.body;
-            this.editing = !this.editing;
+            if (this.ownsComment(this.comment)) {
+                this.form.body = this.comment.body;
+                this.editing = !this.editing;
+            }
         }
     }
 });
