@@ -33,6 +33,8 @@ Vue.component('add-users-project-modal', require('./components/plans/users/AddUs
 Vue.component('new-question', require('./components/projects/questions/NewQuestion.vue'))
 Vue.component('question-list', require('./components/projects/questions/QuestionList.vue'))
 
+Vue.component('new-concern', require('./components/projects/concerns/NewConcern.vue'))
+Vue.component('concern-list', require('./components/projects/concerns/ConcernList.vue'))
 
 const app = new Vue({
     el: '#app'
