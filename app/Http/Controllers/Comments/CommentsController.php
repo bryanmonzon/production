@@ -14,4 +14,15 @@ class CommentsController extends Controller
 
         return response()->json(204);
     }
+
+    public function update(Comment $comment)
+    {
+        request()->validate([
+            'body' => 'required'
+        ]);
+
+        $comment->update(request()->all());
+
+        return response()->json($comment->load('user'), 202);
+    }
 }
