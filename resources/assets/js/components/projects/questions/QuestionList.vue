@@ -25,6 +25,10 @@
                 self.fetchQuestions()
             });
 
+            Bus.$on('question:edited', function(){
+                self.fetchQuestions()
+            });
+
             Bus.$on('question:deleted', function(question){
                 self.questions.splice(self.questions.indexOf(question), 1)
             });
