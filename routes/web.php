@@ -47,9 +47,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('plans/{plan}/projects/{project}', 'PlanProjects\PlanProjectController@delete');
 
     Route::patch('questions/{question}', 'Questions\QuestionsController@update')->name('questions.update');
+    Route::delete('questions/{question}', 'Questions\QuestionsController@delete')->name('questions.delete');
 
     Route::get('questions/{question}/comments', 'Questions\QuestionCommentsController@index')->name('questions.comments.index');
     Route::post('questions/{question}/comments', 'Questions\QuestionCommentsController@store')->name('questions.comments.store');
+    
 
     Route::delete('comments/{comment}', 'Comments\CommentsController@delete')->name('comments.delete');
 
