@@ -43,7 +43,7 @@
 
 <script>
   export default {
-    props: ['planId', 'projectId'],
+    props: ['projectId'],
     data() {
       return {
         allChecked: false,
@@ -53,6 +53,7 @@
     },
     mounted() {
       this.fetchUsers()
+      
       Bus.$on('showUsersProjectModal', function() {
         $('#userPicker').modal('show');
       })
