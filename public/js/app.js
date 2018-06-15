@@ -66436,6 +66436,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Bus.$on('comment:added', function (comment) {
             self.fetchQuestions();
         });
+
+        Bus.$on('comment:deleted', function (comment) {
+            self.fetchQuestions();
+        });
     },
 
     methods: {
@@ -67274,6 +67278,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm__ = __webpack_require__(229);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QuestionCommentItem__ = __webpack_require__(232);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QuestionCommentItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__QuestionCommentItem__);
 //
 //
 //
@@ -67287,18 +67293,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['comments', 'question'],
     components: {
-        QuestionCommentForm: __WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm___default.a
+        QuestionCommentForm: __WEBPACK_IMPORTED_MODULE_0__QuestionCommentForm___default.a,
+        QuestionCommentItem: __WEBPACK_IMPORTED_MODULE_1__QuestionCommentItem___default.a
     }
 });
 
@@ -67321,26 +67324,10 @@ var render = function() {
         "div",
         { staticClass: "list-group question-comments text-muted" },
         _vm._l(_vm.comments, function(comment) {
-          return _c(
-            "div",
-            {
-              key: comment.id,
-              staticClass: "list-group-item",
-              class: { "bg-light": _vm.question.resolved }
-            },
-            [
-              _c("div", { staticClass: "d-flex flex-column" }, [
-                _c("span", [
-                  _c("strong", [_vm._v(_vm._s(comment.user.name))]),
-                  _vm._v(" " + _vm._s(comment.body))
-                ]),
-                _vm._v(" "),
-                _c("span", { staticStyle: { "font-size": ".75rem" } }, [
-                  _vm._v(_vm._s(_vm._f("datetime")(comment.user.created_at)))
-                ])
-              ])
-            ]
-          )
+          return _c("question-comment-item", {
+            key: comment.id,
+            attrs: { comment: comment, question: _vm.question }
+          })
         })
       ),
       _vm._v(" "),
@@ -67490,6 +67477,139 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-811011c6", module.exports)
   }
 }
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(234)
+/* template */
+var __vue_template__ = __webpack_require__(233)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/projects/questions/QuestionCommentItem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2d28b428", Component.options)
+  } else {
+    hotAPI.reload("data-v-2d28b428", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "list-group-item",
+      class: { "bg-light": _vm.question.resolved }
+    },
+    [
+      _c("div", { staticClass: "d-flex flex-column" }, [
+        _c("span", [
+          _c("strong", [_vm._v(_vm._s(_vm.comment.user.name))]),
+          _vm._v(" " + _vm._s(_vm.comment.body))
+        ]),
+        _vm._v(" "),
+        _c("span", { staticStyle: { "font-size": ".75rem" } }, [
+          _vm._v(_vm._s(_vm._f("datetime")(_vm.comment.created_at)) + " "),
+          _vm.ownsComment
+            ? _c("span", [
+                _vm._v("• "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-muted",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.deleteComment($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Delete")]
+                )
+              ])
+            : _vm._e()
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2d28b428", module.exports)
+  }
+}
+
+/***/ }),
+/* 234 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['comment', 'question'],
+    methods: {
+        ownsComment: function ownsComment() {
+            return this.comment.id === user.id;
+        },
+        deleteComment: function deleteComment() {
+            axios.delete('/comments/' + this.comment.id).then(function (res) {
+                Bus.$emit('comment:deleted');
+            });
+        }
+    }
+});
 
 /***/ })
 /******/ ]);
