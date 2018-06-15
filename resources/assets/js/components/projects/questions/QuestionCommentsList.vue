@@ -5,9 +5,9 @@
       </div>
       
       <div class="list-group question-comments text-muted">
-        <div v-for="comment in comments" :key="comment.id">
-          <question-comment-item :comment="comment" :question="question" />
-        </div>
+          <transition-group name="slide-fade">
+            <question-comment-item v-for="comment in comments" :key="comment.id" :comment="comment" :question="question" />
+          </transition-group>
       </div>
       
       <question-comment-form :question="question" />
@@ -33,8 +33,7 @@
           this.fetchComments()
 
           Bus.$on('comment:added', function(comment) {
-              // console.log(comment)
-              self.comments.push(comment)
+              self.fetchComments()
           })
 
           Bus.$on('comment:deleted', function(comment) {
@@ -54,5 +53,16 @@
         }
     }
 </script>
-
-
+<style>
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+</style>
