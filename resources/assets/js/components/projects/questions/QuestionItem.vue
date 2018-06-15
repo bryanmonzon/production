@@ -41,7 +41,6 @@
         },
         created() {
           let self = this
-          console.log(this.question)
           Bus.$on('question:resolved', function(data) {
             if( data.id == self.question.id ) {
               self.question.resolved = !self.question.resolved
