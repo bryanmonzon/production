@@ -14,4 +14,11 @@ class QuestionsController extends Controller
 
         return response()->json($question, 202);
     }
+
+    public function delete(Question $question)
+    {
+        $question->delete();
+
+        return response()->json(204);
+    }
 }
