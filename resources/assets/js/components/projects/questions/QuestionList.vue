@@ -25,8 +25,8 @@
                 self.fetchQuestions()
             });
 
-            Bus.$on('question:deleted', function(){
-                self.fetchQuestions()
+            Bus.$on('question:deleted', function(question){
+                self.questions.splice(self.questions.indexOf(question), 1)
             });
         },
         methods: {
