@@ -22,4 +22,9 @@ class Project extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function concerns()
+    {
+        return $this->hasMany(Concern::class);
+    }
 }
