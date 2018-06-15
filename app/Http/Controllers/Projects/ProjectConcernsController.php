@@ -19,11 +19,11 @@ class ProjectConcernsController extends Controller
             'body' => 'required'
         ]);
         
-        $concern = $question->comments()->make([
+        $concern = $project->concerns()->make([
             'body' => request('body')
         ]);
 
-        $concern = request()->user()->concernss()->save($concern);
+        $concern = request()->user()->concerns()->save($concern);
 
         return response()->json($concern->load('user'), 201);
     }
