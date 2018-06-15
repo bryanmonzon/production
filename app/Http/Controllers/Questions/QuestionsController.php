@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Questions;
 
 use App\Question;
@@ -17,6 +16,7 @@ class QuestionsController extends Controller
 
     public function delete(Question $question)
     {
+        $question->comments()->delete();
         $question->delete();
 
         return response()->json(204);
