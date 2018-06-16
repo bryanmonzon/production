@@ -68332,6 +68332,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -68350,6 +68352,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Bus.$on('concern:added', function () {
             self.fetchConcerns();
+        });
+
+        Bus.$on('concern:deleted', function (concern) {
+            self.concerns.splice(self.concerns.indexOf(concern), 1);
         });
     },
 
@@ -68452,7 +68458,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.priority-4 {\n    border-left: 0px;\n}\n.priority-3 {\n    border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n    border-left: 3px solid #ffc107;\n}\n.priority-1 {\n    border-left: 3px solid #dc3545;\n}\n.concern-resolved .concern-body,\n.concern-resolved .concern-author {\n    opacity: .5;\n}\nimg.concern-author-image {\n    height:20px;\n    width:20px;\n}\n", ""]);
+exports.push([module.i, "\n.priority-4 {\n    border-left: 0px;\n}\n.priority-3 {\n    border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n    border-left: 3px solid #ffc107;\n}\n.priority-1 {\n    border-left: 3px solid #dc3545;\n}\n.concern-resolved .concern-body,\n.concern-resolved .concern-author {\n    opacity: .5;\n}\n.slide-fade-enter-active {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.slide-fade-leave-active {\n  -webkit-transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter, .slide-fade-leave-to\n/* .slide-fade-leave-active below version 2.1.8 */ {\n  -webkit-transform: translateX(10px);\n          transform: translateX(10px);\n  opacity: 0;\n}\n.concern-body-wrap {\n    width:80%;\n}\nimg.concern-author-image {\n    height:20px;\n    width:20px;\n    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n", ""]);
 
 // exports
 
@@ -68463,6 +68469,9 @@ exports.push([module.i, "\n.priority-4 {\n    border-left: 0px;\n}\n.priority-3 
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -68502,7 +68511,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'priority-3': this.concern.priority === 3,
                 'priority-2': this.concern.priority === 2,
                 'priority-1': this.concern.priority === 1,
-                'concern-resolved': this.resolved
+                'concern-resolved': this.resolved,
+                'owns-concern': this.concern.user.id === user.id
             };
         }
     },
@@ -68513,6 +68523,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 resolved: this.resolved
             }).then(function (res) {
                 Bus.$emit('concern:resolved', res.data);
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        deleteConcern: function deleteConcern(concern) {
+            axios.delete('/concerns/' + this.concern.id).then(function (res) {
+                Bus.$emit('concern:deleted', concern);
             }).catch(function (err) {
                 console.log(err);
             });
@@ -68536,19 +68553,29 @@ var render = function() {
       class: _vm.classObject
     },
     [
-      _c("span", { staticClass: "d-flex flex-wrap align-items-center" }, [
-        _c("div", { staticClass: "mr-2 concern-body" }, [
-          _vm._v(_vm._s(_vm.concern.body))
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "concern-date text-muted concern-author" }, [
-          _vm._v(_vm._s(_vm._f("date")(_vm.concern.created_at)) + " "),
-          _c("img", {
-            staticClass: "concern-author-image rounded-circle mr-1",
-            attrs: { src: _vm.concern.user.avatar }
-          })
-        ])
-      ]),
+      _c(
+        "span",
+        {
+          staticClass: "d-flex flex-wrap align-items-center concern-body-wrap"
+        },
+        [
+          _c("div", { staticClass: "mr-2 concern-body" }, [
+            _vm._v(_vm._s(_vm.concern.body))
+          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            { staticClass: "concern-date text-muted concern-author" },
+            [
+              _vm._v(_vm._s(_vm._f("date")(_vm.concern.created_at)) + " "),
+              _c("img", {
+                staticClass: "concern-author-image rounded-circle mr-1",
+                attrs: { src: _vm.concern.user.avatar }
+              })
+            ]
+          )
+        ]
+      ),
       _vm._v(" "),
       _c("span", [
         !this.resolved
@@ -68558,10 +68585,7 @@ var render = function() {
                 staticClass: "btn btn-sm btn-outline-secondary",
                 on: { click: _vm.resolveConcern }
               },
-              [
-                _c("i", { staticClass: "far fa-circle" }),
-                _vm._v(" Resolve\n        ")
-              ]
+              [_c("i", { staticClass: "far fa-circle" })]
             )
           : _c(
               "button",
@@ -68569,11 +68593,22 @@ var render = function() {
                 staticClass: "btn btn-sm btn-success",
                 on: { click: _vm.resolveConcern }
               },
-              [
-                _c("i", { staticClass: "far fa-check-circle" }),
-                _vm._v(" Resolved\n        ")
-              ]
-            )
+              [_c("i", { staticClass: "far fa-check-circle" })]
+            ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-outline-danger",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.deleteConcern(_vm.concern)
+              }
+            }
+          },
+          [_c("i", { staticClass: "fal fa-minus-circle" })]
+        )
       ])
     ]
   )
@@ -68599,12 +68634,19 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "list-group" },
-    _vm._l(_vm.concerns, function(concern) {
-      return _c("concern-item", {
-        key: concern.id,
-        attrs: { concern: concern }
-      })
-    })
+    [
+      _c(
+        "transition-group",
+        { attrs: { name: "slide-fade" } },
+        _vm._l(_vm.concerns, function(concern) {
+          return _c("concern-item", {
+            key: concern.id,
+            attrs: { concern: concern }
+          })
+        })
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = []
