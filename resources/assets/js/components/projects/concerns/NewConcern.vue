@@ -1,11 +1,19 @@
 <template>
     <div>
-        <form @submit="submitConcern" @keydown.enter="submitConcern">
+        <form @submit="submitConcern">
             <div class="form-group">
                 <textarea class="form-control" v-model="form.body"></textarea>
             </div>
+            <div class="form-group">
+                <select class="form-control" v-model="form.priority">
+                    <option :value="4">4 (lowest priority)</option>
+                    <option :value="3">3</option>
+                    <option :value="2">2</option>
+                    <option :value="1">1 (highest priority)</option>
+                </select>
+            </div>
             <div class="form-group d-flex flex-row-reverse">
-                <button @click.prevent="submitConcern" 
+                <button 
                     class="btn btn-primary"
                     :disabled="validateFormConcern"
                 >Add your Concern</button>
@@ -20,7 +28,8 @@
         data() {
             return {
                 form: {
-                    body: ''
+                    body: '',
+                    priority: 4
                 }
             }
         },
