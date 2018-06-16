@@ -29,8 +29,6 @@
                 axios.get(this.endpoint)
                     .then(res => {
                         this.concerns = res.data
-
-                        console.log(this.concerns)
                     })
                     .catch( err => {
                         console.log(err)
