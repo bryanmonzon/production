@@ -25,6 +25,7 @@ class Project extends Model
 
     public function concerns()
     {
-        return $this->hasMany(Concern::class);
+        return $this->hasMany(Concern::class)
+            ->orderBy('created_at', 'desc');
     }
 }
