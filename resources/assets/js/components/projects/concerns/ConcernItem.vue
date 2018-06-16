@@ -4,26 +4,17 @@
             <div class="mr-2 concern-body">{{ concern.body }}</div>
             <span class="concern-date text-muted concern-author">{{concern.created_at | date }} by {{concern.user.name}}</span>
         </span>
-        <span>
-            <button class="btn btn-sm btn-outline-secondary" 
-                @click="resolveConcern" 
-                v-if="!this.resolved"
-            >
-                <i class="far fa-circle"></i> Resolve
-            </button>
-            <button class="btn btn-sm btn-success" 
-                @click="resolveConcern" 
-                v-else
-            >
-                <i class="far fa-check-circle"></i> Resolved
-            </button>
-        </span>
+        <resolve-concern :concern="concern" />
     </div>
 </template>
 
 <script>
+    import ResolveConcern from './ResolveConcern'
     export default {
         props: ['concern'],
+        components: {
+            ResolveConcern
+        },
         data() {
             return {
                 resolved: this.concern.resolved
@@ -38,20 +29,6 @@
                     'priority-1': this.concern.priority === 1,
                     'concern-resolved': this.resolved,
                 }
-            }
-        },
-        methods: {
-            resolveConcern() {
-                this.resolved = !this.resolved
-                axios.patch(`/concerns/${this.concern.id}`, {
-                    resolved: this.resolved
-                })
-                .then(res => {
-                    Bus.$emit('concern:resolved', res.data)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
             }
         }
     }
