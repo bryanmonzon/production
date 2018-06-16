@@ -1,5 +1,5 @@
 <template>
-    <div class="list-group">
+    <div class="list-group concerns">
         <transition-group name="slide-fade">
             <concern-item v-for="concern in concerns" :key="concern.id" :concern="concern" />
         </transition-group>
@@ -45,6 +45,10 @@
 </script>
 
 <style>
+    .concerns .list-group-item:first-child{
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+        }
     .concern-date {
         font-size:.75rem;
     }

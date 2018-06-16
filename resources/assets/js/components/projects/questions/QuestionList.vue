@@ -1,5 +1,5 @@
 <template>
-    <div class="list-group">
+    <div class="list-group questions">
         <question-item v-for="question in questions" :question="question" :key="question.id" />
     </div>
 </template>
@@ -46,3 +46,9 @@
         }
     }
 </script>
+<style>
+    .questions .list-group-item:first-child{
+      border-top-right-radius: 0px;
+      border-top-left-radius: 0px;
+    }
+</style>

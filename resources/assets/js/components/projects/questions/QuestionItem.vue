@@ -1,5 +1,5 @@
 <template>
-    <div class="list-group-item" :class="{ 'unresolved': !question.resolved, 'bg-light': question.resolved }">
+    <div class="list-group-item" :class="{ 'unresolved': !question.resolved, 'bg-light resolved': question.resolved }">
       <div class="mw-100 text-muted d-flex justify-content-between align-items-center">
           <span class="d-flex flex-row align-items-center author-wrap">
             <img :src="question.user.avatar" class="question-avatar rounded-circle mr-2" /> 
@@ -88,10 +88,11 @@
   }
   .resolved {
     text-decoration:line-through;
-    color: #9da6af !important
+    color: #9da6af !important;
+    border-left: 3px solid #6c757d;
   }
   .unresolved {
-    border-top:3px solid green;
+    border-left:3px solid green;
   }
   .question-comments {
     margin-top:5px;

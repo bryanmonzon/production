@@ -66750,6 +66750,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(252)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(214)
@@ -66758,7 +66762,7 @@ var __vue_template__ = __webpack_require__(234)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -66935,7 +66939,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.author-wrap {\n  line-height: 1rem;\n}\n.resolved {\n  text-decoration:line-through;\n  color: #9da6af !important\n}\n.unresolved {\n  border-top:3px solid green;\n}\n.question-comments {\n  margin-top:5px;\n}\n.comment-form {\n  margin-top:10px;\n}\nimg.question-avatar {\n  height:30px;\n  width:30px;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n", ""]);
+exports.push([module.i, "\n.author-wrap {\n  line-height: 1rem;\n}\n.resolved {\n  text-decoration:line-through;\n  color: #9da6af !important;\n  border-left: 3px solid #6c757d;\n}\n.unresolved {\n  border-left:3px solid green;\n}\n.question-comments {\n  margin-top:5px;\n}\n.comment-form {\n  margin-top:10px;\n}\nimg.question-avatar {\n  height:30px;\n  width:30px;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n", ""]);
 
 // exports
 
@@ -67825,7 +67829,7 @@ var render = function() {
       staticClass: "list-group-item",
       class: {
         unresolved: !_vm.question.resolved,
-        "bg-light": _vm.question.resolved
+        "bg-light resolved": _vm.question.resolved
       }
     },
     [
@@ -68016,7 +68020,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "list-group" },
+    { staticClass: "list-group questions" },
     _vm._l(_vm.questions, function(question) {
       return _c("question-item", {
         key: question.id,
@@ -68353,7 +68357,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.concern-date {\n    font-size:.75rem;\n}\n", ""]);
+exports.push([module.i, "\n.concerns .list-group-item:first-child{\n    border-top-right-radius: 0px;\n    border-top-left-radius: 0px;\n}\n.concern-date {\n    font-size:.75rem;\n}\n", ""]);
 
 // exports
 
@@ -68696,7 +68700,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "list-group" },
+    { staticClass: "list-group concerns" },
     [
       _c(
         "transition-group",
@@ -68727,6 +68731,49 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(253);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("6a95682d", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-091dd434\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./QuestionList.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-091dd434\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./QuestionList.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.questions .list-group-item:first-child{\n  border-top-right-radius: 0px;\n  border-top-left-radius: 0px;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
