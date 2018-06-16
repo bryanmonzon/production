@@ -68059,13 +68059,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['endpoint'],
     data: function data() {
         return {
             form: {
-                body: ''
+                body: '',
+                priority: 4
             }
         };
     },
@@ -68098,64 +68107,88 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "form",
-      {
-        on: {
-          submit: _vm.submitConcern,
-          keydown: function($event) {
-            if (
-              !("button" in $event) &&
-              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-            ) {
-              return null
+    _c("form", { on: { submit: _vm.submitConcern } }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.form.body,
+              expression: "form.body"
             }
-            return _vm.submitConcern($event)
+          ],
+          staticClass: "form-control",
+          domProps: { value: _vm.form.body },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.form, "body", $event.target.value)
+            }
           }
-        }
-      },
-      [
-        _c("div", { staticClass: "form-group" }, [
-          _c("textarea", {
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c(
+          "select",
+          {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.form.body,
-                expression: "form.body"
+                value: _vm.form.priority,
+                expression: "form.priority"
               }
             ],
             staticClass: "form-control",
-            domProps: { value: _vm.form.body },
             on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "body", $event.target.value)
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.$set(
+                  _vm.form,
+                  "priority",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
               }
             }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group d-flex flex-row-reverse" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { disabled: _vm.validateFormConcern },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.submitConcern($event)
-                }
-              }
-            },
-            [_vm._v("Add your Concern")]
-          )
-        ])
-      ]
-    )
+          },
+          [
+            _c("option", { domProps: { value: 4 } }, [
+              _vm._v("4 (lowest priority)")
+            ]),
+            _vm._v(" "),
+            _c("option", { domProps: { value: 3 } }, [_vm._v("3")]),
+            _vm._v(" "),
+            _c("option", { domProps: { value: 2 } }, [_vm._v("2")]),
+            _vm._v(" "),
+            _c("option", { domProps: { value: 1 } }, [
+              _vm._v("1 (highest priority)")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group d-flex flex-row-reverse" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            attrs: { disabled: _vm.validateFormConcern }
+          },
+          [_vm._v("Add your Concern")]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -68510,7 +68543,7 @@ exports = module.exports = __webpack_require__(219)(false);
 
 
 // module
-exports.push([module.i, "\n.priority-4 {\n    border-left: 3px solid #dc3545;\n}\n.priority-3 {\n    border-left: 3px solid #ffc107;\n}\n.priority-2 {\n    border-left: 3px solid #17a2b8;\n}\n.priority-1 {\n    border-left: 0px;\n}\n", ""]);
+exports.push([module.i, "\n.priority-4 {\n    border-left: 0px;\n}\n.priority-3 {\n    border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n    border-left: 3px solid #ffc107;\n}\n.priority-1 {\n    border-left: 3px solid #dc3545;\n}\n", ""]);
 
 // exports
 
