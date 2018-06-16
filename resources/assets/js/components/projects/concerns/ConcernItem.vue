@@ -17,8 +17,11 @@
             >
                 <i class="far fa-check-circle"></i>
             </button>
-            <button class="btn btn-sm btn-outline-danger" @click.prevent="deleteConcern(concern)">
+            <button class="btn btn-sm btn-outline-danger" @click.prevent="confirm = true" v-if="!confirm">
                 <i class="fal fa-minus-circle"></i>
+            </button>
+            <button class="btn btn-sm btn-warning" title="Are you sure?" @click="deleteConcern(concern)" v-else>
+                <i class="far fa-exclamation-triangle"></i>
             </button>
         </span>
     </div>
@@ -29,7 +32,8 @@
         props: ['concern'],
         data() {
             return {
-                resolved: this.concern.resolved
+                resolved: this.concern.resolved,
+                confirm: false,
             }
         },
         computed: {
@@ -58,13 +62,18 @@
                 })
             },
             deleteConcern(concern) {
-                axios.delete(`/concerns/${this.concern.id}`)
-                    .then(res => {
-                        Bus.$emit('concern:deleted', concern)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
+
+                if (this.confirm) {
+                    axios.delete(`/concerns/${this.concern.id}`)
+                        .then(res => {
+                            Bus.$emit('concern:deleted', concern)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                }
+
+                this.confirm = false
             }
         }
     }

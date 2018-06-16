@@ -68495,12 +68495,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['concern'],
     data: function data() {
         return {
-            resolved: this.concern.resolved
+            resolved: this.concern.resolved,
+            confirm: false
         };
     },
 
@@ -68528,11 +68532,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         deleteConcern: function deleteConcern(concern) {
-            axios.delete('/concerns/' + this.concern.id).then(function (res) {
-                Bus.$emit('concern:deleted', concern);
-            }).catch(function (err) {
-                console.log(err);
-            });
+
+            if (this.confirm) {
+                axios.delete('/concerns/' + this.concern.id).then(function (res) {
+                    Bus.$emit('concern:deleted', concern);
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            }
+
+            this.confirm = false;
         }
     }
 });
@@ -68596,19 +68605,33 @@ var render = function() {
               [_c("i", { staticClass: "far fa-check-circle" })]
             ),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-outline-danger",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                _vm.deleteConcern(_vm.concern)
-              }
-            }
-          },
-          [_c("i", { staticClass: "fal fa-minus-circle" })]
-        )
+        !_vm.confirm
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-outline-danger",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.confirm = true
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fal fa-minus-circle" })]
+            )
+          : _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-warning",
+                attrs: { title: "Are you sure?" },
+                on: {
+                  click: function($event) {
+                    _vm.deleteConcern(_vm.concern)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "far fa-exclamation-triangle" })]
+            )
       ])
     ]
   )
