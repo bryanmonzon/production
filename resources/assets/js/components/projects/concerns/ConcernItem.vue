@@ -5,8 +5,18 @@
             <span class="concern-date text-muted concern-author">{{concern.created_at | date }} by {{concern.user.name}}</span>
         </span>
         <span>
-            <button class="btn btn-sm btn-outline-secondary" v-if="!concern.resolved"><i class="far fa-circle"></i> Resolve</button>
-            <button class="btn btn-sm btn-success" v-else><i class="far fa-check-circle"></i> Resolved</button>
+            <button class="btn btn-sm btn-outline-secondary" 
+                @click="resolveConcern" 
+                v-if="!this.resolved"
+            >
+                <i class="far fa-circle"></i> Resolve
+            </button>
+            <button class="btn btn-sm btn-success" 
+                @click="resolveConcern" 
+                v-else
+            >
+                <i class="far fa-check-circle"></i> Resolved
+            </button>
         </span>
     </div>
 </template>
@@ -14,6 +24,11 @@
 <script>
     export default {
         props: ['concern'],
+        data() {
+            return {
+                resolved: this.concern.resolved
+            }
+        },
         computed: {
             classObject() {
                 return {
@@ -21,8 +36,22 @@
                     'priority-3': this.concern.priority === 3,
                     'priority-2': this.concern.priority === 2,
                     'priority-1': this.concern.priority === 1,
-                    'concern-resolved': this.concern.resolved === 1,
+                    'concern-resolved': this.resolved,
                 }
+            }
+        },
+        methods: {
+            resolveConcern() {
+                this.resolved = !this.resolved
+                axios.patch(`/concerns/${this.concern.id}`, {
+                    resolved: this.resolved
+                })
+                .then(res => {
+                    Bus.$emit('concern:resolved', res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
             }
         }
     }
