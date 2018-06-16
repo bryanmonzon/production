@@ -16,11 +16,13 @@ class ProjectConcernsController extends Controller
     public function store(Project $project)
     {
         request()->validate([
-            'body' => 'required'
+            'body' => 'required',
+            'priority' => 'required'
         ]);
         
         $concern = $project->concerns()->make([
-            'body' => request('body')
+            'body' => request('body'),
+            'priority' => request('priority')
         ]);
 
         $concern = request()->user()->concerns()->save($concern);
