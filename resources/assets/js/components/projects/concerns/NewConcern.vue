@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit="submitConcern">
+        <form @submit.prevent="submitConcern" @keydown.enter="submitConcern">
             <div class="form-group">
                 <textarea class="form-control" v-model="form.body"></textarea>
             </div>
@@ -14,6 +14,7 @@
             </div>
             <div class="form-group d-flex flex-row-reverse">
                 <button 
+                    type="submit"
                     class="btn btn-primary"
                     :disabled="validateFormConcern"
                 >Add your Concern</button>
