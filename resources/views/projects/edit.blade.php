@@ -15,11 +15,11 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
-            <div class="mb-2 text-right">
-                <add-users-project-button></add-users-project-button>
-            </div>
             <div class="card">
-                <div class="card-header">Users</div>
+                <div class="card-header d-flex justify-content-between">
+                    <span>Users</span>
+                    <add-users-project-button></add-users-project-button>
+                </div>
                 <users-project-list 
                     project="{{ $project }}" 
                     endpoint="{{ route('projects.users', $project) }}" 
