@@ -1,11 +1,11 @@
 <template>
     <li class="list-group-item list-group-item-action d-flex">
         <span class="mr-auto p-2">
-            <img :src="user.avatar" class="rounded-circle mr-2 text-muted"/>
+            <img :src="user.avatar" class="user-avatar rounded-circle mr-2 text-muted"/>
             {{user.name}}
         </span>
         <span class="p-2">
-            <button class="btn btn-secondary" @click="removeUser">Remove</button>
+            <button class="btn btn-sm btn-outline-secondary" @click="removeUser"><i class="far fa-minus-circle"></i> Remove</button>
         </span>
     </li>
 </template>
@@ -26,3 +26,10 @@
         }
     }
 </script>
+
+<style>
+    .user-avatar {
+        height: 20px;
+        width: 20px;
+    }
+</style>

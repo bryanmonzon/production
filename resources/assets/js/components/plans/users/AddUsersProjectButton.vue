@@ -1,6 +1,6 @@
 <template>
-    <button class="btn btn-primary" @click="showUsersProjectModal">
-        Add Users to this Project
+    <button class="btn btn-sm btn-primary" @click="showUsersProjectModal">
+        <i class="fas fa-users"></i> Add Users
     </button>
 </template>
 
