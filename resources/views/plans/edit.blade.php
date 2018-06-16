@@ -14,11 +14,11 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="mb-2 text-right">
-                <add-projects-plan-button></add-projects-plan-button>
-            </div>
             <div class="card">
-                <div class="card-header">Projects</div>
+                <div class="card-header d-flex justify-content-between">
+                    <span>Projects</span>
+                    <add-projects-plan-button></add-projects-plan-button>
+                </div>
                 <plan-projects-list endpoint="{{route('plan.projects.index', $plan)}}" plan="{{$plan}}" />
             </div>
         </div>
