@@ -65873,6 +65873,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(253)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(198)
@@ -65881,7 +65885,7 @@ var __vue_template__ = __webpack_require__(199)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -65961,7 +65965,7 @@ var render = function() {
     [
       _c("span", { staticClass: "mr-auto p-2" }, [
         _c("img", {
-          staticClass: "rounded-circle mr-2 text-muted",
+          staticClass: "user-avatar rounded-circle mr-2 text-muted",
           attrs: { src: _vm.user.avatar }
         }),
         _vm._v("\n        " + _vm._s(_vm.user.name) + "\n    ")
@@ -65970,8 +65974,11 @@ var render = function() {
       _c("span", { staticClass: "p-2" }, [
         _c(
           "button",
-          { staticClass: "btn btn-secondary", on: { click: _vm.removeUser } },
-          [_vm._v("Remove")]
+          {
+            staticClass: "btn btn-sm btn-outline-secondary",
+            on: { click: _vm.removeUser }
+          },
+          [_c("i", { staticClass: "far fa-minus-circle" }), _vm._v(" Remove")]
         )
       ])
     ]
@@ -66101,10 +66108,10 @@ var render = function() {
   return _c(
     "button",
     {
-      staticClass: "btn btn-primary",
+      staticClass: "btn btn-sm btn-primary",
       on: { click: _vm.showUsersProjectModal }
     },
-    [_vm._v("\n    Add Users to this Project\n")]
+    [_c("i", { staticClass: "fas fa-users" }), _vm._v(" Add Users\n")]
   )
 }
 var staticRenderFns = []
@@ -66855,7 +66862,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.author-wrap {\n  line-height: 1rem;\n}\n.resolved {\n  text-decoration:line-through;\n  color: #9da6af !important\n}\n.unresolved {\n  border-top:3px solid green;\n}\n.question-comments {\n  margin-top:5px;\n}\n.comment-form {\n  margin-top:10px;\n}\n", ""]);
+exports.push([module.i, "\n.author-wrap {\n  line-height: 1rem;\n}\n.resolved {\n  text-decoration:line-through;\n  color: #9da6af !important\n}\n.unresolved {\n  border-top:3px solid green;\n}\n.question-comments {\n  margin-top:5px;\n}\n.comment-form {\n  margin-top:10px;\n}\nimg.question-avatar {\n  height:30px;\n  width:30px;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n", ""]);
 
 // exports
 
@@ -66903,6 +66910,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ResolveQuestion___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ResolveQuestion__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -67783,12 +67801,7 @@ var render = function() {
             { staticClass: "d-flex flex-row align-items-center author-wrap" },
             [
               _c("img", {
-                staticClass: "rounded-circle mr-2",
-                staticStyle: {
-                  height: "30px",
-                  width: "30px",
-                  "box-shadow": "0 2px 4px 0 rgba(0,0,0,0.10)"
-                },
+                staticClass: "question-avatar rounded-circle mr-2",
                 attrs: { src: _vm.question.user.avatar }
               }),
               _vm._v(" "),
@@ -67803,47 +67816,50 @@ var render = function() {
                     staticClass: "font-italic",
                     staticStyle: { "font-size": ".75rem" }
                   },
-                  [
-                    _vm._v(
-                      _vm._s(_vm._f("datetime")(_vm.question.created_at)) + " "
-                    ),
-                    _vm.ownsQuestion(_vm.question)
-                      ? _c("span", [
-                          _vm._v("• "),
-                          _c(
-                            "a",
-                            {
-                              staticClass: "text-muted",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  _vm.deleteQuestion(_vm.question)
-                                }
+                  [_vm._v(_vm._s(_vm._f("datetime")(_vm.question.created_at)))]
+                ),
+                _vm._v(" "),
+                _vm.ownsQuestion(_vm.question)
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "font-italic",
+                        staticStyle: { "font-size": ".75rem" }
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "text-muted",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.deleteQuestion(_vm.question)
                               }
-                            },
-                            [_vm._v("Delete")]
-                          ),
-                          _vm._v(" or "),
-                          _c(
-                            "a",
-                            {
-                              staticClass: "text-muted",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.toggleEdit($event)
-                                }
+                            }
+                          },
+                          [_vm._v("Delete")]
+                        ),
+                        _vm._v(" or \n            "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "text-muted",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.toggleEdit($event)
                               }
-                            },
-                            [_vm._v("Edit")]
-                          ),
-                          _vm._v(" Question")
-                        ])
-                      : _vm._e()
-                  ]
-                )
+                            }
+                          },
+                          [_vm._v("Edit")]
+                        ),
+                        _vm._v(" Question\n          ")
+                      ]
+                    )
+                  : _vm._e()
               ])
             ]
           ),
@@ -68056,6 +68072,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['endpoint'],
@@ -68096,88 +68113,108 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("form", { on: { submit: _vm.submitConcern } }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.form.body,
-              expression: "form.body"
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submitConcern($event)
+          },
+          keydown: function($event) {
+            if (
+              !("button" in $event) &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
             }
-          ],
-          staticClass: "form-control",
-          domProps: { value: _vm.form.body },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.form, "body", $event.target.value)
-            }
+            return _vm.submitConcern($event)
           }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c(
-          "select",
-          {
+        }
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("textarea", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.form.priority,
-                expression: "form.priority"
+                value: _vm.form.body,
+                expression: "form.body"
               }
             ],
             staticClass: "form-control",
+            domProps: { value: _vm.form.body },
             on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.$set(
-                  _vm.form,
-                  "priority",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                )
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "body", $event.target.value)
               }
             }
-          },
-          [
-            _c("option", { domProps: { value: 4 } }, [
-              _vm._v("4 (lowest priority)")
-            ]),
-            _vm._v(" "),
-            _c("option", { domProps: { value: 3 } }, [_vm._v("3")]),
-            _vm._v(" "),
-            _c("option", { domProps: { value: 2 } }, [_vm._v("2")]),
-            _vm._v(" "),
-            _c("option", { domProps: { value: 1 } }, [
-              _vm._v("1 (highest priority)")
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group d-flex flex-row-reverse" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: { disabled: _vm.validateFormConcern }
-          },
-          [_vm._v("Add your Concern")]
-        )
-      ])
-    ])
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.priority,
+                  expression: "form.priority"
+                }
+              ],
+              staticClass: "form-control",
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.form,
+                    "priority",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { domProps: { value: 4 } }, [
+                _vm._v("4 (lowest priority)")
+              ]),
+              _vm._v(" "),
+              _c("option", { domProps: { value: 3 } }, [_vm._v("3")]),
+              _vm._v(" "),
+              _c("option", { domProps: { value: 2 } }, [_vm._v("2")]),
+              _vm._v(" "),
+              _c("option", { domProps: { value: 1 } }, [
+                _vm._v("1 (highest priority)")
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group d-flex flex-row-reverse" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { type: "submit", disabled: _vm.validateFormConcern }
+            },
+            [_vm._v("Add your Concern")]
+          )
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -68415,7 +68452,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.priority-4 {\n    border-left: 0px;\n}\n.priority-3 {\n    border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n    border-left: 3px solid #ffc107;\n}\n.priority-1 {\n    border-left: 3px solid #dc3545;\n}\n.concern-resolved .concern-body,\n.concern-resolved .concern-author {\n    opacity: .5;\n}\n", ""]);
+exports.push([module.i, "\n.priority-4 {\n    border-left: 0px;\n}\n.priority-3 {\n    border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n    border-left: 3px solid #ffc107;\n}\n.priority-1 {\n    border-left: 3px solid #dc3545;\n}\n.concern-resolved .concern-body,\n.concern-resolved .concern-author {\n    opacity: .5;\n}\nimg.concern-author-image {\n    height:20px;\n    width:20px;\n}\n", ""]);
 
 // exports
 
@@ -68439,9 +68476,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['concern'],
+    data: function data() {
+        return {
+            resolved: this.concern.resolved
+        };
+    },
+
     computed: {
         classObject: function classObject() {
             return {
@@ -68449,8 +68502,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'priority-3': this.concern.priority === 3,
                 'priority-2': this.concern.priority === 2,
                 'priority-1': this.concern.priority === 1,
-                'concern-resolved': this.concern.resolved === 1
+                'concern-resolved': this.resolved
             };
+        }
+    },
+    methods: {
+        resolveConcern: function resolveConcern() {
+            this.resolved = !this.resolved;
+            axios.patch('/concerns/' + this.concern.id, {
+                resolved: this.resolved
+            }).then(function (res) {
+                Bus.$emit('concern:resolved', res.data);
+            }).catch(function (err) {
+                console.log(err);
+            });
         }
     }
 });
@@ -68477,24 +68542,38 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("span", { staticClass: "concern-date text-muted concern-author" }, [
-          _vm._v(
-            _vm._s(_vm._f("date")(_vm.concern.created_at)) +
-              " by " +
-              _vm._s(_vm.concern.user.name)
-          )
+          _vm._v(_vm._s(_vm._f("date")(_vm.concern.created_at)) + " "),
+          _c("img", {
+            staticClass: "concern-author-image rounded-circle mr-1",
+            attrs: { src: _vm.concern.user.avatar }
+          })
         ])
       ]),
       _vm._v(" "),
       _c("span", [
-        !_vm.concern.resolved
-          ? _c("button", { staticClass: "btn btn-sm btn-outline-secondary" }, [
-              _c("i", { staticClass: "far fa-circle" }),
-              _vm._v(" Resolve")
-            ])
-          : _c("button", { staticClass: "btn btn-sm btn-success" }, [
-              _c("i", { staticClass: "far fa-check-circle" }),
-              _vm._v(" Resolved")
-            ])
+        !this.resolved
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-outline-secondary",
+                on: { click: _vm.resolveConcern }
+              },
+              [
+                _c("i", { staticClass: "far fa-circle" }),
+                _vm._v(" Resolve\n        ")
+              ]
+            )
+          : _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-success",
+                on: { click: _vm.resolveConcern }
+              },
+              [
+                _c("i", { staticClass: "far fa-check-circle" }),
+                _vm._v(" Resolved\n        ")
+              ]
+            )
       ])
     ]
   )
@@ -68543,6 +68622,52 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(254);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("00c7aad1", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0d09dcc7\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UsersProjectItem.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0d09dcc7\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UsersProjectItem.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.user-avatar {\n    height: 30px;\n    width: 30px;\n    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
