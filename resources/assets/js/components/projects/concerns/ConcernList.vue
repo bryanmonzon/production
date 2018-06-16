@@ -1,6 +1,8 @@
 <template>
     <div class="list-group">
-        <concern-item v-for="concern in concerns" :key="concern.id" :concern="concern" />
+        <transition-group name="slide-fade">
+            <concern-item v-for="concern in concerns" :key="concern.id" :concern="concern" />
+        </transition-group>
     </div>
 </template>
 
@@ -23,6 +25,10 @@
             Bus.$on('concern:added', function() {
                 self.fetchConcerns()
             });
+
+            Bus.$on('concern:deleted', function(concern) {
+              self.concerns.splice(self.concerns.indexOf(concern), 1)
+            })
         },
         methods: {
             fetchConcerns() {
