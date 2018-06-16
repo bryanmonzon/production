@@ -2,19 +2,28 @@
     <div class="list-group-item d-flex justify-content-between align-items-center" :class="classObject">
         <span class="d-flex flex-wrap align-items-center">
             <div class="mr-2 concern-body">{{ concern.body }}</div>
-            <span class="concern-date text-muted concern-author">{{concern.created_at | date }} by {{concern.user.name}}</span>
+            <span class="concern-date text-muted concern-author">{{concern.created_at | date }} <img :src="concern.user.avatar" class="concern-author-image rounded-circle mr-1"></span>
         </span>
-        <resolve-concern :concern="concern" />
+        <span>
+            <button class="btn btn-sm btn-outline-secondary" 
+                @click="resolveConcern" 
+                v-if="!this.resolved"
+            >
+                <i class="far fa-circle"></i> Resolve
+            </button>
+            <button class="btn btn-sm btn-success" 
+                @click="resolveConcern" 
+                v-else
+            >
+                <i class="far fa-check-circle"></i> Resolved
+            </button>
+        </span>
     </div>
 </template>
 
 <script>
-    import ResolveConcern from './ResolveConcern'
     export default {
         props: ['concern'],
-        components: {
-            ResolveConcern
-        },
         data() {
             return {
                 resolved: this.concern.resolved
@@ -29,6 +38,20 @@
                     'priority-1': this.concern.priority === 1,
                     'concern-resolved': this.resolved,
                 }
+            }
+        },
+        methods: {
+            resolveConcern() {
+                this.resolved = !this.resolved
+                axios.patch(`/concerns/${this.concern.id}`, {
+                    resolved: this.resolved
+                })
+                .then(res => {
+                    Bus.$emit('concern:resolved', res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
             }
         }
     }
@@ -50,5 +73,9 @@
     .concern-resolved .concern-body,
     .concern-resolved .concern-author {
         opacity: .5;
+    }
+    img.concern-author-image {
+        height:20px;
+        width:20px;
     }
 </style>
