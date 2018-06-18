@@ -66989,6 +66989,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -67003,7 +67017,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       form: {
         question: this.question.question
       },
-      editing: false
+      editing: false,
+      resolved: this.question.resolved,
+      confirm: false
     };
   },
   created: function created() {
@@ -67030,6 +67046,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.patch('/questions/' + this.question.id, this.form).then(function (res) {
         _this.question.question = res.data.question;
         _this.editing = false;
+      });
+    },
+    resolveQuestion: function resolveQuestion() {
+      this.resolved = !this.resolved;
+      axios.patch('/questions/' + this.question.id, {
+        resolved: this.resolved
+      }).then(function (res) {
+        Bus.$emit('question:resolved', res.data);
+      }).catch(function (err) {
+        console.log(err);
       });
     },
     toggleEdit: function toggleEdit() {
@@ -67908,9 +67934,26 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("resolve-question", { attrs: { question: _vm.question } })
-        ],
-        1
+          _c("span", [
+            !this.resolved
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-sm btn-outline-secondary",
+                    on: { click: _vm.resolveQuestion }
+                  },
+                  [_c("i", { staticClass: "far fa-circle" })]
+                )
+              : _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-sm btn-success",
+                    on: { click: _vm.resolveQuestion }
+                  },
+                  [_c("i", { staticClass: "far fa-check-circle" })]
+                )
+          ])
+        ]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "w-100 lead py-4" }, [

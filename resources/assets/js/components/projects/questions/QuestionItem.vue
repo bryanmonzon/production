@@ -19,7 +19,21 @@
               </span>
             </span>
           </span>
-          <resolve-question :question="question" />
+          <span>
+              <button class="btn btn-sm btn-outline-secondary" 
+                  @click="resolveQuestion" 
+                  v-if="!this.resolved"
+              >
+                  <i class="far fa-circle"></i>
+              </button>
+              <button class="btn btn-sm btn-success" 
+                  @click="resolveQuestion" 
+                  v-else
+              >
+                  <i class="far fa-check-circle"></i>
+              </button>
+          </span>
+          <!-- <resolve-question :question="question" /> -->
       </div>
       <div class="w-100 lead py-4">
           <span :class="{'resolved': question.resolved}" @click.prevent="editing = true" v-if="!editing">{{question.question}}</span>
@@ -47,7 +61,9 @@
             form: {
               question: this.question.question
             },
-            editing: false
+            editing: false,
+            resolved: this.question.resolved,
+            confirm: false
           }
         },
         created() {
@@ -73,6 +89,18 @@
               .then(res => {
                 this.question.question = res.data.question
                 this.editing = false
+              })
+          },
+          resolveQuestion() {
+              this.resolved = !this.resolved
+              axios.patch(`/questions/${this.question.id}`, {
+                  resolved: this.resolved
+              })
+              .then(res => {
+                  Bus.$emit('question:resolved', res.data)
+              })
+              .catch(err => {
+                  console.log(err)
               })
           },
           toggleEdit() {
