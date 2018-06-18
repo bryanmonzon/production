@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Questions;
 
 use App\Question;
 use Illuminate\Http\Request;
+use App\Events\QuestionWasResolved;
 use App\Http\Controllers\Controller;
 
 class QuestionsController extends Controller
@@ -11,7 +12,9 @@ class QuestionsController extends Controller
     {
         $question->update(request()->all());
 
-        return response()->json($question, 202);
+        broadcast(new QuestionWasResolved($question->load('user')))->toOthers();
+
+        return response()->json($question->load('user'), 202);
     }
 
     public function delete(Question $question)
