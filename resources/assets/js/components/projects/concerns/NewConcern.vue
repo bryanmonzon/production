@@ -44,6 +44,7 @@
                 axios.post(this.endpoint, this.form)
                     .then(res => {
                         this.form.body = ''
+                        this.form.priority = 4
                         Bus.$emit('concern:added-'+this.projectId, res.data);
                     })
                     .catch(err => {

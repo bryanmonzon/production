@@ -73398,6 +73398,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.post(this.endpoint, this.form).then(function (res) {
                 _this.form.body = '';
+                _this.form.priority = 4;
                 Bus.$emit('concern:added-' + _this.projectId, res.data);
             }).catch(function (err) {
                 console.log(err);
