@@ -7,10 +7,10 @@
             <div class="card">
                 <div class="card-header">Concerns</div>
                 <div class="card-body">
-                    <new-concern endpoint="{{route('projects.concerns.store', $project) }}" />
+                    <new-concern endpoint="{{route('projects.concerns.store', $project) }}" project-id="{{$project->id}}" />
                 </div>
 
-                <concern-list endpoint="{{ route('projects.concerns.index', $project) }}" />
+                <concern-list endpoint="{{ route('projects.concerns.index', $project) }}" project-id="{{$project->id}}" />
             </div>
         </div>
     </div>
