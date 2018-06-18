@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('questions/{question}/comments', 'Questions\QuestionCommentsController@index')->name('questions.comments.index');
     Route::post('questions/{question}/comments', 'Questions\QuestionCommentsController@store')->name('questions.comments.store');
+    Route::delete('questions/{question}/comments/{comment}', 'Questions\QuestionCommentsController@delete')->name('questions.comments.delete');
     
     Route::delete('comments/{comment}', 'Comments\CommentsController@delete')->name('comments.delete');
     Route::patch('comments/{comment}', 'Comments\CommentsController@update')->name('comments.update');
