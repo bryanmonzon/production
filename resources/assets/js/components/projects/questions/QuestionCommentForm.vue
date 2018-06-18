@@ -22,7 +22,7 @@
                 axios.post(`/questions/${this.question.id}/comments`, this.form)
                     .then(res => {
                         this.form.body = ''
-                        Bus.$emit('comment:added', res.data)
+                        Bus.$emit('comment:added-'+this.question.id, res.data, this.question.id)
                     })
             }
         }
