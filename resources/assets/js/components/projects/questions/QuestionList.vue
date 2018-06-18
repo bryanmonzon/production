@@ -32,8 +32,8 @@
 
             this.fetchQuestions()
 
-            Bus.$on('question:added', function(){
-                self.fetchQuestions()
+            Bus.$on('question:added', function(question){
+                self.questions.unshift(question)
             });
 
             Bus.$on('question:edited', function(){
