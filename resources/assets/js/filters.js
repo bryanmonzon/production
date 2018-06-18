@@ -5,6 +5,13 @@ Vue.filter('date', value => {
     return moment.utc(value).local().format('MMMM Do, YYYY')
 });
 
+/**
+ * Format the given date.
+ */
+Vue.filter('dateshort', value => {
+    return moment.utc(value).local().format('MMM Do')
+});
+
 
 /**
  * Format the given date as a timestamp.
