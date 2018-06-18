@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Projects;
 
 use App\Project;
 use Illuminate\Http\Request;
+use App\Events\ConcernWasCreated;
 use App\Http\Controllers\Controller;
 
 class ProjectConcernsController extends Controller
@@ -27,6 +28,10 @@ class ProjectConcernsController extends Controller
 
         $concern = request()->user()->concerns()->save($concern);
 
-        return response()->json($concern->load('user'), 201);
+        $concern = $concern->load('user');
+
+        broadcast(new ConcernWasCreated($concern))->toOthers();
+        
+        return response()->json($concern, 201);
     }
 }

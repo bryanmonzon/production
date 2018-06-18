@@ -25,7 +25,7 @@
 
 <script>
     export default {
-        props: ['endpoint'],
+        props: ['endpoint', 'projectId'],
         data() {
             return {
                 form: {
@@ -44,7 +44,7 @@
                 axios.post(this.endpoint, this.form)
                     .then(res => {
                         this.form.body = ''
-                        Bus.$emit('concern:added', res.data);
+                        Bus.$emit('concern:added-'+this.projectId, res.data);
                     })
                     .catch(err => {
                         console.log(err)

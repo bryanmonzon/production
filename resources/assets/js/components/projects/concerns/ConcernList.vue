@@ -9,7 +9,7 @@
 <script>
     import ConcernItem from './ConcernItem'
     export default {
-        props: ['endpoint'],
+        props: ['endpoint', 'projectId'],
         components: {
             ConcernItem
         }, 
@@ -22,9 +22,16 @@
             let self = this
             this.fetchConcerns()
 
-            Bus.$on('concern:added', function() {
-                self.fetchConcerns()
+            Bus.$on('concern:added-'+this.projectId, function(concern) {
+                self.concerns.unshift(concern)
             });
+
+            console.log('projects.'+this.projectId+'.concerns')
+            Echo.channel('projects.'+this.projectId+'.concerns')
+                .listen('ConcernWasCreated', (e) => {
+                    self.concerns.unshift(e.concern)
+                })
+
 
             Bus.$on('concern:deleted', function(concern) {
               self.concerns.splice(self.concerns.indexOf(concern), 1)
