@@ -39,6 +39,14 @@
           Bus.$on('comment:deleted-'+this.question.id, function(comment) {
             self.comments.splice(self.comments.indexOf(comment), 1)
           })
+
+          Echo.channel('questions.'+this.question.id+'.comments')
+            .listen('QuestionCommentWasCreated', (e) => {
+              this.comments.push(e.comment)
+            })
+            .listen('QuestionCommentWasDeleted', (e) => {
+              this.removeQuestionFromData(e.commentId)
+            })
         },
         methods: {
           fetchComments() {
@@ -49,7 +57,10 @@
               .catch(err => {
                 console.log(err)
               })
-          }
+          },
+          removeQuestionFromData(commentId) {
+              this.comments = _.reject(this.comments, q => q.id == commentId)
+            }
         }
     }
 </script>
