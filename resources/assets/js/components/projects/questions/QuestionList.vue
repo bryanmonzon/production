@@ -1,6 +1,6 @@
 <template>
     <div class="list-group questions">
-        <question-item v-for="question in questions" :question="question" :key="question.id" />
+        <question-item v-for="question in questions" :question="question" :project-id="projectId" :key="question.id" />
     </div>
 </template>
 
@@ -8,7 +8,7 @@
     import QuestionItem from './QuestionItem'
 
     export default {
-        props: ['endpoint'],
+        props: ['endpoint', 'projectId'],
         components: {
             QuestionItem
         },
@@ -19,6 +19,17 @@
         },
         created() {
             let self = this
+
+            Echo.channel('projects.' + this.projectId)
+                .listen('QuestionWasCreated', (e) => {
+                    this.questions.unshift(e.question)
+                    console.log(e.question)
+                })
+                .listen('QuestionWasDeleted', (e) => {
+                    console.log(e)
+                    this.removeQuestionFromData(e.questionId);
+                })
+
             this.fetchQuestions()
 
             Bus.$on('question:added', function(){
@@ -42,6 +53,9 @@
                     .catch(err => {
                         console.log(err)
                     })
+            },
+            removeQuestionFromData(questionId) {
+              this.questions = _.reject(this.questions, q => q.id == questionId)
             }
         }
     }
