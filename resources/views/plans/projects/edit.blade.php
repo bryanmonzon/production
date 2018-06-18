@@ -54,7 +54,7 @@
                     <new-question endpoint="{{route('projects.questions.store', $project) }}" />
                 </div>
 
-                <question-list endpoint="{{ route('projects.questions.index', $project) }}"/>
+                <question-list endpoint="{{ route('projects.questions.index', $project) }}" project-id="{{$project->id}}"/>
             </div>
         </div>
     </div>
