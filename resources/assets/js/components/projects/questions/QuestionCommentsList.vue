@@ -32,11 +32,11 @@
           let self = this
           this.fetchComments()
 
-          Bus.$on('comment:added', function(comment) {
-              self.fetchComments()
+          Bus.$on('comment:added-'+this.question.id, function(comment) {
+              self.comments.push(comment)
           })
 
-          Bus.$on('comment:deleted', function(comment) {
+          Bus.$on('comment:deleted-'+this.question.id, function(comment) {
             self.comments.splice(self.comments.indexOf(comment), 1)
           })
         },
