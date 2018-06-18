@@ -2,23 +2,25 @@
     <div class="list-group-item d-flex justify-content-between align-items-center" :class="classObject">
         <span class="d-flex flex-wrap align-items-center concern-body-wrap">
             <div class="mr-2 concern-body">{{ concern.body }}</div>
-            <span class="concern-date text-muted concern-author">{{concern.created_at | date }} <img :src="concern.user.avatar" class="concern-author-image rounded-circle mr-1"></span>
+            <span class="concern-date text-muted concern-author">{{concern.created_at | dateshort }} <img :src="concern.user.avatar" class="concern-author-image rounded-circle mr-1"></span>
         </span>
         <span>
-            <button class="btn btn-sm btn-outline-secondary" 
+            <button class="btn btn-sm btn-secondary btn-unresolved" 
                 @click="resolveConcern" 
                 v-if="!this.resolved"
+                title="Mark concern as resolved"
             >
                 <i class="far fa-circle"></i>
             </button>
             <button class="btn btn-sm btn-success" 
-                @click="resolveConcern" 
+                @click="resolveConcern"
+                title="Mark concern as unresolved" 
                 v-else
             >
                 <i class="far fa-check-circle"></i>
             </button>
-            <button class="btn btn-sm btn-outline-danger" @click.prevent="confirm = true" v-if="!confirm">
-                <i class="fal fa-minus-circle"></i>
+            <button class="btn btn-sm btn-secondary btn-delete-concern" @click.prevent="confirm = true" v-if="!confirm">
+                <i class="fal fa-trash"></i>
             </button>
             <button class="btn btn-sm btn-warning" title="Are you sure?" @click="deleteConcern(concern)" v-else>
                 <i class="far fa-exclamation-triangle"></i>
@@ -114,5 +116,12 @@
         height:20px;
         width:20px;
         box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+    }
+    .btn-secondary.btn-unresolved,
+    .btn-secondary.btn-delete-concern {
+        background: none;
+        color: #6c757d;
+        border: 0px;
+        padding: 0.25rem 0.5rem;
     }
 </style>

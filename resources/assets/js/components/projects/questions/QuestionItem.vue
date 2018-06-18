@@ -20,14 +20,16 @@
             </span>
           </span>
           <span>
-              <button class="btn btn-sm btn-outline-secondary" 
+              <button class="btn btn-sm btn-secondary btn-unresolved" 
                   @click="resolveQuestion" 
+                  title="Mark question as resolved"
                   v-if="!this.resolved"
               >
                   <i class="far fa-circle"></i>
               </button>
               <button class="btn btn-sm btn-success" 
                   @click="resolveQuestion" 
+                  title="Mark question as unresolved"
                   v-else
               >
                   <i class="far fa-check-circle"></i>
@@ -132,5 +134,11 @@
     height:30px;
     width:30px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+  }
+  .btn-secondary.btn-unresolved {
+      background: none;
+      color: #6c757d;
+      border: 0px;
+      padding: 0.25rem 0.5rem;
   }
 </style>

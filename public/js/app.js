@@ -64249,6 +64249,13 @@ Vue.filter('date', function (value) {
 });
 
 /**
+ * Format the given date.
+ */
+Vue.filter('dateshort', function (value) {
+    return moment.utc(value).local().format('MMM Do');
+});
+
+/**
  * Format the given date as a timestamp.
  */
 Vue.filter('datetime', function (value) {
@@ -66939,7 +66946,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.author-wrap {\n  line-height: 1rem;\n}\n.resolved {\n  text-decoration:line-through;\n  color: #9da6af !important;\n  border-left: 3px solid #6c757d;\n}\n.unresolved {\n  border-left:3px solid green;\n}\n.question-comments {\n  margin-top:5px;\n}\n.comment-form {\n  margin-top:10px;\n}\nimg.question-avatar {\n  height:30px;\n  width:30px;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n", ""]);
+exports.push([module.i, "\n.author-wrap {\n  line-height: 1rem;\n}\n.resolved {\n  text-decoration:line-through;\n  color: #9da6af !important;\n  border-left: 3px solid #6c757d;\n}\n.unresolved {\n  border-left:3px solid green;\n}\n.question-comments {\n  margin-top:5px;\n}\n.comment-form {\n  margin-top:10px;\n}\nimg.question-avatar {\n  height:30px;\n  width:30px;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n.btn-secondary.btn-unresolved {\n    background: none;\n    color: #6c757d;\n    border: 0px;\n    padding: 0.25rem 0.5rem;\n}\n", ""]);
 
 // exports
 
@@ -66954,6 +66961,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ResolveQuestion___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ResolveQuestion__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__QuestionCommentsList__);
+//
+//
 //
 //
 //
@@ -67939,7 +67948,8 @@ var render = function() {
               ? _c(
                   "button",
                   {
-                    staticClass: "btn btn-sm btn-outline-secondary",
+                    staticClass: "btn btn-sm btn-secondary btn-unresolved",
+                    attrs: { title: "Mark question as resolved" },
                     on: { click: _vm.resolveQuestion }
                   },
                   [_c("i", { staticClass: "far fa-circle" })]
@@ -67948,6 +67958,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-sm btn-success",
+                    attrs: { title: "Mark question as unresolved" },
                     on: { click: _vm.resolveQuestion }
                   },
                   [_c("i", { staticClass: "far fa-check-circle" })]
@@ -68545,7 +68556,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.priority-4 {\n    border-left: 0px;\n}\n.priority-3 {\n    border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n    border-left: 3px solid #ffc107;\n}\n.priority-1 {\n    border-left: 3px solid #dc3545;\n}\n.concern-resolved .concern-body,\n.concern-resolved .concern-author {\n    opacity: .5;\n}\n.slide-fade-enter-active {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.slide-fade-leave-active {\n  -webkit-transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter, .slide-fade-leave-to\n/* .slide-fade-leave-active below version 2.1.8 */ {\n  -webkit-transform: translateX(10px);\n          transform: translateX(10px);\n  opacity: 0;\n}\n.concern-body-wrap {\n    width:80%;\n}\nimg.concern-author-image {\n    height:20px;\n    width:20px;\n    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n", ""]);
+exports.push([module.i, "\n.priority-4 {\n    border-left: 0px;\n}\n.priority-3 {\n    border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n    border-left: 3px solid #ffc107;\n}\n.priority-1 {\n    border-left: 3px solid #dc3545;\n}\n.concern-resolved .concern-body,\n.concern-resolved .concern-author {\n    opacity: .5;\n}\n.slide-fade-enter-active {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.slide-fade-leave-active {\n  -webkit-transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter, .slide-fade-leave-to\n/* .slide-fade-leave-active below version 2.1.8 */ {\n  -webkit-transform: translateX(10px);\n          transform: translateX(10px);\n  opacity: 0;\n}\n.concern-body-wrap {\n    width:80%;\n}\nimg.concern-author-image {\n    height:20px;\n    width:20px;\n    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n.btn-secondary.btn-unresolved,\n.btn-secondary.btn-delete-concern {\n    background: none;\n    color: #6c757d;\n    border: 0px;\n    padding: 0.25rem 0.5rem;\n}\n", ""]);
 
 // exports
 
@@ -68556,6 +68567,8 @@ exports.push([module.i, "\n.priority-4 {\n    border-left: 0px;\n}\n.priority-3 
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -68663,7 +68676,7 @@ var render = function() {
             "span",
             { staticClass: "concern-date text-muted concern-author" },
             [
-              _vm._v(_vm._s(_vm._f("date")(_vm.concern.created_at)) + " "),
+              _vm._v(_vm._s(_vm._f("dateshort")(_vm.concern.created_at)) + " "),
               _c("img", {
                 staticClass: "concern-author-image rounded-circle mr-1",
                 attrs: { src: _vm.concern.user.avatar }
@@ -68678,7 +68691,8 @@ var render = function() {
           ? _c(
               "button",
               {
-                staticClass: "btn btn-sm btn-outline-secondary",
+                staticClass: "btn btn-sm btn-secondary btn-unresolved",
+                attrs: { title: "Mark concern as resolved" },
                 on: { click: _vm.resolveConcern }
               },
               [_c("i", { staticClass: "far fa-circle" })]
@@ -68687,6 +68701,7 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-sm btn-success",
+                attrs: { title: "Mark concern as unresolved" },
                 on: { click: _vm.resolveConcern }
               },
               [_c("i", { staticClass: "far fa-check-circle" })]
@@ -68696,7 +68711,7 @@ var render = function() {
           ? _c(
               "button",
               {
-                staticClass: "btn btn-sm btn-outline-danger",
+                staticClass: "btn btn-sm btn-secondary btn-delete-concern",
                 on: {
                   click: function($event) {
                     $event.preventDefault()
@@ -68704,7 +68719,7 @@ var render = function() {
                   }
                 }
               },
-              [_c("i", { staticClass: "fal fa-minus-circle" })]
+              [_c("i", { staticClass: "fal fa-trash" })]
             )
           : _c(
               "button",
