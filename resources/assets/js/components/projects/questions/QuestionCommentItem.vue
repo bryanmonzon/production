@@ -37,7 +37,7 @@
                 return comment.user.id === user.id
             },
             deleteComment(comment) {
-                axios.delete(`/comments/${comment.id}`)
+                axios.delete(`/questions/${this.question.id}/comments/${comment.id}`)
                     .then(res => {
                         Bus.$emit('comment:deleted-'+this.question.id, comment)
                     })
