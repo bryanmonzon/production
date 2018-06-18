@@ -53,7 +53,7 @@
     import ResolveQuestion from './ResolveQuestion'
     import QuestionCommentsList from './QuestionCommentsList'
     export default {
-        props: ['question'],
+        props: ['question', 'projectId'],
         components: {
           ResolveQuestion,
           QuestionCommentsList
@@ -81,7 +81,7 @@
             return user.id === question.user.id
           },
           deleteQuestion(question) {
-            axios.delete(`/questions/${question.id}`)
+            axios.delete(`/projects/${this.projectId}/questions/${question.id}`)
               .then( res => {
                 Bus.$emit('question:deleted', question);
               })
