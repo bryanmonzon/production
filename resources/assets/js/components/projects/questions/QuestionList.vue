@@ -26,7 +26,6 @@
                     console.log(e.question)
                 })
                 .listen('QuestionWasDeleted', (e) => {
-                    console.log(e)
                     this.removeQuestionFromData(e.questionId);
                 })
 
