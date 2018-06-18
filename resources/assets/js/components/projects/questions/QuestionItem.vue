@@ -45,7 +45,7 @@
           </div>
 
       </div>
-      <question-comments-list :endpoint="`/questions/${question.id}/comments`" :comments="question.comments" :question="question" />
+      <question-comments-list :endpoint="`/questions/${question.id}/comments`" :comments="comments" :question="question" />
     </div>
 </template>
 
@@ -65,7 +65,8 @@
             },
             editing: false,
             resolved: this.question.resolved,
-            confirm: false
+            confirm: false,
+            comments: this.question.comments
           }
         },
         created() {
@@ -82,6 +83,7 @@
                 this.resolved = e.question.resolved
               }
             })
+            
         },
         methods: {
           ownsQuestion(question) {
@@ -140,7 +142,7 @@
   .resolved .question-comments a {
     color: #9da6af !important;
   }
-  
+
   .comment-form {
     margin-top:10px;
   }
