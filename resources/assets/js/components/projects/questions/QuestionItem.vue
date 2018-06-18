@@ -1,5 +1,5 @@
 <template>
-    <div class="list-group-item" :class="{ 'unresolved': !question.resolved, 'bg-light resolved': question.resolved }">
+    <div class="list-group-item" :class="{ 'unresolved': !resolved, 'bg-light resolved': resolved }">
       <div class="mw-100 text-muted d-flex justify-content-between align-items-center">
           <span class="d-flex flex-row align-items-center author-wrap">
             <img :src="question.user.avatar" class="question-avatar rounded-circle mr-2" /> 
@@ -38,7 +38,7 @@
           <!-- <resolve-question :question="question" /> -->
       </div>
       <div class="w-100 lead py-4">
-          <span :class="{'resolved': question.resolved}" @click.prevent="editing = true" v-if="!editing">{{question.question}}</span>
+          <span :class="{'resolved': resolved}" @click.prevent="editing = true" v-if="!editing">{{question.question}}</span>
           <div v-else>
             <textarea class="form-control" @keydown.enter="updateQuestion" v-model="form.question">{{question.question}}</textarea>
             <span style="font-size:.75rem;" class="font-italic"><a href="#" class="text-muted" @click.prevent="editing = false">Cancel</a></span>
@@ -75,6 +75,13 @@
               self.question.resolved = !self.question.resolved
             }
           })
+
+          Echo.channel('questions.' + this.question.id)
+            .listen('QuestionWasResolved', (e) => {
+              if(this.question.id == e.question.id ) {
+                this.resolved = e.question.resolved
+              }
+            })
         },
         methods: {
           ownsQuestion(question) {
