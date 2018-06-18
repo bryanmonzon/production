@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Projects;
 
 use App\Project;
 use Illuminate\Http\Request;
+use App\Events\QuestionWasCreated;
 use App\Http\Controllers\Controller;
 
 class ProjectQuestionsController extends Controller
@@ -23,6 +24,8 @@ class ProjectQuestionsController extends Controller
             'project_id' => $project->id,
             'question' => request('question')
         ]);
+
+        broadcast(new QuestionWasCreated($question->load('user')))->toOthers();
 
         return response()->json($question, 201);
     }
