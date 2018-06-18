@@ -23,7 +23,6 @@
             Echo.channel('projects.' + this.projectId)
                 .listen('QuestionWasCreated', (e) => {
                     this.questions.unshift(e.question)
-                    console.log(e.question)
                 })
                 .listen('QuestionWasDeleted', (e) => {
                     this.removeQuestionFromData(e.questionId);
