@@ -37,7 +37,7 @@
           </span>
           <!-- <resolve-question :question="question" /> -->
       </div>
-      <div class="w-100 lead py-4">
+      <div class="w-100 lead py-4 question">
           <span :class="{'resolved': resolved}" @click.prevent="editing = true" v-if="!editing">{{question.question}}</span>
           <div v-else>
             <textarea class="form-control" @keydown.enter="updateQuestion" v-model="form.question">{{question.question}}</textarea>
@@ -123,8 +123,10 @@
   .author-wrap {
     line-height: 1rem;
   }
-  .resolved {
+  .resolved .question {
     text-decoration:line-through;
+  }
+  .resolved {
     color: #9da6af !important;
     border-left: 3px solid #6c757d;
   }
@@ -134,6 +136,11 @@
   .question-comments {
     margin-top:5px;
   }
+
+  .resolved .question-comments a {
+    color: #9da6af !important;
+  }
+  
   .comment-form {
     margin-top:10px;
   }
