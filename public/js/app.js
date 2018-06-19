@@ -72129,7 +72129,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.author-wrap {\n  line-height: 1rem;\n}\n.resolved .question {\n  text-decoration:line-through;\n}\n.resolved {\n  color: #9da6af !important;\n  border-left: 3px solid #6c757d;\n}\n.unresolved {\n  border-left:3px solid green;\n}\n.question-comments {\n  margin-top:5px;\n}\n.resolved .question-comments a {\n  color: #9da6af !important;\n}\n.comment-form {\n  margin-top:10px;\n}\nimg.question-avatar {\n  height:30px;\n  width:30px;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n.btn-secondary.btn-unresolved {\n    background: none;\n    color: #6c757d;\n    border: 0px;\n    padding: 0.25rem 0.5rem;\n}\n", ""]);
+exports.push([module.i, "\n.author-wrap {\n  line-height: 1rem;\n}\n.resolved {\n  color: #9da6af !important;\n  border-left: 3px solid #6c757d;\n}\n.question .resolved {\n  text-decoration:line-through;\n  border-left:0px !important;\n}\n.unresolved {\n  border-left:3px solid green;\n}\n.question-comments {\n  margin-top:5px;\n}\n.resolved .question-comments a {\n  color: #9da6af !important;\n}\n.comment-form {\n  margin-top:10px;\n}\nimg.question-avatar {\n  height:30px;\n  width:30px;\n  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);\n}\n.btn-secondary.btn-unresolved {\n    background: none;\n    color: #6c757d;\n    border: 0px;\n    padding: 0.25rem 0.5rem;\n}\n", ""]);
 
 // exports
 
@@ -72514,7 +72514,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.slide-fade-enter-active {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.slide-fade-leave-active {\n  -webkit-transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter, .slide-fade-leave-to\n/* .slide-fade-leave-active below version 2.1.8 */ {\n  -webkit-transform: translateX(10px);\n          transform: translateX(10px);\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slide-fade-enter-active {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.slide-fade-leave-active {\n  -webkit-transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter, .slide-fade-leave-to\n/* .slide-fade-leave-active below version 2.1.8 */ {\n  -webkit-transform: translateX(10px);\n          transform: translateX(10px);\n  opacity: 0;\n}\n.resolved .question-comments {\n  background-color:#f8f9fa !important;\n}\n", ""]);
 
 // exports
 
@@ -73650,6 +73650,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
+        var _this = this;
+
         var self = this;
         this.fetchConcerns();
 
@@ -73657,9 +73659,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             self.concerns.unshift(concern);
         });
 
-        console.log('projects.' + this.projectId + '.concerns');
         Echo.channel('projects.' + this.projectId + '.concerns').listen('ConcernWasCreated', function (e) {
             self.concerns.unshift(e.concern);
+        }).listen('ConcernWasDeleted', function (e) {
+            console.log(e);
+            _this.removeConcernFromData(e.concernId);
         });
 
         Bus.$on('concern:deleted', function (concern) {
@@ -73669,12 +73673,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         fetchConcerns: function fetchConcerns() {
-            var _this = this;
+            var _this2 = this;
 
             axios.get(this.endpoint).then(function (res) {
-                _this.concerns = res.data;
+                _this2.concerns = res.data;
             }).catch(function (err) {
                 console.log(err);
+            });
+        },
+        removeConcernFromData: function removeConcernFromData(concernId) {
+            this.concerns = _.reject(this.concerns, function (c) {
+                return c.id == concernId;
             });
         }
     }
@@ -73810,12 +73819,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['concern'],
+    props: ['concern', 'projectId'],
     data: function data() {
         return {
             resolved: this.concern.resolved,
             confirm: false
         };
+    },
+    created: function created() {
+        var _this = this;
+
+        Echo.channel('concerns.' + this.concern.id).listen('ConcernWasResolved', function (e) {
+            if (_this.concern.id == e.concern.id) {
+                _this.resolved = e.concern.resolved;
+            }
+        });
     },
 
     computed: {
@@ -73844,7 +73862,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteConcern: function deleteConcern(concern) {
 
             if (this.confirm) {
-                axios.delete('/concerns/' + this.concern.id).then(function (res) {
+                axios.delete('/projects/' + this.projectId + '/concerns/' + this.concern.id).then(function (res) {
                     Bus.$emit('concern:deleted', concern);
                 }).catch(function (err) {
                     console.log(err);
@@ -73976,7 +73994,7 @@ var render = function() {
         _vm._l(_vm.concerns, function(concern) {
           return _c("concern-item", {
             key: concern.id,
-            attrs: { concern: concern }
+            attrs: { "project-id": _vm.projectId, concern: concern }
           })
         })
       )
