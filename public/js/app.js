@@ -73375,6 +73375,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['endpoint', 'projectId'],
@@ -73511,7 +73512,13 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-primary",
-              attrs: { type: "submit", disabled: _vm.validateFormConcern }
+              attrs: { type: "button", disabled: _vm.validateFormConcern },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.submitConcern($event)
+                }
+              }
             },
             [_vm._v("Add your Concern")]
           )

@@ -14,7 +14,8 @@
             </div>
             <div class="form-group d-flex flex-row-reverse">
                 <button 
-                    type="submit"
+                    type="button"
+                    @click.prevent="submitConcern"
                     class="btn btn-primary"
                     :disabled="validateFormConcern"
                 >Add your Concern</button>
