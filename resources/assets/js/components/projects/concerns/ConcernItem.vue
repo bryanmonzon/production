@@ -38,6 +38,14 @@
                 confirm: false,
             }
         },
+        created() {
+            Echo.channel('concerns.' + this.concern.id)
+              .listen('ConcernWasResolved', (e) => {
+                if(this.concern.id == e.concern.id ) {
+                  this.resolved = e.concern.resolved
+                }
+              })
+        },
         computed: {
             classObject() {
                 return {
