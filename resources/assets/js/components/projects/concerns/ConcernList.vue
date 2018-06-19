@@ -1,7 +1,7 @@
 <template>
     <div class="list-group concerns">
         <transition-group name="slide-fade">
-            <concern-item v-for="concern in concerns" :key="concern.id" :concern="concern" />
+            <concern-item v-for="concern in concerns" :key="concern.id" :project-id="projectId" :concern="concern" />
         </transition-group>
     </div>
 </template>
@@ -26,10 +26,14 @@
                 self.concerns.unshift(concern)
             });
 
-            console.log('projects.'+this.projectId+'.concerns')
+            
             Echo.channel('projects.'+this.projectId+'.concerns')
                 .listen('ConcernWasCreated', (e) => {
                     self.concerns.unshift(e.concern)
+                })
+                .listen('ConcernWasDeleted', (e) => {
+                    console.log(e)
+                    this.removeConcernFromData(e.concernId)
                 })
 
 
@@ -46,6 +50,9 @@
                     .catch( err => {
                         console.log(err)
                     })
+            },
+            removeConcernFromData(concernId) {
+                this.concerns = _.reject(this.concerns, c => c.id == concernId)
             }
         }
     }

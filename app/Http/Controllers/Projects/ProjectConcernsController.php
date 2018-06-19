@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Projects;
 
+use App\Concern;
 use App\Project;
 use Illuminate\Http\Request;
 use App\Events\ConcernWasCreated;
+use App\Events\ConcernWasDeleted;
 use App\Http\Controllers\Controller;
 
 class ProjectConcernsController extends Controller
@@ -33,5 +35,14 @@ class ProjectConcernsController extends Controller
         broadcast(new ConcernWasCreated($concern))->toOthers();
         
         return response()->json($concern, 201);
+    }
+
+    public function delete(Project $project, Concern $concern)
+    {
+        $concern->delete();
+
+        broadcast(new ConcernWasDeleted($concern->id, $project->id))->toOthers();
+
+        return response()->json(204);
     }
 }

@@ -31,7 +31,7 @@
 
 <script>
     export default {
-        props: ['concern'],
+        props: ['concern', 'projectId'],
         data() {
             return {
                 resolved: this.concern.resolved,
@@ -66,7 +66,7 @@
             deleteConcern(concern) {
 
                 if (this.confirm) {
-                    axios.delete(`/concerns/${this.concern.id}`)
+                    axios.delete(`/projects/${this.projectId}/concerns/${this.concern.id}`)
                         .then(res => {
                             Bus.$emit('concern:deleted', concern)
                         })

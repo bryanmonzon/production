@@ -60,7 +60,7 @@
           },
           removeQuestionFromData(commentId) {
               this.comments = _.reject(this.comments, q => q.id == commentId)
-            }
+          }
         }
     }
 </script>

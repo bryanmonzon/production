@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('projects/{project}/questions', 'Projects\ProjectQuestionsController@index')->name('projects.questions.index');
 
     Route::post('projects/{project}/concerns', 'Projects\ProjectConcernsController@store')->name('projects.concerns.store');
+    Route::delete('projects/{project}/concerns/{concern}', 'Projects\ProjectConcernsController@delete')->name('projects.concerns.delete');
     Route::get('projects/{project}/concerns', 'Projects\ProjectConcernsController@index')->name('projects.concerns.index');
     Route::patch('/concerns/{concern}', 'Concerns\ConcernsController@update')->name('concerns.update');
     Route::delete('/concerns/{concern}', 'Concerns\ConcernsController@delete')->name('concerns.delete');
