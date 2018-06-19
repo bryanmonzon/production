@@ -76,4 +76,8 @@
     transform: translateX(10px);
     opacity: 0;
   }
+
+  .resolved .question-comments {
+    background-color:#f8f9fa !important;
+  }
 </style>

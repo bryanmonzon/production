@@ -125,12 +125,14 @@
   .author-wrap {
     line-height: 1rem;
   }
-  .resolved .question {
-    text-decoration:line-through;
-  }
   .resolved {
     color: #9da6af !important;
     border-left: 3px solid #6c757d;
+  }
+
+  .question .resolved {
+    text-decoration:line-through;
+    border-left:0px !important;
   }
   .unresolved {
     border-left:3px solid green;
