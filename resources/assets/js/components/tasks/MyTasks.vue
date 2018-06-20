@@ -1,0 +1,90 @@
+<template>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <span>My Tasks</span>
+            <button class="btn btn-sm btn-outline-primary"><i class="fa fa-plus"></i> Add New Task</button>
+        </div>
+        
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <textarea class="form-control" v-model="form.body"></textarea>
+                </div>
+                <div class="form-group d-flex flex-row-reverse">
+                    <button class="btn btn-primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="list-group">
+            <div 
+                class="list-group-item d-flex flex-row align-items-center"
+                :class="classObject"
+                v-for="task in tasks" :key="task.id">
+                <i class="task-toggle-icon far fa-stop mr-2"
+                    v-if="!task.completed"
+                ></i> 
+                <i class="task-toggle-icon far fa-check mr-2" v-else></i> 
+                <span class="mr-2">{{ task.body }}</span>
+                <span class="task-due-date">Due {{task.duedate | dateshort }}</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default{
+        data() {
+            return {
+                form: {
+                    body: ''
+                },
+                tasks: [
+                    {
+                        id: 1,
+                        body: 'This is your task for today',
+                        due_date: '2018-06-04 00:00:00',
+                        completed: true,
+                        priority: 3
+                    },
+                    {
+                        id: 2,
+                        body: 'Get this done today, too',
+                        due_date: '2018-06-04 00:00:00',
+                        completed: false,
+                        priority: 2
+                    },
+                    {
+                        id: 3,
+                        body: 'And one last one',
+                        due_date: '2018-06-04 00:00:00',
+                        completed: true,
+                        priority: 1
+                    }
+                ]
+            }
+        },
+        computed: {
+            classObject() {
+                return {
+                    'incomplete': !this.task.completed,
+                    'complete': this.task.completed,
+                }
+            }
+        },
+    }
+</script>
+<style>
+    .complete .task-toggle-icon {
+        color: #28a745;
+    }
+
+    .incomplete .task-toggle-icon {
+        color: #6c757d;
+    }
+
+    .task-due-date {
+        font-size:0.75rem;
+        color: #6c757d;
+    }
+</style>

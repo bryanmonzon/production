@@ -4,11 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">My Tasks</div>
-                
-                
-            </div>
+            <my-tasks />
         </div>
     </div>
 </div>

@@ -30672,7 +30672,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(140);
-module.exports = __webpack_require__(252);
+module.exports = __webpack_require__(255);
 
 
 /***/ }),
@@ -30716,6 +30716,8 @@ Vue.component('question-list', __webpack_require__(215));
 
 Vue.component('new-concern', __webpack_require__(239));
 Vue.component('concern-list', __webpack_require__(242));
+
+Vue.component('my-tasks', __webpack_require__(252));
 
 var app = new Vue({
   el: '#app'
@@ -74021,9 +74023,285 @@ if (false) {
 
 /***/ }),
 /* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(259)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(253)
+/* template */
+var __vue_template__ = __webpack_require__(254)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/tasks/MyTasks.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-29576acc", Component.options)
+  } else {
+    hotAPI.reload("data-v-29576acc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 253 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            form: {
+                body: ''
+            },
+            tasks: [{
+                id: 1,
+                body: 'This is your task for today',
+                due_date: '2018-06-04 00:00:00',
+                completed: true,
+                priority: 3
+            }, {
+                id: 2,
+                body: 'Get this done today, too',
+                due_date: '2018-06-04 00:00:00',
+                completed: false,
+                priority: 2
+            }, {
+                id: 3,
+                body: 'And one last one',
+                due_date: '2018-06-04 00:00:00',
+                completed: true,
+                priority: 1
+            }]
+        };
+    },
+
+    computed: {
+        classObject: function classObject() {
+            return {
+                'incomplete': !this.task.completed,
+                'complete': this.task.completed
+            };
+        }
+    }
+});
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("form", [
+        _c("div", { staticClass: "form-group" }, [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.body,
+                expression: "form.body"
+              }
+            ],
+            staticClass: "form-control",
+            domProps: { value: _vm.form.body },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "body", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _vm._m(1)
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "list-group" },
+      _vm._l(_vm.tasks, function(task) {
+        return _c(
+          "div",
+          {
+            key: task.id,
+            staticClass: "list-group-item d-flex flex-row align-items-center",
+            class: _vm.classObject
+          },
+          [
+            !task.completed
+              ? _c("i", { staticClass: "task-toggle-icon far fa-stop mr-2" })
+              : _c("i", { staticClass: "task-toggle-icon far fa-check mr-2" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "mr-2" }, [_vm._v(_vm._s(task.body))]),
+            _vm._v(" "),
+            _c("span", { staticClass: "task-due-date" }, [
+              _vm._v("Due " + _vm._s(_vm._f("dateshort")(task.duedate)))
+            ])
+          ]
+        )
+      })
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header d-flex justify-content-between" },
+      [
+        _c("span", [_vm._v("My Tasks")]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn btn-sm btn-outline-primary" }, [
+          _c("i", { staticClass: "fa fa-plus" }),
+          _vm._v(" Add New Task")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group d-flex flex-row-reverse" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Save Task")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-29576acc", module.exports)
+  }
+}
+
+/***/ }),
+/* 255 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(260);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("50c3423b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-29576acc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MyTasks.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-29576acc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MyTasks.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.complete .task-toggle-icon {\n    color: #28a745;\n}\n.incomplete .task-toggle-icon {\n    color: #6c757d;\n}\n.task-due-date {\n    font-size:0.75rem;\n    color: #6c757d;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

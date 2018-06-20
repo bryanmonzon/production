@@ -36,6 +36,8 @@ Vue.component('question-list', require('./components/projects/questions/Question
 Vue.component('new-concern', require('./components/projects/concerns/NewConcern.vue'))
 Vue.component('concern-list', require('./components/projects/concerns/ConcernList.vue'))
 
+Vue.component('my-tasks', require('./components/tasks/MyTasks.vue'))
+
 const app = new Vue({
     el: '#app'
 })
