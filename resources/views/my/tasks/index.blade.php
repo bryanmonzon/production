@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">My Projects</div>
+                <div class="card-header">My Tasks</div>
                 
-                <projects-list endpoint="{{route('my.projects.all')}}" />
+                
             </div>
         </div>
     </div>

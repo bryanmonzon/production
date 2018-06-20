@@ -72,5 +72,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('my/projects/all', 'My\MyProjectsController@all')->name('my.projects.all');
     Route::get('my/projects', 'My\MyProjectsController@index')->name('my.projects.index');
 
+    Route::get('my/tasks/all', 'My\MyTasksController@all')->name('my.tasks.all');
+    Route::get('my/tasks', 'My\MyTasksController@index')->name('my.tasks.index');
+
 
 });
