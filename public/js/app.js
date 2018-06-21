@@ -74442,15 +74442,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             form: {
                 body: '',
-                priority: 4
-            }
+                priority: 4,
+                project: []
+            },
+            projects: []
+
         };
+    },
+    mounted: function mounted() {
+        this.fetchProjects();
     },
 
     computed: {
@@ -74465,6 +74478,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/tasks', this.form).then(function (res) {
                 Bus.$emit('task:added', res.data);
                 _this.form.body = '';
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        fetchProjects: function fetchProjects() {
+            var _this2 = this;
+
+            axios.get('/projects/all').then(function (res) {
+                _this2.projects = res.data;
             }).catch(function (err) {
                 console.log(err);
             });
@@ -74525,6 +74547,8 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Set the priority")]),
+        _vm._v(" "),
         _c(
           "select",
           {
@@ -74556,18 +74580,61 @@ var render = function() {
             }
           },
           [
-            _c("option", { domProps: { value: 4 } }, [
+            _c("option", { attrs: { value: "4" } }, [
               _vm._v("4 (lowest priority)")
             ]),
             _vm._v(" "),
-            _c("option", { domProps: { value: 3 } }, [_vm._v("3")]),
+            _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
             _vm._v(" "),
-            _c("option", { domProps: { value: 2 } }, [_vm._v("2")]),
+            _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
             _vm._v(" "),
-            _c("option", { domProps: { value: 1 } }, [
+            _c("option", { attrs: { value: "1" } }, [
               _vm._v("1 (highest priority)")
             ])
           ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Select a Project")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.project,
+                expression: "form.project"
+              }
+            ],
+            staticClass: "form-control",
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.$set(
+                  _vm.form,
+                  "project",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
+              }
+            }
+          },
+          _vm._l(_vm.projects, function(project) {
+            return _c(
+              "option",
+              { key: project.id, domProps: { value: project.id } },
+              [_vm._v(_vm._s(project.name))]
+            )
+          })
         )
       ]),
       _vm._v(" "),

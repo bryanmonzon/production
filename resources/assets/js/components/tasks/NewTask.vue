@@ -4,11 +4,18 @@
             <textarea class="form-control" v-model="form.body"></textarea>
         </div>
         <div class="form-group">
+            <label for="">Set the priority</label>
             <select class="form-control" v-model="form.priority">
-                <option :value="4">4 (lowest priority)</option>
-                <option :value="3">3</option>
-                <option :value="2">2</option>
-                <option :value="1">1 (highest priority)</option>
+                <option value="4">4 (lowest priority)</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1 (highest priority)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="">Select a Project</label>
+            <select class="form-control" v-model="form.project">
+                <option v-for="project in projects" :key="project.id" :value="project.id">{{ project.name }}</option>
             </select>
         </div>
         <div class="form-group d-flex flex-row-reverse">
@@ -28,8 +35,14 @@
                 form: {
                     body: '',
                     priority: 4,
-                }
+                    project: []
+                },
+                projects: []
+
             }
+        },
+        mounted() {
+            this.fetchProjects()
         },
         computed: {
             validateFormTask() {
@@ -48,6 +61,16 @@
                     })
 
             },
+            fetchProjects() {
+                axios.get('/projects/all')
+                    .then(res => {
+                        this.projects = res.data
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+
         }
     }
 </script>
