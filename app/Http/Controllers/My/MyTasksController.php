@@ -9,7 +9,7 @@ class MyTasksController extends Controller
 {
     public function all()
     {
-        return response()->json(auth()->user()->tasks()->get(), 200);
+        return response()->json(auth()->user()->tasks()->with('projects')->get(), 200);
     }
 
     public function index()
