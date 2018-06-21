@@ -35,7 +35,7 @@
                 form: {
                     body: '',
                     priority: 4,
-                    project: []
+                    project: ''
                 },
                 projects: []
 
