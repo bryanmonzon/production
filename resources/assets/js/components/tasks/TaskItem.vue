@@ -12,7 +12,7 @@
             v-else
         ></i> 
         <span class="mr-2">{{ task.body }}</span>
-        <span class="task-due-date">Due {{task.due_date | dateshort }}</span>
+        <span class="task-due-date" v-if="task.due_date">Due {{task.due_date | dateshort }}</span>
     </div>
 </template>
 
