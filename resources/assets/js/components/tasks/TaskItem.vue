@@ -59,6 +59,19 @@
 </script>
 
 <style lang="scss">
+    .priority-4 {
+        border-left: 0px;
+    }
+    .priority-3 {
+        border-left: 3px solid #17a2b8;
+    }
+    .priority-2 {
+        border-left: 3px solid #ffc107;
+    }
+    .priority-1 {
+        border-left: 3px solid #dc3545;
+    }
+    
     .complete {
         .task-body,
         .task-due-date {
