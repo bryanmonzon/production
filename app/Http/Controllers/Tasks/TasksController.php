@@ -29,4 +29,11 @@ class TasksController extends Controller
 
         return response()->json($task->load('user'), 201);
     }
+
+    public function delete(Task $task)
+    {
+        $task->delete();
+
+        return response()->json(204);
+    }
 }
