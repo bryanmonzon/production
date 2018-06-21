@@ -7,14 +7,7 @@
         </div>
         
         <div class="card-body" v-show="editing">
-            <form>
-                <div class="form-group">
-                    <textarea class="form-control" @keydown.enter.prevent="addTask" v-model="form.body"></textarea>
-                </div>
-                <div class="form-group d-flex flex-row-reverse">
-                    <button class="btn btn-primary">Save Task</button>
-                </div>
-            </form>
+            <new-task />
         </div>
 
         <div class="list-group">
@@ -27,22 +20,26 @@
 
 <script>
     import TaskItem from './TaskItem'
+    import NewTask from './NewTask'
 
     export default{
         components: {
-            TaskItem
+            TaskItem,
+            NewTask,
         },
         data() {
             return {
                 editing: false,
-                form: {
-                    body: ''
-                },
                 tasks: []
             }
         },
         created() {
+            let self = this
             this.fetchTasks()
+
+            Bus.$on('task:added', function(task) {
+                self.tasks.unshift(task)
+            })
         },
         computed: {
             classObject(task) {
@@ -58,18 +55,7 @@
                     .then(res => {
                         this.tasks = res.data
                     })
-            },
-            addTask() {
-                this.tasks.unshift({
-                    id: this.tasks.length + 1,
-                    body: this.form.body,
-                    completed: false,
-                    due_date: '2018-06-04 00:00:00',
-                    priority: 2
-                })
-
-                this.form.body = ''
-            },
+            }
         }
     }
 </script>
