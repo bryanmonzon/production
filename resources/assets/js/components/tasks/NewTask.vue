@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="addTask">
+    <form @submit.prevent="addTask" @keydown.enter.prevent="addTask">
         <div class="form-group">
             <textarea class="form-control" v-model="form.body"></textarea>
         </div>
@@ -12,9 +12,10 @@
             </select>
         </div>
         <div class="form-group d-flex flex-row-reverse">
-            <button class="btn btn-primary" 
+            <button class="btn btn-primary"
+                type="submit" 
                 @click.prevent="addTask"
-                :disabled="validateFormConcern"
+                :disabled="validateFormTask"
             >Save Task</button>
         </div>
     </form>
@@ -31,7 +32,7 @@
             }
         },
         computed: {
-            validateFormConcern() {
+            validateFormTask() {
                 return this.form.body.length > 0 ? false : true
             }
         },
