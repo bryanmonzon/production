@@ -28,7 +28,7 @@
                     ></i> 
                     <i class="task-toggle-icon far fa-check mr-2" v-else></i> 
                     <span class="mr-2">{{ task.body }}</span>
-                    <span class="task-due-date">Due {{task.duedate | dateshort }}</span>
+                    <span class="task-due-date">Due {{task.due_date | dateshort }}</span>
                 </div>
             </div>
         </div>
@@ -43,30 +43,11 @@
                 form: {
                     body: ''
                 },
-                tasks: [
-                    {
-                        id: 1,
-                        body: 'This is your task for today',
-                        due_date: '2018-06-04 00:00:00',
-                        completed: true,
-                        priority: 3
-                    },
-                    {
-                        id: 2,
-                        body: 'Get this done today, too',
-                        due_date: '2018-06-04 00:00:00',
-                        completed: false,
-                        priority: 2
-                    },
-                    {
-                        id: 3,
-                        body: 'And one last one',
-                        due_date: '2018-06-04 00:00:00',
-                        completed: true,
-                        priority: 1
-                    }
-                ]
+                tasks: []
             }
+        },
+        created() {
+            this.fetchTasks()
         },
         computed: {
             classObject(task) {
@@ -77,6 +58,12 @@
             }
         },
         methods: {
+            fetchTasks() {
+                axios.get('/my/tasks/all')
+                    .then(res => {
+                        this.tasks = res.data
+                    })
+            },
             addTask() {
                 this.tasks.unshift({
                     id: this.tasks.length + 1,
@@ -87,7 +74,7 @@
                 })
 
                 this.form.body = ''
-            }
+            },
         }
     }
 </script>

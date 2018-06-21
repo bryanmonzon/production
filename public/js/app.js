@@ -74123,26 +74123,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             form: {
                 body: ''
             },
-            tasks: [{
-                id: 1,
-                body: 'This is your task for today',
-                due_date: '2018-06-04 00:00:00',
-                completed: true,
-                priority: 3
-            }, {
-                id: 2,
-                body: 'Get this done today, too',
-                due_date: '2018-06-04 00:00:00',
-                completed: false,
-                priority: 2
-            }, {
-                id: 3,
-                body: 'And one last one',
-                due_date: '2018-06-04 00:00:00',
-                completed: true,
-                priority: 1
-            }]
+            tasks: []
         };
+    },
+    created: function created() {
+        this.fetchTasks();
     },
 
     computed: {
@@ -74154,6 +74139,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
+        fetchTasks: function fetchTasks() {
+            var _this = this;
+
+            axios.get('/my/tasks/all').then(function (res) {
+                _this.tasks = res.data;
+            });
+        },
         addTask: function addTask() {
             this.tasks.unshift({
                 id: this.tasks.length + 1,
@@ -74284,7 +74276,7 @@ var render = function() {
               _c("span", { staticClass: "mr-2" }, [_vm._v(_vm._s(task.body))]),
               _vm._v(" "),
               _c("span", { staticClass: "task-due-date" }, [
-                _vm._v("Due " + _vm._s(_vm._f("dateshort")(task.duedate)))
+                _vm._v("Due " + _vm._s(_vm._f("dateshort")(task.due_date)))
               ])
             ]
           )
