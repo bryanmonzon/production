@@ -11,9 +11,11 @@
         </div>
 
         <div class="list-group tasks">
-            <div v-for="task in tasks" :key="task.id">
-                <task-item :task="task" />
-            </div>
+            <transition-group name="slide-fade">
+                <div v-for="task in tasks" :key="task.id">
+                    <task-item :task="task" />
+                </div>
+            </transition-group>
         </div>
     </div>
 </template>

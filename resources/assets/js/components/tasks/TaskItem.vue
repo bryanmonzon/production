@@ -13,7 +13,7 @@
         ></i> 
         <span class="mr-2 task-body">{{ task.body }}</span>
         <span class="task-due-date" v-if="task.due_date">Due {{task.due_date | dateshort }}</span>
-        <button class="btn btn-sm btn-outline-danger" @click="removeTask(task)"><i class="fa fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-danger task-delete" @click="removeTask(task)"><i class="fa fa-times"></i></button>
     </div>
 </template>
 
@@ -59,6 +59,18 @@
 </script>
 
 <style lang="scss">
+    .slide-fade-enter-active {
+      transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+      transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+      transform: translateX(10px);
+      opacity: 0;
+    }
+    
     .priority-4 {
         border-left: 0px;
     }
@@ -71,7 +83,9 @@
     .priority-1 {
         border-left: 3px solid #dc3545;
     }
-    
+    .task-delete {
+        border:none;
+    }
     .complete {
         .task-body,
         .task-due-date {

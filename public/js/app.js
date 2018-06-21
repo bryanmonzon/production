@@ -74142,6 +74142,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -74342,7 +74344,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-sm btn-outline-danger",
+          staticClass: "btn btn-sm btn-outline-danger task-delete",
           on: {
             click: function($event) {
               _vm.removeTask(_vm.task)
@@ -74657,14 +74659,21 @@ var render = function() {
     _c(
       "div",
       { staticClass: "list-group tasks" },
-      _vm._l(_vm.tasks, function(task) {
-        return _c(
-          "div",
-          { key: task.id },
-          [_c("task-item", { attrs: { task: task } })],
-          1
+      [
+        _c(
+          "transition-group",
+          { attrs: { name: "slide-fade" } },
+          _vm._l(_vm.tasks, function(task) {
+            return _c(
+              "div",
+              { key: task.id },
+              [_c("task-item", { attrs: { task: task } })],
+              1
+            )
+          })
         )
-      })
+      ],
+      1
     )
   ])
 }
@@ -74724,7 +74733,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.priority-4 {\n  border-left: 0px;\n}\n.priority-3 {\n  border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n  border-left: 3px solid #ffc107;\n}\n.priority-1 {\n  border-left: 3px solid #dc3545;\n}\n.complete .task-body,\n.complete .task-due-date {\n  opacity: .5;\n  text-decoration: line-through;\n}\n.remove-task {\n  font-size: .75rem;\n  color: #6c757d;\n  text-decoration: none;\n}\n", ""]);
+exports.push([module.i, "\n.slide-fade-enter-active {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.slide-fade-leave-active {\n  -webkit-transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);\n}\n.slide-fade-enter, .slide-fade-leave-to {\n  -webkit-transform: translateX(10px);\n          transform: translateX(10px);\n  opacity: 0;\n}\n.priority-4 {\n  border-left: 0px;\n}\n.priority-3 {\n  border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n  border-left: 3px solid #ffc107;\n}\n.priority-1 {\n  border-left: 3px solid #dc3545;\n}\n.task-delete {\n  border: none;\n}\n.complete .task-body,\n.complete .task-due-date {\n  opacity: .5;\n  text-decoration: line-through;\n}\n.remove-task {\n  font-size: .75rem;\n  color: #6c757d;\n  text-decoration: none;\n}\n", ""]);
 
 // exports
 
