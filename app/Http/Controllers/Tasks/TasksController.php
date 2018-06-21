@@ -27,7 +27,12 @@ class TasksController extends Controller
             'priority' => request('priority'),
         ]);
 
-        return response()->json($task->load('user'), 201);
+        if( request('project') ) {
+            $task->projects()->attach(request('project'));
+        }
+    
+
+        return response()->json($task->load(['user','projects']), 201);
     }
 
     public function delete(Task $task)
