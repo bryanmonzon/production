@@ -13,6 +13,7 @@
         ></i> 
         <span class="mr-2 task-body">{{ task.body }}</span>
         <span class="task-due-date" v-if="task.due_date">Due {{task.due_date | dateshort }}</span>
+        <button class="btn btn-sm btn-outline-danger" @click="removeTask(task)"><i class="fa fa-times"></i></button>
     </div>
 </template>
 
@@ -46,6 +47,12 @@
                 .then(res => {
                     Bus.$emit('task:toggled', res.data)
                 })
+            },
+            removeTask(task) {
+                axios.delete(`/tasks/${task.id}`)
+                    .then(res => {
+                        Bus.$emit('task:deleted', task)
+                    })
             }
         }
     }
@@ -58,5 +65,10 @@
             opacity: .5;
             text-decoration:line-through;
         }
+    }
+    .remove-task {
+        font-size: .75rem;
+        color:#6c757d;
+        text-decoration: none;
     }
 </style>
