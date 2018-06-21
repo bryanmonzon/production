@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->unsignedInteger('user_id')->index();
             $table->boolean('completed')->default(false);
             $table->text('body');
-            $table->dateTime('due_date');
+            $table->dateTime('due_date')->nullable()    ;
             $table->unsignedInteger('priority')->default(4);
             $table->timestamps();
         });
