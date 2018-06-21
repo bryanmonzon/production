@@ -74112,10 +74112,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            editing: false,
             form: {
                 body: ''
             },
@@ -74142,11 +74146,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: {
-        classObject: function classObject() {
+        classObject: function classObject(task) {
             return {
-                'incomplete': !this.task.completed,
-                'complete': this.task.completed
+                'incomplete': !task.completed,
+                'complete': task.completed
             };
+        }
+    },
+    methods: {
+        addTask: function addTask() {
+            this.tasks.unshift({
+                id: this.tasks.length + 1,
+                body: this.form.body,
+                completed: false,
+                due_date: '2018-06-04 00:00:00',
+                priority: 2
+            });
+
+            this.form.body = '';
         }
     }
 });
@@ -74160,82 +74177,123 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c("form", [
-        _c("div", { staticClass: "form-group" }, [
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.body,
-                expression: "form.body"
-              }
-            ],
-            staticClass: "form-control",
-            domProps: { value: _vm.form.body },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+    _c("div", { staticClass: "card-header d-flex justify-content-between" }, [
+      _c("span", [_vm._v("My Tasks")]),
+      _vm._v(" "),
+      !_vm.editing
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-outline-primary",
+              on: {
+                click: function($event) {
+                  _vm.editing = true
                 }
-                _vm.$set(_vm.form, "body", $event.target.value)
               }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _vm._m(1)
-      ])
+            },
+            [_c("i", { staticClass: "fa fa-plus" }), _vm._v(" Add New Task")]
+          )
+        : _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-outline-secondary",
+              on: {
+                click: function($event) {
+                  _vm.editing = false
+                }
+              }
+            },
+            [_c("i", { staticClass: "fa fa-times" }), _vm._v(" Close")]
+          )
     ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.editing,
+            expression: "editing"
+          }
+        ],
+        staticClass: "card-body"
+      },
+      [
+        _c("form", [
+          _c("div", { staticClass: "form-group" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.body,
+                  expression: "form.body"
+                }
+              ],
+              staticClass: "form-control",
+              domProps: { value: _vm.form.body },
+              on: {
+                keydown: function($event) {
+                  if (
+                    !("button" in $event) &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  $event.preventDefault()
+                  return _vm.addTask($event)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "body", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ])
+      ]
+    ),
     _vm._v(" "),
     _c(
       "div",
       { staticClass: "list-group" },
       _vm._l(_vm.tasks, function(task) {
-        return _c(
-          "div",
-          {
-            key: task.id,
-            staticClass: "list-group-item d-flex flex-row align-items-center",
-            class: _vm.classObject
-          },
-          [
-            !task.completed
-              ? _c("i", { staticClass: "task-toggle-icon far fa-stop mr-2" })
-              : _c("i", { staticClass: "task-toggle-icon far fa-check mr-2" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "mr-2" }, [_vm._v(_vm._s(task.body))]),
-            _vm._v(" "),
-            _c("span", { staticClass: "task-due-date" }, [
-              _vm._v("Due " + _vm._s(_vm._f("dateshort")(task.duedate)))
-            ])
-          ]
-        )
+        return _c("div", { key: task.id }, [
+          _c(
+            "div",
+            {
+              staticClass: "list-group-item d-flex flex-row align-items-center",
+              class: {
+                complete: task.completed == true,
+                incomplete: task.incomplete == false
+              }
+            },
+            [
+              !task.completed
+                ? _c("i", { staticClass: "task-toggle-icon far fa-stop mr-2" })
+                : _c("i", {
+                    staticClass: "task-toggle-icon far fa-check mr-2"
+                  }),
+              _vm._v(" "),
+              _c("span", { staticClass: "mr-2" }, [_vm._v(_vm._s(task.body))]),
+              _vm._v(" "),
+              _c("span", { staticClass: "task-due-date" }, [
+                _vm._v("Due " + _vm._s(_vm._f("dateshort")(task.duedate)))
+              ])
+            ]
+          )
+        ])
       })
     )
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header d-flex justify-content-between" },
-      [
-        _c("span", [_vm._v("My Tasks")]),
-        _vm._v(" "),
-        _c("button", { staticClass: "btn btn-sm btn-outline-primary" }, [
-          _c("i", { staticClass: "fa fa-plus" }),
-          _vm._v(" Add New Task")
-        ])
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
