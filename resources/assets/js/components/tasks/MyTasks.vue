@@ -40,6 +40,10 @@
             Bus.$on('task:added', function(task) {
                 self.tasks.unshift(task)
             })
+
+            Bus.$on('task:deleted', function(task) {
+              self.tasks.splice(self.tasks.indexOf(task), 1)
+            })
         },
         computed: {
             classObject(task) {
