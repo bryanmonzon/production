@@ -15,6 +15,7 @@
         <div class="form-group">
             <label for="">Select a Project</label>
             <select class="form-control" v-model="form.project">
+                <option value="" disabled>Select a project</option>
                 <option v-for="project in projects" :key="project.id" :value="project.id">{{ project.name }}</option>
             </select>
         </div>
