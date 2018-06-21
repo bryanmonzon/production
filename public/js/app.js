@@ -74107,7 +74107,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.task-toggle-icon{\n    cursor: pointer;\n}\n.complete .task-toggle-icon {\n    color: #28a745;\n}\n.incomplete .task-toggle-icon {\n    color: #6c757d;\n}\n.task-due-date {\n    font-size:0.75rem;\n    color: #6c757d;\n}\n", ""]);
+exports.push([module.i, "\n.tasks .list-group-item:first-child{\n    border-top-right-radius: 0px;\n    border-top-left-radius: 0px;\n}\n.task-toggle-icon{\n    cursor: pointer;\n}\n.complete .task-toggle-icon {\n    color: #28a745;\n}\n.incomplete .task-toggle-icon {\n    color: #6c757d;\n}\n.task-due-date {\n    font-size:0.75rem;\n    color: #6c757d;\n}\n", ""]);
 
 // exports
 
@@ -74163,6 +74163,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Bus.$on('task:added', function (task) {
             self.tasks.unshift(task);
+        });
+
+        Bus.$on('task:deleted', function (task) {
+            self.tasks.splice(self.tasks.indexOf(task), 1);
         });
     },
 
@@ -74260,6 +74264,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['task'],
@@ -74289,6 +74294,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 completed: this.taskCompleted
             }).then(function (res) {
                 Bus.$emit('task:toggled', res.data);
+            });
+        },
+        removeTask: function removeTask(task) {
+            axios.delete('/tasks/' + task.id).then(function (res) {
+                Bus.$emit('task:deleted', task);
             });
         }
     }
@@ -74327,7 +74337,20 @@ var render = function() {
         ? _c("span", { staticClass: "task-due-date" }, [
             _vm._v("Due " + _vm._s(_vm._f("dateshort")(_vm.task.due_date)))
           ])
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-sm btn-outline-danger",
+          on: {
+            click: function($event) {
+              _vm.removeTask(_vm.task)
+            }
+          }
+        },
+        [_c("i", { staticClass: "fa fa-times" })]
+      )
     ]
   )
 }
@@ -74416,6 +74439,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -74428,7 +74452,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: {
-        validateFormConcern: function validateFormConcern() {
+        validateFormTask: function validateFormTask() {
             return this.form.body.length > 0 ? false : true;
         }
     },
@@ -74459,6 +74483,16 @@ var render = function() {
     {
       on: {
         submit: function($event) {
+          $event.preventDefault()
+          return _vm.addTask($event)
+        },
+        keydown: function($event) {
+          if (
+            !("button" in $event) &&
+            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+          ) {
+            return null
+          }
           $event.preventDefault()
           return _vm.addTask($event)
         }
@@ -74540,7 +74574,7 @@ var render = function() {
           "button",
           {
             staticClass: "btn btn-primary",
-            attrs: { disabled: _vm.validateFormConcern },
+            attrs: { type: "submit", disabled: _vm.validateFormTask },
             on: {
               click: function($event) {
                 $event.preventDefault()
@@ -74622,7 +74656,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "list-group" },
+      { staticClass: "list-group tasks" },
       _vm._l(_vm.tasks, function(task) {
         return _c(
           "div",
@@ -74690,7 +74724,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.complete .task-body,\n.complete .task-due-date {\n  opacity: .5;\n  text-decoration: line-through;\n}\n", ""]);
+exports.push([module.i, "\n.priority-4 {\n  border-left: 0px;\n}\n.priority-3 {\n  border-left: 3px solid #17a2b8;\n}\n.priority-2 {\n  border-left: 3px solid #ffc107;\n}\n.priority-1 {\n  border-left: 3px solid #dc3545;\n}\n.complete .task-body,\n.complete .task-due-date {\n  opacity: .5;\n  text-decoration: line-through;\n}\n.remove-task {\n  font-size: .75rem;\n  color: #6c757d;\n  text-decoration: none;\n}\n", ""]);
 
 // exports
 
