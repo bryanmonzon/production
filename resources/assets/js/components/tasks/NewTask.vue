@@ -1,10 +1,21 @@
 <template>
-    <form>
+    <form @submit.prevent="addTask">
         <div class="form-group">
-            <textarea class="form-control" @keydown.enter.prevent="addTask" v-model="form.body"></textarea>
+            <textarea class="form-control" v-model="form.body"></textarea>
+        </div>
+        <div class="form-group">
+            <select class="form-control" v-model="form.priority">
+                <option :value="4">4 (lowest priority)</option>
+                <option :value="3">3</option>
+                <option :value="2">2</option>
+                <option :value="1">1 (highest priority)</option>
+            </select>
         </div>
         <div class="form-group d-flex flex-row-reverse">
-            <button class="btn btn-primary">Save Task</button>
+            <button class="btn btn-primary" 
+                @click.prevent="addTask"
+                :disabled="validateFormConcern"
+            >Save Task</button>
         </div>
     </form>
 </template>
@@ -14,8 +25,14 @@
         data() {
             return {
                 form: {
-                    body: ''
+                    body: '',
+                    priority: 4,
                 }
+            }
+        },
+        computed: {
+            validateFormConcern() {
+                return this.form.body.length > 0 ? false : true
             }
         },
         methods: {

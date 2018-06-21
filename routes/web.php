@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('users/all', 'Users\UsersController@all')->name('users.all');
 
     Route::post('tasks', 'Tasks\TasksController@store')->name('tasks.store');
+    Route::patch('tasks/{task}', 'Tasks\TasksController@update')->name('tasks.update');
 
     Route::get('my/projects/all', 'My\MyProjectsController@all')->name('my.projects.all');
     Route::get('my/projects', 'My\MyProjectsController@index')->name('my.projects.index');
