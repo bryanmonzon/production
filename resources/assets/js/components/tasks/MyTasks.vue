@@ -19,24 +19,19 @@
 
         <div class="list-group">
             <div v-for="task in tasks" :key="task.id">
-                <div 
-                    class="list-group-item d-flex flex-row align-items-center"
-                    :class="{complete: task.completed == true, incomplete: task.incomplete == false}"
-                >
-                    <i class="task-toggle-icon far fa-stop mr-2"
-                        v-if="!task.completed"
-                    ></i> 
-                    <i class="task-toggle-icon far fa-check mr-2" v-else></i> 
-                    <span class="mr-2">{{ task.body }}</span>
-                    <span class="task-due-date">Due {{task.due_date | dateshort }}</span>
-                </div>
+                <task-item :task="task" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import TaskItem from './TaskItem'
+
     export default{
+        components: {
+            TaskItem
+        },
         data() {
             return {
                 editing: false,
@@ -79,6 +74,9 @@
     }
 </script>
 <style>
+    .task-toggle-icon{
+        cursor: pointer;
+    }
     .complete .task-toggle-icon {
         color: #28a745;
     }
