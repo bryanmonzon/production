@@ -10,7 +10,7 @@
             <new-task />
         </div>
 
-        <div class="list-group">
+        <div class="list-group tasks">
             <div v-for="task in tasks" :key="task.id">
                 <task-item :task="task" />
             </div>
@@ -64,6 +64,11 @@
     }
 </script>
 <style>
+    .tasks .list-group-item:first-child{
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+
     .task-toggle-icon{
         cursor: pointer;
     }
