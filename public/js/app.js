@@ -74449,6 +74449,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -74456,7 +74457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             form: {
                 body: '',
                 priority: 4,
-                project: []
+                project: ''
             },
             projects: []
 
@@ -74628,13 +74629,20 @@ var render = function() {
               }
             }
           },
-          _vm._l(_vm.projects, function(project) {
-            return _c(
-              "option",
-              { key: project.id, domProps: { value: project.id } },
-              [_vm._v(_vm._s(project.name))]
-            )
-          })
+          [
+            _c("option", { attrs: { value: "", disabled: "" } }, [
+              _vm._v("Select a project")
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.projects, function(project) {
+              return _c(
+                "option",
+                { key: project.id, domProps: { value: project.id } },
+                [_vm._v(_vm._s(project.name))]
+              )
+            })
+          ],
+          2
         )
       ]),
       _vm._v(" "),
